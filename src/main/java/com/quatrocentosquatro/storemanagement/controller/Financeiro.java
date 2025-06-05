@@ -13,10 +13,10 @@ import java.time.format.DateTimeFormatter;
  * @author Kaio A. Souza
  */
 public class Financeiro {
-  /* Para formatar em real */
+  // Para formatar em real
   NumberFormat formataReal = new DecimalFormat("R$ ###,##0.00");
 
-  /* Para puxar a data e horário atual, formatá-los e guardá-los numa String, respectivamente. */
+  // Para puxar a data e horário atual, formatá-los e guardá-los numa String, respectivamente.
   LocalDateTime agora = LocalDateTime.now();
   DateTimeFormatter formataHora = DateTimeFormatter.ofPattern("dd/MM, HH:mm:ss");
   String dataHoraFormatada = agora.format(formataHora);
@@ -44,7 +44,7 @@ public class Financeiro {
    * pelo usuário.
    */
   public void registrarEntradaUser() {
-    /* TODO Exibir na interface o processo de registrar manualmente a entrada. */
+    // TODO Exibir na interface o processo de registrar manualmente a entrada.
 
     // registrarOperacoes("\n[" + dataHoraFormatada + "] Compra no valor de " + formataReal.format(/* Valor */));
   }
@@ -72,7 +72,7 @@ public class Financeiro {
    * pelo usuário.
    */
   public void registrarSaidaUser() {
-    /* TODO Exibir na interface o processo de registrar manualmente a saída. */
+    // TODO Exibir na interface o processo de registrar manualmente a saída.
 
     // registrarOperacoes("\n[" + dataHoraFormatada + "] Compra no valor de " + formataReal.format(/* Valor */));
   }
@@ -117,11 +117,11 @@ public class Financeiro {
    */
   private void registrarOperacoes(String acao) {
     try {
-      FileWriter escreverAcao = new FileWriter("null"); /* TODO Especificar onde ficará o log geral */
+      FileWriter escreverAcao = new FileWriter("null"); // TODO Especificar onde ficará o log geral.
       escreverAcao.append(acao);
       escreverAcao.close();
     } catch (Exception IOException) {
-      /* Exibe erro quando, bem, houver um erro. */
+      // Exibe erro quando, bem, houver um erro.
       JOptionPane.showMessageDialog(null, "Não foi possível registrar ações: Erro desconhecido.", "Erro", JOptionPane.ERROR_MESSAGE);
     }
   }
