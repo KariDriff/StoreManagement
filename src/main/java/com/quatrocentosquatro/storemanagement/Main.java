@@ -272,7 +272,7 @@ public class Main {
     }
 
     private static Produto buscarProduto(int id) {
-        return produtos.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
+        return estoqueController.buscarPorId(id);
     }
 
     // === CRUD Usuario ===
