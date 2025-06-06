@@ -1,5 +1,6 @@
 package com.quatrocentosquatro.storemanagement;
 
+// Importações das bibliotecas e classes necessárias
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -24,6 +25,7 @@ import com.quatrocentosquatro.storemanagement.model.Usuario;
  * Permite login, exibe menus e executa ações baseadas no tipo de usuário.
  */
 public class Main {
+    // Atributos estáticos para controle do sistema
     private static Scanner scanner = new Scanner(System.in);
     private static Financeiro financeiro = new Financeiro();
     private static GerenciarEstoque estoqueController = new GerenciarEstoque();
@@ -54,6 +56,11 @@ public class Main {
         }
     }
 
+    // Método principal que inicia o sistema
+    /**
+     * Método principal que inicia o sistema de gerenciamento de loja.
+     * Permite login e exibe menus baseados no tipo de usuário (Administrador ou Funcionário).
+     */
     public static void main(String[] args) {
         while (usuarioLogado == null) {
             login();
@@ -80,6 +87,10 @@ public class Main {
     }
 
     // === Metodos de Menu ===
+    /**
+     * Exibe o menu de opções para o administrador.
+     * Permite ao administrador gerenciar produtos, usuários, fornecedores e finanças.
+     */
     private static void menuAdministrador() {
         System.out.println("\n===== MENU ADMINISTRADOR =====");
         System.out.println("1 - Cadastrar produto");
@@ -104,6 +115,10 @@ public class Main {
         System.out.println("0 - Logout");
     }
 
+    /**
+     * Exibe o menu de opções para o funcionário.
+     * Permite ao funcionário gerenciar produtos e registrar vendas.
+     */
     private static void menuFuncionario() {
         System.out.println("\n===== MENU FUNCIONÁRIO =====");
         System.out.println("1 - Cadastrar produto");
@@ -118,6 +133,11 @@ public class Main {
 
     // === Metodos de Execução de Ações ===
 
+    /**
+     * Executa a ação correspondente à opção escolhida pelo usuário.
+     * As ações variam dependendo se o usuário é um administrador ou um funcionário.
+     */
+    
     private static boolean executarAcaoAdmin(int opcao) {
         switch (opcao) {
             case 1: cadastrarProduto(); break;
@@ -161,6 +181,11 @@ public class Main {
     }
 
     // === CRUD Produto ===
+    /**
+     * Métodos para gerenciar produtos no estoque.
+     * Permite cadastrar, listar, atualizar e remover produtos.
+     */
+
     private static void cadastrarProduto() {
         System.out.println("=== Cadastro de Produto ===");
         try {
@@ -271,11 +296,12 @@ public class Main {
         System.out.println("Produto removido (se existir).");
     }
 
-    private static Produto buscarProduto(int id) {
-        return estoqueController.buscarPorId(id);
-    }
-
     // === CRUD Usuario ===
+    /**
+     * Métodos para gerenciar usuários do sistema.
+     * Permite cadastrar, listar, atualizar e remover usuários.
+     * Exibe dashboards personalizados para cada tipo de usuário.
+     */
     private static void cadastrarUsuario() {
         System.out.println("=== Cadastro de Usuário ===");
         System.out.print("Nome: ");
@@ -348,6 +374,11 @@ public class Main {
         System.out.println("Usuário removido.");
     }
 
+    // === Exibir Dashboards ===
+    /**
+     * Exibe os dashboards personalizados para cada tipo de usuário.
+     * Utiliza polimorfismo para chamar o método de visualização do dashboard.
+     */
     private static void exibirDashboards() {
         System.out.println("=== Dashboards dos Usuários (Polimorfismo) ===");
         for (Usuario u : usuarioController.listarUsuarios()) {
@@ -357,6 +388,10 @@ public class Main {
     }
 
     // === CRUD Fornecedores ===
+    /**
+     * Métodos para gerenciar fornecedores do sistema.
+     * Permite cadastrar, listar, atualizar e remover fornecedores.
+     */
     private static void cadastrarFornecedor() {
         System.out.println("=== Cadastro de Fornecedor ===");
         System.out.print("Nome: ");
@@ -424,6 +459,10 @@ public class Main {
     }
 
     // === CRUD Financeiro ===
+    /**
+     * Métodos para gerenciar as finanças do sistema.
+     * Permite registrar entradas e saídas financeiras, além de gerar relatórios.
+     */
     private static void registrarEntrada() {
         System.out.println("=== Registrar Entrada Financeira ===");
         System.out.print("Descrição: ");
@@ -452,9 +491,15 @@ public class Main {
         financeiro.gerarRelatorio();
     }
 
+    // === Logout ===
+    /**
+     * Realiza o logout do usuário atual e reinicia o sistema.
+     * Limpa o usuário logado e exibe uma mensagem de sucesso.
+     */
     private static void logout() {
         usuarioLogado = null;
         System.out.println("Logout realizado com sucesso.");
+        main(null); // Reinicia o sistema
     }
 
 }
