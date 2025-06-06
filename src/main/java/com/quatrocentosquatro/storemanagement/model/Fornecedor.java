@@ -1,5 +1,9 @@
 package com.quatrocentosquatro.storemanagement.model;
 
+/**
+ * Classe que representa um fornecedor no sistema.
+ * Contém informações como ID, nome, telefone, email, CNPJ e status de atividade.
+ */
 public class Fornecedor {
     private int id;
     private String nome;
@@ -8,31 +12,129 @@ public class Fornecedor {
     private String cnpj;
     private boolean isAtivo;
 
+    /**
+     * Construtor para criar um novo fornecedor.
+     *
+     * @param id       ID do fornecedor.
+     * @param nome     Nome do fornecedor.
+     * @param telefone Telefone do fornecedor.
+     * @param email    Email do fornecedor.
+     * @param cnpj     CNPJ do fornecedor.
+     */
     public Fornecedor(int id, String nome, String telefone, String email, String cnpj) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
         this.email = email;
         this.cnpj = cnpj;
-        this.isAtivo = true;
+        this.isAtivo = true; // Define o fornecedor como ativo por padrão ao ser criado.
     }
 
-    // Getters e Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    /**
+     * Retorna o ID do fornecedor.
+     *
+     * @return O ID do fornecedor.
+     */
+    public int getId() {
+        return id;
+    }
 
-    public String getNome() { return nome; }
-    public void setNome(String nome) { this.nome = nome; }
+    /**
+     * Define o ID do fornecedor.
+     *
+     * @param id O novo ID do fornecedor.
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public String getTelefone() { return telefone; }
-    public void setTelefone(String telefone) { this.telefone = telefone; }
+    /**
+     * Retorna o nome do fornecedor.
+     *
+     * @return O nome do fornecedor.
+     */
+    public String getNome() {
+        return nome;
+    }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    /**
+     * Define o nome do fornecedor.
+     *
+     * @param nome O novo nome do fornecedor.
+     */
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public String getCnpj() { return cnpj; }
-    public void setCnpj(String cnpj) { this.cnpj = cnpj; }
+    /**
+     * Retorna o telefone do fornecedor.
+     *
+     * @return O telefone do fornecedor.
+     */
+    public String getTelefone() {
+        return telefone;
+    }
 
-    public boolean isAtivo() { return isAtivo; }
-    public void setAtivo(boolean ativo) { isAtivo = ativo; }
+    /**
+     * Define o telefone do fornecedor.
+     *
+     * @param telefone O novo telefone do fornecedor.
+     */
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    /**
+     * Retorna o email do fornecedor.
+     *
+     * @return O email do fornecedor.
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Define o email do fornecedor.
+     *
+     * @param email O novo email do fornecedor.
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Retorna o CNPJ do fornecedor.
+     *
+     * @return O CNPJ do fornecedor.
+     */
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    /**
+     * Define o CNPJ do fornecedor.
+     *
+     * @param cnpj O novo CNPJ do fornecedor.
+     */
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    /**
+     * Retorna o status de atividade do fornecedor.
+     *
+     * @return true se o fornecedor está ativo, false caso contrário.
+     */
+    public boolean isAtivo() {
+        return isAtivo;
+    }
+
+    /**
+     * Define o status de atividade do fornecedor.
+     *
+     * @param ativo O novo status de atividade do fornecedor.
+     */
+    public void setAtivo(boolean ativo) {
+        isAtivo = ativo;
+    }
 }

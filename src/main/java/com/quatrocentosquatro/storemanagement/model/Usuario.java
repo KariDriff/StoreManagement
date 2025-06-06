@@ -1,8 +1,8 @@
 package com.quatrocentosquatro.storemanagement.model;
 
-// Superclasse abstrata Usuario para funcionários e administradores, fornecedor não é um usuário do sistema
-// e não herda dessa classe. Fornecedor é uma entidade separada, sem relação direta com o sistema de usuários.
-
+// Superclasse abstrata Usuario para funcionários e administradores.
+// Fornecedor não é um usuário do sistema e não herda dessa classe.
+// Fornecedor é uma entidade separada, sem relação direta com o sistema de usuários.
 public abstract class Usuario {
     protected int id;
     protected String nome;
@@ -18,6 +18,7 @@ public abstract class Usuario {
         this.senha = senha;
     }
 
+    // Método abstrato para visualização do dashboard, a ser implementado pelas subclasses.
     public abstract void visualizarDashboard(); // <- método polimórfico
 
     // Getters e Setters
