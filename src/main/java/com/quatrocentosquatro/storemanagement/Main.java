@@ -1,71 +1,168 @@
 package main.java.com.quatrocentosquatro.storemanagement;
-
-import model.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
+import main.java.com.quatrocentosquatro.storemanagement.controller.GerenciarEstoque;
+import main.java.com.quatrocentosquatro.storemanagement.controller.GerenciarFornecedores;
+import main.java.com.quatrocentosquatro.storemanagement.controller.GerenciarUsuarios;
+import main.java.com.quatrocentosquatro.storemanagement.controller.ProcessamentoDeVendas;
+import main.java.com.quatrocentosquatro.storemanagement.controller.Financeiro;
 import main.java.com.quatrocentosquatro.storemanagement.model.Administrador;
 import main.java.com.quatrocentosquatro.storemanagement.model.Fornecedor;
 import main.java.com.quatrocentosquatro.storemanagement.model.Funcionario;
 import main.java.com.quatrocentosquatro.storemanagement.model.Produto;
 import main.java.com.quatrocentosquatro.storemanagement.model.Usuario;
 
+/**
+ * Classe principal que inicia o sistema de gerenciamento de loja.
+ * Permite login, exibe menus e executa ações baseadas no tipo de usuário.
+ */
 public class Main {
     private static Scanner scanner = new Scanner(System.in);
-    private static List<Produto> produtos = new ArrayList<>();
-    private static List<Usuario> usuarios = new ArrayList<>();
-	private static List<Fornecedor> fornecedores = new ArrayList<>();
-	private static int nextFornecedorId = 1;
-    private static int nextProdutoId = 1;
-    private static int nextUsuarioId = 1;
+    private static Financeiro financeiro = new Financeiro();
+    private static GerenciarEstoque estoqueController = new GerenciarEstoque();
+    private static ProcessamentoDeVendas vendasController = new ProcessamentoDeVendas(estoqueController,financeiro);
+    private static GerenciarUsuarios usuarioController = new GerenciarUsuarios();
+    private static GerenciarFornecedores fornecedorController = new GerenciarFornecedores();
+    private static Usuario usuarioLogado = null;
+    
+    // Metodo de login
+    private static void login() {
 
-    public static void main(String[] args) {
-        boolean executando = true;
+        usuarioController.adicionarAdministrador("Admin", "adm", "1234");
 
-        while (executando) {
-            System.out.println("\n===== SISTEMA DE GERENCIAMENTO DE SUPERMERCADO =====");
-            System.out.println("1 - Cadastrar produto");
-            System.out.println("2 - Listar produtos");
-            System.out.println("3 - Atualizar produto");
-            System.out.println("4 - Remover produto");
-            System.out.println("5 - Cadastrar funcionário/admin");
-            System.out.println("6 - Listar usuários");
-			System.out.println("7 - Atualizar usuários");
-			System.out.println("8 - Remover usuários");
-            System.out.println("9 - Exibir dashboards dos usuários"); // Polimorfismo
-			System.out.println("10 - Cadastrar fornecedor");
-			System.out.println("11 - Listar fornecedores");
-			System.out.println("12 - Atualizar fornecedor");
-			System.out.println("13 - Remover fornecedor");
-            System.out.println("0 - Sair");
-            System.out.print("Escolha uma opção: ");
-            int opcao = scanner.nextInt();
-            scanner.nextLine(); // limpar buffer
+        System.out.println("=== LOGIN ===");
+        System.out.print("Login: ");
+        String login = scanner.nextLine();
 
-            switch (opcao) {
-                case 1 -> cadastrarProduto();
-                case 2 -> listarProdutos();
-                case 3 -> atualizarProduto();
-                case 4 -> removerProduto();
-                case 5 -> cadastrarUsuario();
-                case 6 -> listarUsuarios();
-				case 7 -> atualizarUsuarios();
-				case 8 -> removerUsuarios();
-                case 9 -> exibirDashboards();
-				case 10 -> cadastrarFornecedor();
-				case 11 -> listarFornecedores();
-				case 12 -> atualizarFornecedor();
-				case 13 -> removerFornecedor();
-                case 0 -> {
-                    System.out.println("Encerrando o sistema...");
-                    executando = false;
-                }
-                default -> System.out.println("Opção inválida.");
-            }
+        System.out.print("Senha: ");
+        String senha = scanner.nextLine();
+
+        usuarioLogado = usuarioController.autenticar(login, senha);
+
+        if (usuarioLogado != null) {
+            System.out.println("Login realizado com sucesso.");
+            System.out.println("Olá, " + usuarioLogado.getNome() + "!");
+        } else {
+            System.out.println("Login inválido.");
         }
     }
+
+    public static void main(String[] args) {
+         while (usuarioLogado == null) {
+    login();
+}
+
+boolean executando = true;
+while (executando) {
+    if (usuarioLogado instanceof Administrador) {
+        menuAdministrador();
+    } else {
+        menuFuncionario();
+    }
+
+    System.out.print("Escolha uma opção: ");
+    int opcao = scanner.nextInt(); scanner.nextLine();
+
+    if (usuarioLogado instanceof Administrador) {
+        executando = executarAcaoAdmin(opcao);
+    } else {
+        executando = executarAcaoFuncionario(opcao);
+    }
+}
+}
+
+// === Metodos de Menu ===
+private static void menuAdministrador() {
+    System.out.println("\n===== MENU ADMINISTRADOR =====");
+    System.out.println("1 - Cadastrar produto");
+    System.out.println("2 - Listar produtos");
+    System.out.println("3 - Atualizar produto");
+    System.out.println("4 - Remover produto");
+    System.out.println("5 - Cadastrar funcionário/admin");
+    System.out.println("6 - Listar usuários");
+    System.out.println("7 - Atualizar usuários");
+    System.out.println("8 - Remover usuários");
+    System.out.println("9 - Exibir dashboards");
+    System.out.println("10 - Cadastrar fornecedor");
+    System.out.println("11 - Listar fornecedores");
+    System.out.println("12 - Atualizar fornecedor");
+    System.out.println("13 - Remover fornecedor");
+    System.out.println("14 - Registrar entrada financeira");
+    System.out.println("15 - Registrar saída financeira");
+    System.out.println("16 - Ver relatório financeiro");
+    System.out.println("17 - Comprar produtos com baixo estoque");
+    System.out.println("18 - Registrar nova venda");
+    System.out.println("19 - Listar vendas realizadas");
+    System.out.println("0 - Logout");
+}
+
+private static void menuFuncionario() {
+    System.out.println("\n===== MENU FUNCIONÁRIO =====");
+    System.out.println("1 - Cadastrar produto");
+    System.out.println("2 - Listar produtos");
+    System.out.println("3 - Atualizar produto");
+    System.out.println("4 - Remover produto");
+    System.out.println("5 - Exibir dashboards");
+    System.out.println("6 - Registrar nova venda");
+    System.out.println("7 - Listar vendas realizadas");
+    System.out.println("0 - Logout");
+}
+
+// === Metodos de Execução de Ações ===
+
+private static boolean executarAcaoAdmin(int opcao) {
+    switch (opcao) {
+        case 1 -> cadastrarProduto();
+        case 2 -> listarProdutos();
+        case 3 -> atualizarProduto();
+        case 4 -> removerProduto();
+        case 5 -> cadastrarUsuario();
+        case 6 -> listarUsuarios();
+        case 7 -> atualizarUsuarios();
+        case 8 -> removerUsuarios();
+        case 9 -> exibirDashboards();
+        case 10 -> cadastrarFornecedor();
+        case 11 -> listarFornecedores();
+        case 12 -> atualizarFornecedor();
+        case 13 -> removerFornecedor();
+        case 14 -> registrarEntrada();
+        case 15 -> registrarSaida();
+        case 16 -> verRelatorioFinanceiro();
+        case 17 -> estoqueController.comprarProdutos(scanner, 10);
+        case 18 -> vendasController.realizarVenda(scanner);
+        case 19 -> vendasController.listarVendas();
+        case 0 -> {
+            logout();
+            return false;
+        }
+        default -> System.out.println("Opção inválida.");
+    }
+    return true;
+}
+
+private static boolean executarAcaoFuncionario(int opcao) {
+    switch (opcao) {
+        case 1 -> cadastrarProduto();
+        case 2 -> listarProdutos();
+        case 3 -> atualizarProduto();
+        case 4 -> removerProduto();
+        case 5 -> exibirDashboards();
+        case 6 -> vendasController.realizarVenda(scanner);
+        case 7 -> vendasController.listarVendas();
+        case 0 -> {
+            logout();
+            return false;
+        }
+        default -> System.out.println("Opção inválida.");
+    }
+    return true;
+}
 
     // === CRUD Produto ===
     private static void cadastrarProduto() {
@@ -99,86 +196,78 @@ public class Main {
         System.out.print("Peso (g): ");
         int peso = scanner.nextInt(); scanner.nextLine();
 
-        Produto p = new Produto(nextProdutoId++, nome, marca, preco, qtd, lote, codigo, validade, litros, peso);
-        produtos.add(p);
+        Produto p = new Produto(0, nome, marca, preco, qtd, lote, codigo, validade, litros, peso);
+        estoqueController.adicionarProduto(p);
 
         System.out.println("Produto cadastrado com sucesso!");
 
-    } catch (InputMismatchException e) {
-        System.out.println("Erro: Tipo de dado inválido (ex: letras onde deveriam ser números). Cadastro cancelado.");
-        scanner.nextLine(); // limpa buffer restante
-    } catch (DateTimeParseException e) {
-        System.out.println("Erro: Data inválida. Use o formato correto (DD-MM-YYYY). Cadastro cancelado.");
-    } catch (Exception e) {
-        System.out.println("Erro inesperado: " + e.getMessage());
+    } catch (InputMismatchException | DateTimeParseException e) {
+        System.out.println("Erro ao cadastrar produto: dado inválido.");
+        scanner.nextLine(); // limpar buffer
     }
 }
 
     private static void listarProdutos() {
+    List<Produto> lista = estoqueController.listarProdutos();
+    if (lista.isEmpty()) {
+        System.out.println("Nenhum produto cadastrado.");
+    } else {
         System.out.println("=== Lista de Produtos ===");
-        if (produtos.isEmpty()) {
-            System.out.println("Nenhum produto cadastrado.");
-        } else {
-            for (Produto p : produtos) {
-                System.out.printf("ID: %d | %s (%s) | R$ %.2f | Estoque: %d | Validade: %s | Volume: %dL | Peso: %dg | Lote: %s | Código: %s\n",
-                        p.getId(), p.getNome(), p.getMarca(), p.getPreco(), p.getQuantidade(),
-                        p.getDataValidade(), p.getVolumeLitros(), p.getPesoGramas(), p.getLote(), p.getCodigoBarras());
-            }
+        for (Produto p : lista) {
+            System.out.printf("ID: %d | Nome: %s | Marca: %s | Qtd: %d | Preço: R$ %.2f\n",
+                p.getId(), p.getNome(), p.getMarca(), p.getQuantidade(), p.getPreco());
         }
-    }
-
-    private static void atualizarProduto() {
-    System.out.println("=== Atualização de Produto ===");
-
-    try {
-        System.out.print("Informe o ID do produto a atualizar: ");
-        int id = scanner.nextInt(); scanner.nextLine();
-
-        Produto p = buscarProduto(id);
-        if (p == null) {
-            System.out.println("Produto não encontrado.");
-            return;
-        }
-
-        System.out.print("Novo nome (" + p.getNome() + "): ");
-        String novoNome = scanner.nextLine();
-
-        System.out.print("Nova marca (" + p.getMarca() + "): ");
-        String novaMarca = scanner.nextLine();
-
-        System.out.print("Novo preço (" + p.getPreco() + "): ");
-        double novoPreco = scanner.nextDouble();
-
-        System.out.print("Nova quantidade (" + p.getQuantidade() + "): ");
-        int novaQuantidade = scanner.nextInt(); scanner.nextLine();
-
-        // Se tudo correu bem, atualiza os dados
-        p.setNome(novoNome);
-        p.setMarca(novaMarca);
-        p.setPreco(novoPreco);
-        p.setQuantidade(novaQuantidade);
-
-        System.out.println("Produto atualizado com sucesso!");
-
-    } catch (InputMismatchException e) {
-        System.out.println("Erro: Dado inválido digitado (ex: texto onde deveria ser número). Atualização cancelada.");
-        scanner.nextLine(); // limpa buffer
-    } catch (Exception e) {
-        System.out.println("Erro inesperado: " + e.getMessage());
     }
 }
 
-    private static void removerProduto() {
-        System.out.print("Informe o ID do produto a remover: ");
-        int id = scanner.nextInt(); scanner.nextLine();
-        Produto p = buscarProduto(id);
-        if (p != null) {
-            produtos.remove(p);
-            System.out.println("Produto removido.");
-        } else {
-            System.out.println("Produto não encontrado.");
-        }
+    private static void atualizarProduto() {
+    System.out.print("Informe o ID do produto: ");
+    int id = scanner.nextInt(); scanner.nextLine();
+
+    Produto p = estoqueController.buscarPorId(id);
+    if (p == null) {
+        System.out.println("Produto não encontrado.");
+        return;
     }
+
+    System.out.print("Novo nome (" + p.getNome() + "): ");
+    p.setNome(scanner.nextLine());
+
+    System.out.print("Nova marca (" + p.getMarca() + "): ");
+    p.setMarca(scanner.nextLine());
+
+    System.out.print("Novo preço (" + p.getPreco() + "): ");
+    p.setPreco(scanner.nextDouble());
+
+    System.out.print("Nova quantidade (" + p.getQuantidade() + "): ");
+    p.setQuantidade(scanner.nextInt()); scanner.nextLine();
+
+    System.out.print("Novo lote (" + p.getLote() + "): ");
+    p.setLote(scanner.nextLine());
+
+    System.out.print("Novo código de barras (" + p.getCodigoBarras() + "): ");
+    p.setCodigoBarras(scanner.nextLine());
+
+    System.out.print("Nova data de validade (DD-MM-YYYY): ");
+    String dataStr = scanner.nextLine();
+    p.setDataValidade(LocalDate.parse(dataStr, DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+
+    System.out.print("Novo volume (L): ");
+    p.setVolumeLitros(scanner.nextInt());
+
+    System.out.print("Novo peso (g): ");
+    p.setPesoGramas(scanner.nextInt()); scanner.nextLine();
+
+    estoqueController.atualizarProduto(id, p);
+    System.out.println("Produto atualizado.");
+}
+
+    private static void removerProduto() {
+    System.out.print("Informe o ID do produto a remover: ");
+    int id = scanner.nextInt(); scanner.nextLine();
+    estoqueController.removerProduto(id);
+    System.out.println("Produto removido (se existir).");
+}
 
     private static Produto buscarProduto(int id) {
         return produtos.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
@@ -187,242 +276,181 @@ public class Main {
     // === CRUD Usuario ===
     private static void cadastrarUsuario() {
     System.out.println("=== Cadastro de Usuário ===");
+    System.out.print("Nome: ");
+    String nome = scanner.nextLine();
 
-    try {
-        System.out.print("Nome: ");
-        String nome = scanner.nextLine();
+    System.out.print("Login: ");
+    String login = scanner.nextLine();
 
-        System.out.print("Login: ");
-        String login = scanner.nextLine();
+    System.out.print("Senha: ");
+    String senha = scanner.nextLine();
 
-        System.out.print("Senha: ");
-        String senha = scanner.nextLine();
+    System.out.print("Tipo (1 = Funcionário | 2 = Administrador): ");
+    int tipo = scanner.nextInt(); scanner.nextLine();
 
-        System.out.print("Tipo (1 = Funcionário | 2 = Administrador): ");
-        int tipo = scanner.nextInt(); scanner.nextLine();
-
-        Usuario u;
-
-        if (tipo == 1) {
-            System.out.print("Cargo: ");
-            String cargo = scanner.nextLine();
-            u = new Funcionario(nextUsuarioId++, nome, login, senha, cargo);
-        } else if (tipo == 2) {
-            u = new Administrador(nextUsuarioId++, nome, login, senha);
-        } else {
-            System.out.println("Tipo inválido. Cadastro cancelado.");
-            return;
-        }
-
-        usuarios.add(u);
-        System.out.println("Usuário cadastrado com sucesso!");
-
-    } catch (InputMismatchException e) {
-        System.out.println("Erro: Tipo de dado inválido. Cadastro cancelado.");
-        scanner.nextLine(); // limpa o buffer
-    } catch (Exception e) {
-        System.out.println("Erro inesperado: " + e.getMessage());
+    if (tipo == 1) {
+        System.out.print("Cargo: ");
+        String cargo = scanner.nextLine();
+        usuarioController.adicionarFuncionario(nome, login, senha, cargo);
+    } else {
+        usuarioController.adicionarAdministrador(nome, login, senha);
     }
+
+    System.out.println("Usuário cadastrado.");
 }
 
 
     private static void listarUsuarios() {
-        System.out.println("=== Lista de Usuários ===");
-        if (usuarios.isEmpty()) {
-            System.out.println("Nenhum usuário cadastrado.");
-        } else {
-            for (Usuario u : usuarios) {
-                System.out.printf("ID: %d | Nome: %s | Login: %s | Tipo: %s\n",
-                        u.getId(), u.getNome(), u.getLogin(),
-                        (u instanceof Administrador) ? "Administrador" : "Funcionário");
-            }
+    List<Usuario> lista = usuarioController.listarUsuarios();
+    if (lista.isEmpty()) {
+        System.out.println("Nenhum usuário cadastrado.");
+    } else {
+        for (Usuario u : lista) {
+            String tipo = (u instanceof Administrador) ? "Administrador" : "Funcionário";
+            System.out.printf("ID: %d | Nome: %s | Tipo: %s | Login: %s\n",
+                u.getId(), u.getNome(), tipo, u.getLogin());
         }
-    }
-
-	private static void atualizarUsuario() {
-    System.out.println("=== Atualização de Usuário ===");
-
-    try {
-        System.out.print("Informe o ID do usuário: ");
-        int id = scanner.nextInt(); scanner.nextLine();
-
-        Usuario u = buscarUsuario(id);
-        if (u == null) {
-            System.out.println("Usuário não encontrado.");
-            return;
-        }
-
-        System.out.print("Novo nome (" + u.getNome() + "): ");
-        String novoNome = scanner.nextLine();
-
-        System.out.print("Novo login (" + u.getLogin() + "): ");
-        String novoLogin = scanner.nextLine();
-
-        System.out.print("Nova senha: ");
-        String novaSenha = scanner.nextLine();
-
-        // Se for Funcionário, atualiza cargo
-        String novoCargo = null;
-        if (u instanceof Funcionario funcionario) {
-            System.out.print("Novo cargo (" + funcionario.getCargo() + "): ");
-            novoCargo = scanner.nextLine();
-
-            if (novoCargo.isBlank()) {
-                System.out.println("Cargo não pode ser vazio. Atualização cancelada.");
-                return;
-            }
-
-            funcionario.setCargo(novoCargo);
-        }
-
-        // Validação básica
-        if (novoNome.isBlank() || novoLogin.isBlank() || novaSenha.isBlank()) {
-            System.out.println("Nenhum dos campos pode ser vazio. Atualização cancelada.");
-            return;
-        }
-
-        // Aplicar alterações
-        u.setNome(novoNome);
-        u.setLogin(novoLogin);
-        u.setSenha(novaSenha);
-
-        System.out.println("Usuário atualizado com sucesso!");
-
-    } catch (InputMismatchException e) {
-        System.out.println("Erro: Entrada inválida. Atualização cancelada.");
-        scanner.nextLine(); // limpar buffer
-    } catch (Exception e) {
-        System.out.println("Erro inesperado: " + e.getMessage());
     }
 }
 
-private static void removerUsuario() {
-    System.out.println("=== Remoção de Usuário ===");
+	private static void atualizarUsuarios() {
+    System.out.print("ID do usuário: ");
+    int id = scanner.nextInt(); scanner.nextLine();
 
-    try {
-        System.out.print("Informe o ID do usuário: ");
-        int id = scanner.nextInt(); scanner.nextLine();
-
-        Usuario u = buscarUsuario(id);
-        if (u == null) {
-            System.out.println("Usuário não encontrado.");
-            return;
-        }
-
-        usuarios.remove(u);
-        System.out.println("Usuário removido com sucesso!");
-
-    } catch (InputMismatchException e) {
-        System.out.println("Erro: ID inválido. Use apenas números.");
-        scanner.nextLine(); // limpa buffer
-    } catch (Exception e) {
-        System.out.println("Erro inesperado: " + e.getMessage());
+    Usuario u = usuarioController.buscarPorId(id);
+    if (u == null) {
+        System.out.println("Usuário não encontrado.");
+        return;
     }
+
+    System.out.print("Novo nome (" + u.getNome() + "): ");
+    String nome = scanner.nextLine();
+
+    System.out.print("Novo login (" + u.getLogin() + "): ");
+    String login = scanner.nextLine();
+
+    System.out.print("Nova senha: ");
+    String senha = scanner.nextLine();
+
+    usuarioController.atualizarUsuario(id, nome, login, senha);
+    System.out.println("Usuário atualizado.");
 }
 
+private static void removerUsuarios() {
+    System.out.print("ID do usuário a remover: ");
+    int id = scanner.nextInt(); scanner.nextLine();
 
+    usuarioController.removerUsuario(id);
+    System.out.println("Usuário removido.");
+}
 
     private static void exibirDashboards() {
         System.out.println("=== Dashboards dos Usuários (Polimorfismo) ===");
-        for (Usuario u : usuarios) {
-            u.visualizarDashboard();
+        for (Usuario u : usuarioController.listarUsuarios()) {
+        u.visualizarDashboard();
         }
+
     }
 
 	 // === CRUD Fornecedores ===
 	private static void cadastrarFornecedor() {
     System.out.println("=== Cadastro de Fornecedor ===");
+    System.out.print("Nome: ");
+    String nome = scanner.nextLine();
 
-    try {
-        System.out.print("Nome: ");
-        String nome = scanner.nextLine();
+    System.out.print("Telefone: ");
+    String telefone = scanner.nextLine();
 
-        System.out.print("Telefone: ");
-        String telefone = scanner.nextLine();
+    System.out.print("Email: ");
+    String email = scanner.nextLine();
 
-        System.out.print("Email: ");
-        String email = scanner.nextLine();
+    System.out.print("CNPJ: ");
+    String cnpj = scanner.nextLine();
 
-        System.out.print("CNPJ: ");
-        String cnpj = scanner.nextLine();
+    fornecedorController.adicionarFornecedor(nome, telefone, email, cnpj);
+    System.out.println("Fornecedor cadastrado.");
+}
 
-        if (nome.isBlank() || telefone.isBlank() || email.isBlank() || cnpj.isBlank()) {
-            System.out.println("rro: Todos os campos são obrigatórios. Cadastro cancelado.");
-            return;
+
+private static void listarFornecedores() {
+    List<Fornecedor> lista = fornecedorController.listarFornecedores();
+    if (lista.isEmpty()) {
+        System.out.println("Nenhum fornecedor cadastrado.");
+    } else {
+        for (Fornecedor f : lista) {
+            System.out.printf("ID: %d | Nome: %s | CNPJ: %s | Email: %s | Telefone: %s\n",
+                f.getId(), f.getNome(), f.getCnpj(), f.getEmail(), f.getTelefone());
         }
-
-        Fornecedor f = new Fornecedor(nextFornecedorId++, nome, telefone, email, cnpj);
-        fornecedores.add(f);
-
-        System.out.println("Fornecedor cadastrado com sucesso!");
-
-    } catch (InputMismatchException e) {
-        System.out.println("Erro: Tipo de dado inválido. Cadastro cancelado.");
-        scanner.nextLine(); // limpa buffer
-    } catch (Exception e) {
-        System.out.println("Erro inesperado: " + e.getMessage());
     }
 }
 
 private static void atualizarFornecedor() {
-    System.out.println("=== Atualização de Fornecedor ===");
+    System.out.print("ID do fornecedor: ");
+    int id = scanner.nextInt(); scanner.nextLine();
 
-    try {
-        System.out.print("Informe o ID do fornecedor: ");
-        int id = scanner.nextInt(); scanner.nextLine();
-
-        Fornecedor f = buscarFornecedor(id);
-        if (f == null) {
-            System.out.println("Fornecedor não encontrado.");
-            return;
-        }
-
-        System.out.print("Novo nome (" + f.getNome() + "): ");
-        String novoNome = scanner.nextLine();
-
-        System.out.print("Novo telefone (" + f.getTelefone() + "): ");
-        String novoTelefone = scanner.nextLine();
-
-        System.out.print("Novo email (" + f.getEmail() + "): ");
-        String novoEmail = scanner.nextLine();
-
-        // Validação básica: não permitir campos vazios
-        if (novoNome.isBlank() || novoTelefone.isBlank() || novoEmail.isBlank()) {
-            System.out.println("Erro: Nenhum dos campos pode ser vazio. Atualização cancelada.");
-            return;
-        }
-
-        // Atualiza os campos
-        f.setNome(novoNome);
-        f.setTelefone(novoTelefone);
-        f.setEmail(novoEmail);
-
-        System.out.println("Fornecedor atualizado com sucesso!");
-
-    } catch (InputMismatchException e) {
-        System.out.println("rro: Tipo de dado inválido. Atualização cancelada.");
-        scanner.nextLine(); // limpa buffer
-    } catch (Exception e) {
-        System.out.println("Erro inesperado: " + e.getMessage());
+    Fornecedor f = fornecedorController.buscarPorId(id);
+    if (f == null) {
+        System.out.println("Fornecedor não encontrado.");
+        return;
     }
+
+    System.out.print("Novo nome (" + f.getNome() + "): ");
+    String nome = scanner.nextLine();
+
+    System.out.print("Novo telefone (" + f.getTelefone() + "): ");
+    String telefone = scanner.nextLine();
+
+    System.out.print("Novo email (" + f.getEmail() + "): ");
+    String email = scanner.nextLine();
+
+    System.out.print("Novo CNPJ (" + f.getCnpj() + "): ");
+    String cnpj = scanner.nextLine();
+
+    fornecedorController.atualizarFornecedor(id, nome, telefone, email, cnpj);
+    System.out.println("Fornecedor atualizado.");
 }
 
 
 private static void removerFornecedor() {
-    System.out.print("Informe o ID do fornecedor: ");
+    System.out.print("ID do fornecedor a remover: ");
     int id = scanner.nextInt(); scanner.nextLine();
-    Fornecedor f = buscarFornecedor(id);
 
-    if (f != null) {
-        f.setAtivo(false);
-        System.out.println("Fornecedor marcado como inativo.");
-    } else {
-        System.out.println("Fornecedor não encontrado.");
+    fornecedorController.removerFornecedor(id);
+    System.out.println("Fornecedor removido.");
+}
+
+
+// === CRUD Financeiro ===
+private static void registrarEntrada() {
+    System.out.println("=== Registrar Entrada Financeira ===");
+    System.out.print("Descrição: ");
+    String descricao = scanner.nextLine();
+    System.out.print("Valor: ");
+    double valor = scanner.nextDouble(); scanner.nextLine();
+
+    financeiro.registrarEntrada(descricao, valor);
+    System.out.println("Entrada registrada.");
+}
+
+private static void registrarSaida() {
+    System.out.println("=== Registrar Saída Financeira ===");
+    System.out.print("Descrição: ");
+    String descricao = scanner.nextLine();
+    System.out.print("Valor: ");
+    double valor = scanner.nextDouble(); scanner.nextLine();
+
+    financeiro.registrarSaida(descricao, valor);
+    System.out.println("Saída registrada.");
+}
+
+private static void verRelatorioFinanceiro() {
+    financeiro.gerarRelatorio();
+}
+
+    private static void logout() {
+        usuarioLogado = null;
+        System.out.println("Logout realizado com sucesso.");
     }
-}
 
-private static Fornecedor buscarFornecedor(int id) {
-    return fornecedores.stream().filter(f -> f.getId() == id).findFirst().orElse(null);
-}
 
 }
