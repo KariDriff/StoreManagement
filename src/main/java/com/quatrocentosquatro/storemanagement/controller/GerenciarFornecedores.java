@@ -1,6 +1,6 @@
-package main.java.com.quatrocentosquatro.storemanagement.controller;
+package com.quatrocentosquatro.storemanagement.controller;
 
-import main.java.com.quatrocentosquatro.storemanagement.model.Fornecedor;
+import com.quatrocentosquatro.storemanagement.model.Fornecedor;
 
 import java.util.ArrayList;
 import java.util.List;

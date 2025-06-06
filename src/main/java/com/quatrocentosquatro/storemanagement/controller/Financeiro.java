@@ -1,4 +1,4 @@
-package main.java.com.quatrocentosquatro.storemanagement.controller;
+package com.quatrocentosquatro.storemanagement.controller;
 
 import javax.swing.JOptionPane;
 import java.io.FileWriter;
@@ -24,23 +24,23 @@ public class Financeiro {
     return LocalDateTime.now().format(formataHora);
   }
 
-  public void registrarEntrada(float valor) {
-    String log = "[" + agora() + "] Entrada automática: " + formataReal.format(valor);
+  public void registrarEntrada(float valor, String descricao) {
+    String log = "[" + agora() + "] Entrada automática: " + formataReal.format(valor) + ". Descrição: " + descricao;
     registrarOperacoes(log);
   }
 
-  public void registrarEntradaUser(float valor) {
-    String log = "[" + agora() + "] Entrada manual: " + formataReal.format(valor);
+  public void registrarEntradaUser(float valor, String descricao) {
+    String log = "[" + agora() + "] Entrada manual: " + formataReal.format(valor) + ". Descrição: " + descricao;
     registrarOperacoes(log);
   }
 
-  public void registrarSaida(float valor) {
-    String log = "[" + agora() + "] Saída automática: " + formataReal.format(valor);
+  public void registrarSaida(float valor, String descricao) {
+    String log = "[" + agora() + "] Saída automática: " + formataReal.format(valor) + ". Descrição: " + descricao;
     registrarOperacoes(log);
   }
 
-  public void registrarSaidaUser(float valor) {
-    String log = "[" + agora() + "] Saída manual: " + formataReal.format(valor);
+  public void registrarSaidaUser(float valor, String descricao) {
+    String log = "[" + agora() + "] Saída manual: " + formataReal.format(valor) + ". Descrição: " + descricao;
     registrarOperacoes(log);
   }
 

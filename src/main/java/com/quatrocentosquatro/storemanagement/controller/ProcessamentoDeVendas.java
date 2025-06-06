@@ -1,9 +1,9 @@
-package main.java.com.quatrocentosquatro.storemanagement.controller;
+package com.quatrocentosquatro.storemanagement.controller;
 
-import main.java.com.quatrocentosquatro.storemanagement.model.Produto;
-import main.java.com.quatrocentosquatro.storemanagement.model.Venda;
-import main.java.com.quatrocentosquatro.storemanagement.model.ItemVenda;
-import main.java.com.quatrocentosquatro.storemanagement.controller.Financeiro;
+import com.quatrocentosquatro.storemanagement.model.Produto;
+import com.quatrocentosquatro.storemanagement.model.Venda;
+import com.quatrocentosquatro.storemanagement.model.ItemVenda;
+import com.quatrocentosquatro.storemanagement.controller.Financeiro;
 
 import java.util.*;
 

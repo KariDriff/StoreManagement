@@ -1,4 +1,4 @@
-package main.java.com.quatrocentosquatro.storemanagement.model;
+package com.quatrocentosquatro.storemanagement.model;
 
 public class Funcionario extends Usuario {
     private boolean isAdmin;

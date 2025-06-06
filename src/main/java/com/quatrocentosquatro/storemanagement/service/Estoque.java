@@ -1,6 +1,6 @@
-package main.java.com.quatrocentosquatro.storemanagement.service;
+package com.quatrocentosquatro.storemanagement.service;
 
-import main.java.com.quatrocentosquatro.storemanagement.model.Produto;
+import com.quatrocentosquatro.storemanagement.model.Produto;
 
 import java.util.List;
 import java.util.stream.Collectors;

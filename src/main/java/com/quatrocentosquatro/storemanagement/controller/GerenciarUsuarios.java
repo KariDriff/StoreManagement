@@ -1,11 +1,11 @@
-package main.java.com.quatrocentosquatro.storemanagement.controller;
+package com.quatrocentosquatro.storemanagement.controller;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.com.quatrocentosquatro.storemanagement.model.Administrador;
-import main.java.com.quatrocentosquatro.storemanagement.model.Funcionario;
-import main.java.com.quatrocentosquatro.storemanagement.model.Usuario;
+import com.quatrocentosquatro.storemanagement.model.Administrador;
+import com.quatrocentosquatro.storemanagement.model.Funcionario;
+import com.quatrocentosquatro.storemanagement.model.Usuario;
 /**
  * Classe responsável por gerenciar usuários do sistema, incluindo
  * funcionalidades para adicionar, listar, buscar, atualizar e remover usuários.

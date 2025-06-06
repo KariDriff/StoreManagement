@@ -1,4 +1,4 @@
-package main.java.com.quatrocentosquatro.storemanagement.model;
+package com.quatrocentosquatro.storemanagement.model;
 // Essa classe representa uma venda no sistema de gerenciamento de loja.
 import java.time.LocalDateTime;
 import java.util.ArrayList;

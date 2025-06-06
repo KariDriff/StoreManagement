@@ -1,4 +1,4 @@
-package main.java.com.quatrocentosquatro.storemanagement.model;
+package com.quatrocentosquatro.storemanagement.model;
 
 // Superclasse abstrata Usuario para funcionários e administradores, fornecedor não é um usuário do sistema
 // e não herda dessa classe. Fornecedor é uma entidade separada, sem relação direta com o sistema de usuários.

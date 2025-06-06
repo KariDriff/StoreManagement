@@ -1,4 +1,4 @@
-package main.java.com.quatrocentosquatro.storemanagement.model;
+package com.quatrocentosquatro.storemanagement.model;
 // Essa classe representa a venda de um produto.
 
 public class ItemVenda {
