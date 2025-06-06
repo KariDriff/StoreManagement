@@ -271,10 +271,6 @@ public class Main {
         System.out.println("Produto removido (se existir).");
     }
 
-    private static Produto buscarProduto(int id) {
-        return estoqueController.buscarPorId(id);
-    }
-
     // === CRUD Usuario ===
     private static void cadastrarUsuario() {
         System.out.println("=== Cadastro de Usuário ===");
