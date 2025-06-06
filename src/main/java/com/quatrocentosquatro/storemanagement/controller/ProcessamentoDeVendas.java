@@ -114,6 +114,5 @@ System.out.println("Venda registrada com sucesso!");
         }
     }
 
-    //para caio
 }
 
