@@ -1,4 +1,4 @@
-package views;
+package com.quatrocentosquatro.storemanagement.views;
 
 import javax.swing.JFrame;
 
