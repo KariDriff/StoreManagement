@@ -3,7 +3,6 @@ package com.quatrocentosquatro.storemanagement.controller;
 import com.quatrocentosquatro.storemanagement.model.Produto;
 import com.quatrocentosquatro.storemanagement.model.Venda;
 import com.quatrocentosquatro.storemanagement.model.ItemVenda;
-import com.quatrocentosquatro.storemanagement.controller.Financeiro;
 
 import java.util.*;
 
@@ -59,7 +58,7 @@ public class ProcessamentoDeVendas {
         vendas.add(venda);
 
         // Registrar entrada financeira
-        financeiro.registrarEntrada((float) venda.getTotal());
+        financeiro.registrarEntrada(venda.getTotal(), "");
 
         System.out.println("Venda registrada com sucesso!");
         System.out.printf("Total da venda: R$ %.2f\n", venda.getTotal());

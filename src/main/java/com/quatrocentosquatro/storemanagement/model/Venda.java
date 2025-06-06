@@ -8,7 +8,7 @@ public class Venda {
     private int id;
     private LocalDateTime dataHora;
     private List<ItemVenda> itens;
-    private double total;
+    private float total;
 
     public Venda(int id) {
         this.id = id;
@@ -25,5 +25,5 @@ public class Venda {
     public int getId() { return id; }
     public LocalDateTime getDataHora() { return dataHora; }
     public List<ItemVenda> getItens() { return itens; }
-    public double getTotal() { return total; }
+    public float getTotal() { return total; }
 }

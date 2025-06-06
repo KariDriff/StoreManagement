@@ -2,7 +2,6 @@ package com.quatrocentosquatro.storemanagement.controller;
 
 import com.quatrocentosquatro.storemanagement.model.Produto;
 import com.quatrocentosquatro.storemanagement.service.Estoque;
-import com.quatrocentosquatro.storemanagement.controller.Financeiro;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
