@@ -3,7 +3,6 @@ package com.quatrocentosquatro.storemanagement.views;
 //importações de arquivos:
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -12,6 +11,7 @@ public class TelaFornecedor extends JFrame{
     private JButton buttonAdicionarFornecedores;
     private JButton buttonListasdFornecedores;
     private JButton buttonBuscarRapidaFornecedores;
+    private JButton buttonAtualizarFornecedores;
     private JButton buttonRemoverFornecedores;
     private JButton buttonVoltarTelaHome;
      
@@ -42,6 +42,11 @@ public class TelaFornecedor extends JFrame{
         buttonRemoverFornecedores = new JButton("Remove Fornecedores");
         buttonRemoverFornecedores.setBounds(230, 100, 150, 30);
         add(buttonRemoverFornecedores);
+
+         // botão remover fornecedor (irá direcionara para a pagina para fazer essa ação)
+        buttonAtualizarFornecedores = new JButton("Atualizar Fornecedores");
+        buttonAtualizarFornecedores.setBounds(410, 50, 150, 30);
+        add(buttonAtualizarFornecedores);
 
         //voltar para tela incial
         buttonVoltarTelaHome = new JButton("Home");
@@ -77,6 +82,14 @@ public class TelaFornecedor extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de remover fornecedor");
+            // importação aqui exemplo abaixo
+            }
+        });
+
+        buttonAtualizarFornecedores.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+             System.out.println("Abrir tela de atualizar fornecedor");
             // importação aqui exemplo abaixo
             }
         });

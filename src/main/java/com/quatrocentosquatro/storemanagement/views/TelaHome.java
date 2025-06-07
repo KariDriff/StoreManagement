@@ -65,6 +65,9 @@ public class TelaHome extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Abrir tela de Funcionários");
+                new TelaUsuario().setVisible(true);
+                 // essa função vai fechar a pagina automaticamente
+                 dispose();
             }
         });
 
@@ -73,8 +76,7 @@ public class TelaHome extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Abrir tela de Fornecedores");
                 new TelaFornecedor().setVisible(true);
-                // essa função vai fechar a pagina automaticamente
-              dispose();
+                dispose();
             }
         });
 

@@ -12,7 +12,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import com.quatrocentosquatro.storemanagement.controller.LoginController;
-import com.quatrocentosquatro.storemanagement.views.TelaHome;
 
 public class TelaLogin extends JFrame {
     private JTextField campoUsuario;
@@ -65,6 +64,7 @@ public class TelaLogin extends JFrame {
                 if (loginController.autenticar(usuario, senha)) {
                      System.out.print("Login feito com sucesso");
                      new TelaHome().setVisible(true);
+                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos.");
                 }
