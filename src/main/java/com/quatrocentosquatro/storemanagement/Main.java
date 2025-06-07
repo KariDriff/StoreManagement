@@ -106,6 +106,7 @@ public class Main {
         System.out.println("13 - Remover fornecedor");
         System.out.println("14 - Registrar entrada financeira");
         System.out.println("15 - Registrar saída financeira");
+        System.out.println("15 - Ver despesas pendentes");
         System.out.println("16 - Ver relatório financeiro");
         System.out.println("17 - Comprar produtos com baixo estoque");
         System.out.println("18 - Registrar nova venda");
@@ -153,10 +154,11 @@ public class Main {
             case 13: removerFornecedor(); break; // Remove um fornecedor
             case 14: registrarEntrada(); break; // Registra uma entrada financeira
             case 15: registrarSaida(); break; // Registra uma saída financeira
-            case 16: verRelatorioFinanceiro(); break; // Visualiza o relatório financeiro
-            case 17: estoqueController.comprarProdutos(scanner, 10); break; // Compra produtos com baixo estoque
-            case 18: vendasController.realizarVenda(scanner); break; // Realiza uma venda
-            case 19: vendasController.listarVendas(); break; // Lista todas as vendas
+            case 16: verDespesas(); break; // ver despesas para pagá-las.
+            case 17: verRelatorioFinanceiro(); break; // Visualiza o relatório financeiro
+            case 18: estoqueController.comprarProdutos(scanner, 10); break; // Compra produtos com baixo estoque
+            case 19: vendasController.realizarVenda(scanner); break; // Realiza uma venda
+            case 20: vendasController.listarVendas(); break; // Lista todas as vendas
             case 0: logout(); return false; // Faz logout e encerra a execução
             default: System.out.println("Opção inválida."); break; // Opção inválida
         }
@@ -469,7 +471,7 @@ public class Main {
         float valor = scanner.nextFloat(); // Lê o valor da entrada
         scanner.nextLine(); // Limpa o buffer
 
-        financeiro.registrarEntrada(valor, descricao); // Registra a entrada financeira
+        financeiro.registrarEntradaUser(valor, descricao); // Registra a entrada financeira
         System.out.println("Entrada registrada.");
     }
 
@@ -480,9 +482,19 @@ public class Main {
         System.out.print("Valor: ");
         float valor = scanner.nextFloat(); // Lê o valor da saída
         scanner.nextLine(); // Limpa o buffer
+        System.out.println("Esta saída já foi paga? (S/N)");
+        char resp = scanner.next().charAt(0);
 
-        financeiro.registrarSaida(valor, descricao); // Registra a saída financeira
+        boolean isPaga;
+        if (resp == 'S' || resp == 's') {isPaga = true;}
+        else if (resp == 'N' || resp == 'n') {isPaga = false;}
+
+        financeiro.registrarSaidaUser(valor, isPaga, descricao); // Registra a saída financeira
         System.out.println("Saída registrada.");
+    }
+
+    private static void verDespesas() {
+        
     }
 
     private static void verRelatorioFinanceiro() {

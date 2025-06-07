@@ -1,13 +1,16 @@
 package com.quatrocentosquatro.storemanagement.controller;
 
-// Importações necessárias
 import com.quatrocentosquatro.storemanagement.model.Produto;
 import com.quatrocentosquatro.storemanagement.service.Estoque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// Controller para gerenciar o estoque de produtos
+/** 
+ * Controller para gerenciar o estoque de produtos
+ * 
+ * @author João M. Chervinski
+ */
 public class GerenciarEstoque {
     private final List<Produto> produtos = new ArrayList<>();
     private final Estoque estoqueService = new Estoque();
@@ -15,8 +18,12 @@ public class GerenciarEstoque {
     private int nextId = 1;
 
 
-    // Método para adicionar um novo produto ao estoque
-    // Atribui um ID único ao produto e o adiciona à lista de produtos
+    /**
+     * Método para adicionar um novo produto ao estoque
+     * Atribui um ID único ao produto e o adiciona à lista de produtos
+     * 
+     * @param p (Produto) - O produto a ser adicionado.
+     */
     public void adicionarProduto(Produto p) {
         p.setId(nextId++);
         produtos.add(p);
