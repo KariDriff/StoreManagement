@@ -1,11 +1,10 @@
 package com.quatrocentosquatro.storemanagement.controller;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
 
 import javax.swing.JOptionPane;
 
@@ -21,11 +20,46 @@ import com.quatrocentosquatro.storemanagement.model.Usuario;
  */
 
 public class GerenciarUsuarios {
-    private final List<Usuario> usuarios = new ArrayList<>();
+    private List<Usuario> usuarios;
     private int nextId = 1;
     private final String caminhoLog = "src/main/java/com/quatrocentosquatro/storemanagement/logs/Usuarios.log";
     private final DateTimeFormatter formataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    private final String ARQUIVO = "usuario.db";
 
+    
+    // Construtor da classe GerenciarUsuarios.
+    // Inicializa a lista de usuários e carrega os dados do arquivo.
+    public GerenciarUsuarios() {
+    usuarios = carregarUsuarios();
+    nextId = usuarios.stream()
+                     .mapToInt(Usuario::getId)
+                     .max()
+                     .orElse(0) + 1;
+    }
+
+    /**
+     * Método para salvar a lista de usuários em um arquivo.
+     * Utiliza serialização para armazenar os objetos de usuários.
+     */
+    private void salvarUsuarios() {
+    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARQUIVO))) {
+        out.writeObject(usuarios);
+    } catch (IOException e) {
+        System.out.println("Erro ao salvar usuários: " + e.getMessage());
+    }
+    }
+
+    @SuppressWarnings("unchecked")
+    private List<Usuario> carregarUsuarios() {
+    File file = new File(ARQUIVO);
+    if (!file.exists()) return new ArrayList<>();
+    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+        return (List<Usuario>) in.readObject();
+    } catch (IOException | ClassNotFoundException e) {
+        System.out.println("Erro ao carregar usuários: " + e.getMessage());
+        return new ArrayList<>();
+    }
+    }
 
     public static void main(String[] args) {
         GerenciarUsuarios gerenciarUsuarios = new GerenciarUsuarios();
@@ -52,6 +86,7 @@ public class GerenciarUsuarios {
 
         String log = "[" + agora() + "] Usuário de ID " + nextId + " (" + nome + ") foi adicionado como funcionario.";
         registrarOperacoes(log);
+         salvarUsuarios();
     }
 
     /**
@@ -66,6 +101,7 @@ public class GerenciarUsuarios {
 
         String log = "[" + agora() + "] Usuário de ID " + nextId + " (" + nome + ") foi adicionado como administrador.";
         registrarOperacoes(log);
+        salvarUsuarios();
     }
 
     /**
@@ -101,6 +137,7 @@ public class GerenciarUsuarios {
 
         String log = "[" + agora() + "] Usuário de ID " + id + " teve seu registro atualizado";
         registrarOperacoes(log);
+        salvarUsuarios();
     }
 
     /**
@@ -113,6 +150,7 @@ public class GerenciarUsuarios {
 
         String log = "[" + agora() + "] Usuário de ID " + id + " foi removido";
         registrarOperacoes(log);
+        salvarUsuarios();
     }
 
     /**
