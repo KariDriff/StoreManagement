@@ -4,14 +4,55 @@ package com.quatrocentosquatro.storemanagement.controller;
 import com.quatrocentosquatro.storemanagement.model.Fornecedor;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.*;
 
 /**
  * Controller para gerenciar fornecedores.
  * Permite adicionar, listar, buscar, atualizar e remover fornecedores.
  */
 public class GerenciarFornecedores {
-    private final List<Fornecedor> fornecedores = new ArrayList<>();
-    private int nextId = 1;
+    private List<Fornecedor> fornecedores; // Lista que armazena os fornecedores
+    private final String ARQUIVO = "fornecedores.db"; // Caminho do arquivo onde os fornecedores serão salvos
+    private int nextId = 1; // Próximo ID a ser atribuído aos fornecedores
+
+    /**
+     * Construtor da classe GerenciarFornecedores.
+     * Inicializa a lista de fornecedores e carrega os dados do arquivo.
+     */
+    public GerenciarFornecedores() {
+    fornecedores = carregarFornecedores();
+    nextId = fornecedores.stream()
+                         .mapToInt(Fornecedor::getId)
+                         .max()
+                         .orElse(0) + 1;
+    }
+
+    /**
+     * Método para salvar a lista de fornecedores em um arquivo.
+     * Utiliza serialização para armazenar os objetos de fornecedores.
+     */
+    private void salvarFornecedores() {
+    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARQUIVO))) {
+        out.writeObject(fornecedores);
+    } catch (IOException e) {
+        System.out.println("Erro ao salvar fornecedores: " + e.getMessage());
+    }
+    }
+
+    // Método para carregar a lista de fornecedores de um arquivo.
+    // Utiliza deserialização para recuperar os objetos de fornecedores.
+    @SuppressWarnings("unchecked")
+    private List<Fornecedor> carregarFornecedores() {
+    File file = new File(ARQUIVO);
+    if (!file.exists()) return new ArrayList<>();
+    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+        return (List<Fornecedor>) in.readObject();
+    } catch (IOException | ClassNotFoundException e) {
+        System.out.println("Erro ao carregar fornecedores: " + e.getMessage());
+        return new ArrayList<>();
+    }
+    }
+
 
     /**
      * Adiciona um novo fornecedor à lista.
@@ -23,6 +64,7 @@ public class GerenciarFornecedores {
      */
     public void adicionarFornecedor(String nome, String telefone, String email, String cnpj) {
         fornecedores.add(new Fornecedor(nextId++, nome, telefone, email, cnpj));
+        salvarFornecedores();
     }
 
     /**
@@ -60,6 +102,7 @@ public class GerenciarFornecedores {
             f.setTelefone(novoTelefone);
             f.setEmail(novoEmail);
             f.setCnpj(novoCnpj);
+            salvarFornecedores();
         }
     }
 
@@ -70,5 +113,6 @@ public class GerenciarFornecedores {
      */
     public void removerFornecedor(int id) {
         fornecedores.removeIf(f -> f.getId() == id);
+        salvarFornecedores();
     }
 }
