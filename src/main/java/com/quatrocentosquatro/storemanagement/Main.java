@@ -26,7 +26,6 @@ import com.quatrocentosquatro.storemanagement.model.Usuario;
  * @author Kaio A. Souza
  */
 public class Main {
-    // Atributos estáticos para controle do sistema
     private static Scanner scanner = new Scanner(System.in); // Scanner para entrada de dados do usuário
     private static Financeiro financeiro = new Financeiro(); // Controlador para funcionalidades financeiras
     private static GerenciarEstoque estoqueController = new GerenciarEstoque(); // Controlador para gerenciar o estoque
@@ -35,7 +34,9 @@ public class Main {
     private static GerenciarFornecedores fornecedorController = new GerenciarFornecedores(); // Controlador para gerenciar fornecedores
     private static Usuario usuarioLogado = null; // Usuário atualmente logado no sistema
 
-    // Metodo de login
+    /**
+     * Metodo de login
+     */
     private static void login() {
 
         usuarioController.adicionarAdministrador("Admin", "adm", "1234"); // Adiciona um administrador padrão para facilitar o login
@@ -57,10 +58,10 @@ public class Main {
         }
     }
 
-    // Método principal que inicia o sistema
     /**
-     * Método principal que inicia o sistema de gerenciamento de loja.
-     * Permite login e exibe menus baseados no tipo de usuário (Administrador ou Funcionário).
+     * Livrai-nos do mal, a main().
+     * 
+     * @param args
      */
     public static void main(String[] args) {
         while (usuarioLogado == null) {

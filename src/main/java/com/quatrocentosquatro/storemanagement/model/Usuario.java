@@ -1,8 +1,11 @@
 package com.quatrocentosquatro.storemanagement.model;
 
-// Superclasse abstrata Usuario para funcionários e administradores.
-// Fornecedor não é um usuário do sistema e não herda dessa classe.
-// Fornecedor é uma entidade separada, sem relação direta com o sistema de usuários.
+/** 
+ * <p> Superclasse abstrata Usuario para funcionários e administradores.
+ * <p> Fornecedor não é um usuário do sistema e não herda dessa classe, ele é uma entidade separada, sem relação direta com o sistema de usuários.
+ * 
+ * @author João M. Chervinski
+ */
 public abstract class Usuario {
     protected int id;
     protected String nome;
@@ -18,10 +21,13 @@ public abstract class Usuario {
         this.senha = senha;
     }
 
-    // Método abstrato para visualização do dashboard, a ser implementado pelas subclasses.
+    /**
+     * Método abstrato para visualização do dashboard, a ser implementado pelas subclasses.
+     */
     public abstract void visualizarDashboard(); // <- método polimórfico
 
-    // Getters e Setters
+    /* Getters e Setters */
+    
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
