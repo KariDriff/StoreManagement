@@ -5,20 +5,54 @@ import com.quatrocentosquatro.storemanagement.model.Produto;
 import com.quatrocentosquatro.storemanagement.model.Venda;
 import com.quatrocentosquatro.storemanagement.model.ItemVenda;
 import java.util.*;
+import java.io.*;
 
 // Controller para processar vendas
 // Permite registrar vendas, adicionar itens, atualizar estoque e registrar entradas financeiras
 public class ProcessamentoDeVendas {
-    private List<Venda> vendas = new ArrayList<>();
+    private List<Venda> vendas;
+    private final String ARQUIVO = "vendas.db"; // Caminho do arquivo onde as vendas serão salvas
     private int nextVendaId = 1;
     private GerenciarEstoque estoqueController;
     private Financeiro financeiro;
 
     // Construtor que recebe o controller de estoque e o serviço financeiro
     // Isso permite que o processamento de vendas interaja com o estoque e registre entradas financeiras
+    // Carrega as vendas do arquivo e inicializa o próximo ID de venda
     public ProcessamentoDeVendas(GerenciarEstoque estoqueController, Financeiro financeiro) {
-        this.estoqueController = estoqueController;
-        this.financeiro = financeiro;
+    this.estoqueController = estoqueController;
+    this.financeiro = financeiro;
+    this.vendas = carregarVendas();
+    this.nextVendaId = vendas.stream()
+                             .mapToInt(Venda::getId)
+                             .max()
+                             .orElse(0) + 1;
+    }
+
+    /**
+     * Método para salvar a lista de vendas em um arquivo.
+     * Utiliza serialização para armazenar os objetos de venda.
+     */
+    private void salvarVendas() {
+    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARQUIVO))) {
+        out.writeObject(vendas);
+    } catch (IOException e) {
+        System.out.println("Erro ao salvar vendas: " + e.getMessage());
+    }
+    }
+
+    // Método para carregar a lista de vendas de um arquivo.
+    // Utiliza deserialização para recuperar os objetos de venda.
+    @SuppressWarnings("unchecked")
+    private List<Venda> carregarVendas() {
+    File file = new File(ARQUIVO);
+    if (!file.exists()) return new ArrayList<>();
+    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+        return (List<Venda>) in.readObject();
+    } catch (IOException | ClassNotFoundException e) {
+        System.out.println("Erro ao carregar vendas: " + e.getMessage());
+        return new ArrayList<>();
+    }
     }
 
     /**
@@ -96,6 +130,7 @@ financeiro.registrarEntrada(venda.getTotal(), "Pagamento via " + formaStr);
 
 System.out.println("Venda registrada com sucesso!");
         System.out.printf("Total da venda: R$ %.2f\n", venda.getTotal());
+        salvarVendas();
     }
 
     /**
