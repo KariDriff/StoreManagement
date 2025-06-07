@@ -8,14 +8,24 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
-
+/**
+ * Classe para salvar e ler despesas.
+ * 
+ * @author Kaio A. Souza
+ */
 public class Despesa {
   private int id;
   private float valor;
   private boolean isPago;
   private String descricao;
 
-
+  /**
+   * Construtor da classe {@code Despesa}.
+   * @param id        (int)     - O ID da despesa
+   * @param valor     (float)   - O valor da despesa, em BRL.
+   * @param isPago    (boolean) - Se a despesa está paga.
+   * @param descricao (String)  - A descrição da despesa.
+   */
   public Despesa(int id, float valor, boolean isPago, String descricao) {
     this.id = id;
     this.valor = valor;
@@ -32,20 +42,21 @@ public class Despesa {
    * @return Um objeto Despesa com o ID correspondente.
    */
   public Despesa buscarPorId(int id) {
+    // Para puxar a linha de registro e dividir a linha, respectivamente. Altere o tamanho do vetor caso Despesa receba outro atributo.
+    String linha = ""; 
     String[] partes = new String[4];
-    String linha = "";
 
     try {
+      // Para ler o arquivo.
       File arqvDesp = new File("src/main/java/com/quatrocentosquatro/storemanagement/database/despesas.db");
       Scanner analArqvDesp = new Scanner(arqvDesp);
   
+      // Puxa a linha, divide-a e verifica se a primeira parte (onde fica o ID) é igual ao ID fornecido.
       while (analArqvDesp.hasNext()) {
         linha = analArqvDesp.nextLine();
         partes = linha.split("\\|");
   
-        if (Integer.parseInt(partes[0]) == id) {
-          break;
-        }
+        if (Integer.parseInt(partes[0]) == id) {break;}
       }
   
       analArqvDesp.close();
@@ -53,9 +64,18 @@ public class Despesa {
       JOptionPane.showMessageDialog(null, "Não foi possível buscar a despesa:\n" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
     }
 
+    // Se a busca deu certo, irá retornar o objeto.
     return new Despesa(Integer.parseInt(partes[0]), Float.parseFloat(partes[1]), Boolean.parseBoolean(partes[2]), partes[3]);
   }
 
+  /**
+   * Adiciona uma despesa e a registra num arquivo com um ID.
+   * 
+   * @param valor     (float)   - O valor da despesa.
+   * @param isPago    (boolean) - Se a despesa está paga.
+   * @param descricao (String)  - A descrição da despesa.
+   * @return {@code true} se o registro foi um sucesso e {@code false} se resultou em erro.
+   */
   public boolean adicionarDespesa(float valor, boolean isPago, String descricao) {
     try {
       FileWriter escrDesp = new FileWriter("src/main/java/com/quatrocentosquatro/storemanagement/database/despesas.db", true);
@@ -96,6 +116,9 @@ public class Despesa {
     }
   }
 
+  /**
+   * Lê o arquivo de despesas e retorna todas as despesas.
+   */
   public void listarDespesas() {
     NumberFormat formataReal = new DecimalFormat("R$ ###,##0.00");
     ArrayList<Despesa> despesas = new ArrayList<Despesa>();
@@ -129,6 +152,10 @@ public class Despesa {
       System.out.println("Não há despesas");
       return;
     } else {
+      // TODO Ordena a lista em false e true, nesta ordem. Requer testes.
+      despesas.sort((d1, d2) -> Boolean.compare(d1.getIsPago(), d2.getIsPago()));
+
+      // Lista os itens.
       for (int i = 0; i < despesas.size(); i++) {
         System.out.println("ID: " + despesas.get(i).getId());
         System.out.println("Valor: " + formataReal.format(despesas.get(i).getValor()));
@@ -139,6 +166,8 @@ public class Despesa {
       }
     }
   }
+
+  /* Getters e Setters */
 
   public int getId() {return this.id;}
   public void setId(int id) {this.id = id;}

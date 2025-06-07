@@ -1,6 +1,5 @@
 package com.quatrocentosquatro.storemanagement;
 
-// Importações das bibliotecas e classes necessárias
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -22,6 +21,9 @@ import com.quatrocentosquatro.storemanagement.model.Usuario;
 /**
  * Classe principal que inicia o sistema de gerenciamento de loja.
  * Permite login, exibe menus e executa ações baseadas no tipo de usuário.
+ * 
+ * @author João M. Chervinski
+ * @author Kaio A. Souza
  */
 public class Main {
     // Atributos estáticos para controle do sistema
@@ -182,7 +184,7 @@ public class Main {
     }
 
     // === CRUD Produto ===
-    /**
+    /*
      * Métodos para gerenciar produtos no estoque.
      * Permite cadastrar, listar, atualizar e remover produtos.
      */
@@ -298,11 +300,12 @@ public class Main {
     }
 
     // === CRUD Usuario ===
-    /**
+    /*
      * Métodos para gerenciar usuários do sistema.
      * Permite cadastrar, listar, atualizar e remover usuários.
      * Exibe dashboards personalizados para cada tipo de usuário.
      */
+
     private static void cadastrarUsuario() {
         System.out.println("=== Cadastro de Usuário ===");
         System.out.print("Nome: ");
@@ -376,10 +379,11 @@ public class Main {
     }
 
     // === Exibir Dashboards ===
-    /**
+    /*
      * Exibe os dashboards personalizados para cada tipo de usuário.
      * Utiliza polimorfismo para chamar o método de visualização do dashboard.
      */
+
     private static void exibirDashboards() {
         System.out.println("=== Dashboards dos Usuários (Polimorfismo) ===");
         for (Usuario u : usuarioController.listarUsuarios()) {
@@ -389,10 +393,11 @@ public class Main {
     }
 
     // === CRUD Fornecedores ===
-    /**
+    /*
      * Métodos para gerenciar fornecedores do sistema.
      * Permite cadastrar, listar, atualizar e remover fornecedores.
      */
+
     private static void cadastrarFornecedor() {
         System.out.println("=== Cadastro de Fornecedor ===");
         System.out.print("Nome: ");
@@ -460,10 +465,11 @@ public class Main {
     }
 
     // === CRUD Financeiro ===
-    /**
+    /*
      * Métodos para gerenciar as finanças do sistema.
      * Permite registrar entradas e saídas financeiras, além de gerar relatórios.
      */
+    
     private static void registrarEntrada() {
         System.out.println("=== Registrar Entrada Financeira ===");
         System.out.print("Descrição: ");
@@ -494,15 +500,21 @@ public class Main {
         System.out.println("Saída registrada.");
     }
 
+    /**
+     * Lista as despesas.
+     * 
+     * @see com.quatrocentosquatro.storemanagement.controller.Financeiro.java
+     */
     private static void verDespesas() {
         Despesa d = new Despesa();
         System.out.println("=== Lista de despesas ===");
         d.listarDespesas();
     }
 
-    private static void verRelatorioFinanceiro() {
-        financeiro.gerarRelatorio(); // Gera o relatório financeiro
-    }
+    /**
+     * Gera o relatório da classe financeiro na área de trabalho.
+     */
+    private static void verRelatorioFinanceiro() {financeiro.gerarRelatorio();}
 
     // === Logout ===
     /**

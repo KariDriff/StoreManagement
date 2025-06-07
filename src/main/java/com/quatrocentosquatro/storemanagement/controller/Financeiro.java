@@ -74,8 +74,10 @@ public class Financeiro {
   public void registrarSaidaUser(float valor, boolean isPago, String descricao) {
     Despesa d = new Despesa();
 
+    // Recebe o retorno do método da despesa
     boolean isAddDesp = d.adicionarDespesa(valor, isPago, descricao);
   
+    // Utiliza a variável pra saber se a despesa foi adicionada com sucesso.
     if (isAddDesp == true) {
       String log = "[" + agora() + "] Saída manual registrada no valor de " + formataReal.format(valor) + " com a descrição: " + descricao;
       registrarOperacoes(log);
@@ -104,8 +106,6 @@ public class Financeiro {
     Despesa d = new Despesa();
 
     if (d.buscarPorId(id).getId() == id) {
-
-
       String log = "[" + agora() + "] Despesa de ID " + id + " paga.";
       registrarOperacoes(log);
       JOptionPane.showMessageDialog(null, "Despesa paga com sucesso!", "Despesa", JOptionPane.INFORMATION_MESSAGE);
