@@ -2,6 +2,9 @@ package com.quatrocentosquatro.storemanagement.model;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
@@ -90,6 +93,50 @@ public class Despesa {
       JOptionPane.showMessageDialog(null, "Não foi possível registrar saída:\n" + e.getMessage(), "Erro",JOptionPane.ERROR_MESSAGE);
 
       return false;
+    }
+  }
+
+  public void listarDespesas() {
+    NumberFormat formataReal = new DecimalFormat("R$ ###,##0.00");
+    ArrayList<Despesa> despesas = new ArrayList<Despesa>();
+    String linha = "";
+    String[] partes;
+    
+    try {
+      File arqvDesp = new File("src/main/java/com/quatrocentosquatro/storemanagement/database/despesas.db");
+      if (!arqvDesp.exists()) {
+        return;
+      }
+
+      Scanner analArqvDesp = new Scanner(arqvDesp);
+  
+      while (analArqvDesp.hasNext()) {
+        linha = analArqvDesp.nextLine();
+        partes = linha.split("\\|");
+        if (!linha.isEmpty()) {despesas.add(new Despesa(Integer.parseInt(partes[0]), Float.parseFloat(partes[1]), Boolean.parseBoolean(partes[2]), partes[3]));}
+      }
+
+      analArqvDesp.close();
+
+      if (linha.isEmpty()) {
+        return;
+      }
+    } catch (Exception e) {
+      JOptionPane.showMessageDialog(null, "Não foi possível listar despesas:\n" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+    }
+
+    if (despesas.isEmpty()) {
+      System.out.println("Não há despesas");
+      return;
+    } else {
+      for (int i = 0; i < despesas.size(); i++) {
+        System.out.println("ID: " + despesas.get(i).getId());
+        System.out.println("Valor: " + formataReal.format(despesas.get(i).getValor()));
+        System.out.println("Despesa está paga? " + despesas.get(i).getIsPago());
+        System.out.println("Descrição:");
+        System.out.println(despesas.get(i).getDescricao());
+        System.out.println("-----------------------------------------");
+      }
     }
   }
 

@@ -14,6 +14,7 @@ import com.quatrocentosquatro.storemanagement.controller.GerenciarUsuarios;
 import com.quatrocentosquatro.storemanagement.controller.ProcessamentoDeVendas;
 import com.quatrocentosquatro.storemanagement.controller.Financeiro;
 import com.quatrocentosquatro.storemanagement.model.Administrador;
+import com.quatrocentosquatro.storemanagement.model.Despesa;
 import com.quatrocentosquatro.storemanagement.model.Fornecedor;
 import com.quatrocentosquatro.storemanagement.model.Produto;
 import com.quatrocentosquatro.storemanagement.model.Usuario;
@@ -106,11 +107,11 @@ public class Main {
         System.out.println("13 - Remover fornecedor");
         System.out.println("14 - Registrar entrada financeira");
         System.out.println("15 - Registrar saída financeira");
-        System.out.println("15 - Ver despesas pendentes");
-        System.out.println("16 - Ver relatório financeiro");
-        System.out.println("17 - Comprar produtos com baixo estoque");
-        System.out.println("18 - Registrar nova venda");
-        System.out.println("19 - Listar vendas realizadas");
+        System.out.println("16 - Ver despesas pendentes");
+        System.out.println("17 - Ver relatório financeiro");
+        System.out.println("18 - Comprar produtos com baixo estoque");
+        System.out.println("19 - Registrar nova venda");
+        System.out.println("20 - Listar vendas realizadas");
         System.out.println("0 - Logout");
     }
 
@@ -485,7 +486,7 @@ public class Main {
         System.out.println("Esta saída já foi paga? (S/N)");
         char resp = scanner.next().charAt(0);
 
-        boolean isPaga;
+        boolean isPaga = false;
         if (resp == 'S' || resp == 's') {isPaga = true;}
         else if (resp == 'N' || resp == 'n') {isPaga = false;}
 
@@ -494,7 +495,9 @@ public class Main {
     }
 
     private static void verDespesas() {
-        
+        Despesa d = new Despesa();
+        System.out.println("=== Lista de despesas ===");
+        d.listarDespesas();
     }
 
     private static void verRelatorioFinanceiro() {
