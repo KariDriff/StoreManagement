@@ -1,11 +1,18 @@
 package com.quatrocentosquatro.storemanagement.views;
 
-import com.quatrocentosquatro.storemanagement.controller.LoginController;
-
-import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
+import com.quatrocentosquatro.storemanagement.controller.LoginController;
+import com.quatrocentosquatro.storemanagement.views.TelaHome;
 
 public class TelaLogin extends JFrame {
     private JTextField campoUsuario;
@@ -50,12 +57,14 @@ public class TelaLogin extends JFrame {
 
         // Ação do botão
         buttonLogin.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 String usuario = campoUsuario.getText();
                 String senha = new String(campoSenha.getPassword());
 
                 if (loginController.autenticar(usuario, senha)) {
-                    JOptionPane.showMessageDialog(null, "Login bem sucedido!");
+                     System.out.print("Login feito com sucesso");
+                     new TelaHome().setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos.");
                 }
@@ -63,7 +72,7 @@ public class TelaLogin extends JFrame {
         });
     }
 
-    // esse metado tem que ficar aqui
+    // esse metado tem que ficar aqui para os teste e para iniciar
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new TelaLogin().setVisible(true);

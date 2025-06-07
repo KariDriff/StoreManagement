@@ -1,0 +1,90 @@
+package com.quatrocentosquatro.storemanagement.views;
+
+//importação dos arquivos:
+
+
+// importação da bibliotecas
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+public class TelaHome extends JFrame {
+    private JButton buttonEstoque;
+    private JButton buttonFuncionarios;
+    private JButton buttonFinanceiro;
+    private JButton buttonFornecedores;
+    private JButton buttonPVD;
+
+
+    public TelaHome() {
+        // Configuração da tela
+        setTitle("Tela Home");
+        setSize(800, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setLayout(null);
+
+        // Botão Estoque
+        buttonEstoque = new JButton("Estoque");
+        buttonEstoque.setBounds(50, 50, 150, 30);
+        add(buttonEstoque);
+
+        // Botão Funcionários
+        buttonFuncionarios = new JButton("Funcionários");
+        buttonFuncionarios.setBounds(230, 50, 150, 30);
+        add(buttonFuncionarios);
+
+        // Botão Financeiro
+        buttonFinanceiro = new JButton("Financeiro");
+        buttonFinanceiro.setBounds(50, 100, 150, 30);
+        add(buttonFinanceiro);
+
+          // Botão Financeiro
+        buttonFornecedores = new JButton("Financeiro");
+        buttonFornecedores.setBounds(230, 100, 150, 30);
+        add(buttonFornecedores);
+
+        buttonPVD = new JButton("PVD");
+        buttonPVD.setBounds(410, 50, 150, 30);
+        add(buttonPVD);
+
+        // Ações dos botões
+        buttonEstoque.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Abrir tela de Estoque");
+            // importação aqui exemplo abaixo
+            // Ex: new TelaEstoque().setVisible(true);
+            }
+        });
+
+        buttonFuncionarios.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Abrir tela de Funcionários");
+            
+            }
+        });
+
+        buttonFornecedores.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Abrir tela de Fornecedores");
+        
+            }
+        });
+
+            buttonPVD.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Abrir tela de PVD");
+        
+            }
+        });
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            new TelaHome().setVisible(true);
+        });
+    }
+}
