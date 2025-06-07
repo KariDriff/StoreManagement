@@ -49,6 +49,8 @@ public class GerenciarUsuarios {
     }
     }
 
+    // Método para carregar a lista de usuários de um arquivo.
+    // Utiliza deserialização para recuperar os objetos de usuários.
     @SuppressWarnings("unchecked")
     private List<Usuario> carregarUsuarios() {
     File file = new File(ARQUIVO);
