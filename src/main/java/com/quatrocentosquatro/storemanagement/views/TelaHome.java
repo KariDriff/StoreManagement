@@ -6,7 +6,6 @@ package com.quatrocentosquatro.storemanagement.views;
 // importação da bibliotecas
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -55,9 +54,9 @@ public class TelaHome extends JFrame {
         buttonEstoque.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Abrir tela de Estoque");
-            // importação aqui exemplo abaixo
-            // Ex: new TelaEstoque().setVisible(true);
+             new TelaEstoque().setVisible(true);
+               // essa função vai fechar a pagina automaticamente
+               dispose(); 
             }
         });
 
@@ -66,7 +65,6 @@ public class TelaHome extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Abrir tela de Funcionários");
                 new TelaUsuario().setVisible(true);
-                 // essa função vai fechar a pagina automaticamente
                  dispose();
             }
         });
