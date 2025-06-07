@@ -43,7 +43,7 @@ public class TelaHome extends JFrame {
         add(buttonFinanceiro);
 
           // Botão Financeiro
-        buttonFornecedores = new JButton("Financeiro");
+        buttonFornecedores = new JButton("Fornecedores");
         buttonFornecedores.setBounds(230, 100, 150, 30);
         add(buttonFornecedores);
 
@@ -53,6 +53,7 @@ public class TelaHome extends JFrame {
 
         // Ações dos botões
         buttonEstoque.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Abrir tela de Estoque");
             // importação aqui exemplo abaixo
@@ -61,20 +62,24 @@ public class TelaHome extends JFrame {
         });
 
         buttonFuncionarios.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Abrir tela de Funcionários");
-            
             }
         });
 
         buttonFornecedores.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Abrir tela de Fornecedores");
-        
+                new TelaFornecedor().setVisible(true);
+                // essa função vai fechar a pagina automaticamente
+              dispose();
             }
         });
 
             buttonPVD.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Abrir tela de PVD");
         
