@@ -7,12 +7,27 @@ import java.util.stream.Collectors;
 
 public class Estoque {
 
+    /**
+     * Verifica a quantidade de produtos em estoque e retorna uma lista
+     * dos produtos que estão abaixo do limite especificado.
+     *
+     * @param produtos Lista de produtos a serem verificados.
+     * @param limite   Limite de quantidade abaixo do qual os produtos são considerados.
+     * @return Lista de produtos com quantidade abaixo do limite.
+     */
     public List<Produto> verificarQtdProdutos(List<Produto> produtos, int limite) {
         return produtos.stream()
                 .filter(p -> p.getQuantidade() <= limite)
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Gera um relatório de estoque formatado em string,
+     * contendo informações detalhadas sobre cada produto.
+     *
+     * @param produtos Lista de produtos para gerar o relatório.
+     * @return String contendo o relatório de estoque formatado.
+     */
     public String gerarRelatorioEstoque(List<Produto> produtos) {
         StringBuilder sb = new StringBuilder();
         sb.append("=== RELATÓRIO DE ESTOQUE ===\n");
