@@ -20,7 +20,7 @@ public class TelaUsuario extends JFrame{
      public TelaUsuario(){
         // Configuração da tela
         setTitle("Tela Fornecedores");
-        setSize(800, 400);
+        setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);

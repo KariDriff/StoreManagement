@@ -3,6 +3,7 @@ package com.quatrocentosquatro.storemanagement.views;
 // importação da bibliotecas
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -17,7 +18,7 @@ public class TelaEstoque extends JFrame{
     public TelaEstoque(){
       // Configuração da tela
         setTitle("Tela Estoque");
-        setSize(800, 400);
+        setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);

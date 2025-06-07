@@ -6,6 +6,7 @@ package com.quatrocentosquatro.storemanagement.views;
 // importação da bibliotecas
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -21,7 +22,7 @@ public class TelaHome extends JFrame {
     public TelaHome() {
         // Configuração da tela
         setTitle("Tela Home");
-        setSize(800, 400);
+        setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
@@ -82,11 +83,18 @@ public class TelaHome extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Abrir tela de PVD");
-        
+            }
+        });
+
+            buttonFinanceiro.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Abrir tela de Financeiros");
+                new TelaFinanceiro().setVisible(true);
+                dispose();
             }
         });
     }
-
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new TelaHome().setVisible(true);

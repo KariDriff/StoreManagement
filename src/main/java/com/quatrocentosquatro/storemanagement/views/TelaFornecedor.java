@@ -18,7 +18,7 @@ public class TelaFornecedor extends JFrame{
      public TelaFornecedor(){
          // Configuração da tela
         setTitle("Tela Fornecedores");
-        setSize(800, 400);
+        setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
