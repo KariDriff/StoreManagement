@@ -29,7 +29,7 @@ public class TelaAtualizarFor extends JFrame {
 
         // Campo ID
         campoId = new JTextField("Id");
-        campoId.setBounds(30, 30, 100, 30);
+        campoId.setBounds(30, 30, 160, 30);
         campoId.addMouseListener(getPlaceholderClearListener(campoId, "Id"));
         add(campoId);
 

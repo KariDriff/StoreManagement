@@ -59,7 +59,7 @@ public class TelaFornecedor extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de adicionar fornecedor");
-            new TelaAdicionarFornecedor().setVisible(true);
+              new TelaAdicionarFornecedor().setVisible(true);
               // essa função vai fechar a pagina automaticamente
               dispose();
             }
@@ -95,7 +95,8 @@ public class TelaFornecedor extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de atualizar fornecedor");
-            // importação aqui exemplo abaixo
+             new TelaAtualizarFor().setVisible(true);
+              dispose();
             }
         });
 
