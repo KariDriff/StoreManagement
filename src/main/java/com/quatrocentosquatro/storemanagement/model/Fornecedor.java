@@ -27,7 +27,7 @@ public class Fornecedor implements Serializable { // Implementa Serializable par
      * @param email    (String) - Email do fornecedor.
      * @param cnpj     (String) - CNPJ do fornecedor.
      */
-    public Fornecedor(int id, String nome, String telefone, String email, String cnpj) {
+    public Fornecedor() {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;

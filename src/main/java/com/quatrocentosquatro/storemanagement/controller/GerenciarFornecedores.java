@@ -84,7 +84,7 @@ public class GerenciarFornecedores {
      * @param cnpj     (String) - CNPJ do fornecedor.
      */
     public void adicionarFornecedor(String nome, String telefone, String email, String cnpj) {
-        fornecedores.add(new Fornecedor(nextId++, nome, telefone, email, cnpj));
+        fornecedores.add(new Fornecedor());
 
         String log = "[" + agora() + "] Fornecedor de ID " + nextId + " (" + nome + ") foi adicionado.";
         registrarOperacoes(log);
