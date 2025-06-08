@@ -11,6 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import com.quatrocentosquatro.storemanagement.controller.Financeiro;
+import com.quatrocentosquatro.storemanagement.controller.GerenciarEstoque;
+
 public class TelaHome extends JFrame {
     private JButton buttonEstoque;
     private JButton buttonFuncionarios;
@@ -79,12 +82,18 @@ public class TelaHome extends JFrame {
             }
         });
 
-            buttonPVD.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Abrir tela de PVD");
-            }
+        buttonPVD.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+          System.out.println("Abrir tela de PVD");
+          GerenciarEstoque estoqueController = new GerenciarEstoque();
+          Financeiro financeiroController = new Financeiro();
+
+          new TelaPDV(estoqueController, financeiroController).setVisible(true);
+          dispose();
+          }
         });
+
 
             buttonFinanceiro.addActionListener(new ActionListener() {
             @Override

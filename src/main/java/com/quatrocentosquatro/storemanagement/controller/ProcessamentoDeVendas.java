@@ -79,10 +79,12 @@ public class ProcessamentoDeVendas {
      * 
      * @return A data e hora atual no formato dd/MM, hh:mm:ss
      */
-    private String agora() {return LocalDateTime.now().format(formataHora);}
+    private String agora() {
+        return LocalDateTime.now().format(formataHora);
+    }
 
     /**
-     * <p> Método para realizar uma venda.
+     * <p> Método para realizar uma venda via console.
      * <p> Solicita ao usuário os detalhes da venda, como produtos, quantidades e descontos.
      * <p> Atualiza o estoque e registra a entrada financeira.
      *
@@ -152,6 +154,20 @@ public class ProcessamentoDeVendas {
     }
 
     /**
+     * <p> Método para finalizar a venda via interface gráfica.
+     * <p> Atualiza lista de vendas, registra entrada financeira e salva vendas.
+     * 
+     * @param venda Venda já montada com itens e total
+     * @param formaPagamento String que representa a forma de pagamento (ex: "Dinheiro", "PIX", etc.)
+     */
+    public void finalizarVendaGUI(Venda venda, String formaPagamento) {
+        vendas.add(venda);
+        financeiro.registrarEntrada(venda.getTotal(), "Pagamento via " + formaPagamento);
+        registrarOperacoes("[" + agora() + "] Venda realizada no valor de " + venda.getTotal() + " via " + formaPagamento);
+        salvarVendas();
+    }
+
+    /**
      * <p> Método para listar todas as vendas registradas.
      * <p> Exibe o histórico de vendas com detalhes dos itens vendidos.
      */
@@ -180,5 +196,9 @@ public class ProcessamentoDeVendas {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Não foi possível registrar ação no Gerenciar Usuários:\n" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public Object getGerenciarEstoque() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
