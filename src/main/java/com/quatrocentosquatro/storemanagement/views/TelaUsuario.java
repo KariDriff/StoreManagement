@@ -83,7 +83,7 @@ public class TelaUsuario extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de busca rapida");
-            // importação aqui exemplo abaixo
+             new TelaBuscaRapidaUser().setVisible(true);
             }
         });
 
@@ -91,7 +91,7 @@ public class TelaUsuario extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de atualizar dados");
-            // importação aqui exemplo abaixo
+             new TelaAtualizarUser().setVisible(true);
             }
         });
 
@@ -106,7 +106,7 @@ public class TelaUsuario extends JFrame{
         buttonVoltarTelaHome.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            System.out.println("Abrir tela de Remover Usuario");
+            System.out.println("Abrir tela de Home");
             new TelaHome().setVisible(true);
             dispose();
             }
