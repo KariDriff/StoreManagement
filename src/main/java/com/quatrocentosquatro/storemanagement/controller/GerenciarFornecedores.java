@@ -73,7 +73,9 @@ public class GerenciarFornecedores {
      * 
      * @return A data e hora atual no formato dd/MM/yyyy, hh:mm:ss
      */
-    private String agora() {return LocalDateTime.now().format(formataHora);}
+    private String agora() {
+        return LocalDateTime.now().format(formataHora);
+    }
 
     /**
      * Adiciona um novo fornecedor à lista.
@@ -84,9 +86,17 @@ public class GerenciarFornecedores {
      * @param cnpj     (String) - CNPJ do fornecedor.
      */
     public void adicionarFornecedor(String nome, String telefone, String email, String cnpj) {
-        fornecedores.add(new Fornecedor());
+        Fornecedor novoFornecedor = new Fornecedor();
+        novoFornecedor.setId(nextId);
+        novoFornecedor.setNome(nome);
+        novoFornecedor.setTelefone(telefone);
+        novoFornecedor.setEmail(email);
+        novoFornecedor.setCnpj(cnpj);
 
-        String log = "[" + agora() + "] Fornecedor de ID " + nextId + " (" + nome + ") foi adicionado.";
+        fornecedores.add(novoFornecedor);
+        nextId++;  // Incrementa para o próximo fornecedor
+
+        String log = "[" + agora() + "] Fornecedor de ID " + novoFornecedor.getId() + " (" + nome + ") foi adicionado.";
         registrarOperacoes(log);
         salvarFornecedores();
     }
@@ -96,7 +106,9 @@ public class GerenciarFornecedores {
      *
      * @return Lista de fornecedores.
      */
-    public List<Fornecedor> listarFornecedores() {return fornecedores;}
+    public List<Fornecedor> listarFornecedores() {
+        return fornecedores;
+    }
 
     /**
      * Busca um fornecedor pelo ID.

@@ -77,7 +77,8 @@ public class TelaFornecedor extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de busca");
-            // importação aqui exemplo abaixo
+              new TelaBuscarRapidaFor().setVisible(true);
+              dispose();
             }
         });
           
@@ -85,7 +86,8 @@ public class TelaFornecedor extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de remover fornecedor");
-            // importação aqui exemplo abaixo
+              new TelaRemoverFor().setVisible(true);
+              dispose();
             }
         });
 
@@ -102,7 +104,6 @@ public class TelaFornecedor extends JFrame{
           public void actionPerformed(ActionEvent e) {
              System.out.println("voltar para home");
               new TelaHome().setVisible(true);
-              // essa função vai fechar a pagina automaticamente
               dispose();
             }
         });
