@@ -3,6 +3,8 @@ package com.quatrocentosquatro.storemanagement.model;
 /**
  * Classe que representa um funcionário no sistema.
  * Herda da classe Usuario e implementa funcionalidades específicas para funcionários.
+ * 
+ * @author João M. Chervinski
  */
 public class Funcionario extends Usuario {
     private static final long serialVersionUID = 1L; // Versão de serialização para compatibilidade
@@ -12,11 +14,12 @@ public class Funcionario extends Usuario {
 
     /**
      * Construtor para criar um novo funcionário.
-     * @param id ID do funcionário.
-     * @param nome Nome do funcionário.
-     * @param login Login do funcionário.
-     * @param senha Senha do funcionário.
-     * @param cargo Cargo do funcionário.
+     * 
+     * @param id    (int)    - ID do funcionário.
+     * @param nome  (String) - Nome do funcionário.
+     * @param login (String) - Login do funcionário.
+     * @param senha (String) - Senha do funcionário.
+     * @param cargo (String) - Cargo do funcionário.
      */
     public Funcionario(int id, String nome, String login, String senha, String cargo) {
         super(id, nome, login, senha); // Chama o construtor da classe pai (Usuario).
@@ -25,8 +28,8 @@ public class Funcionario extends Usuario {
     }
 
     /**
-     * Implementação do método para visualizar o dashboard do funcionário.
-     * Exibe informações como nome, cargo e ações disponíveis.
+     * <p> Implementação do método para visualizar o dashboard do funcionário.
+     * <p> Exibe informações como nome, cargo e ações disponíveis.
      */
     @Override
     public void visualizarDashboard() {
@@ -41,27 +44,11 @@ public class Funcionario extends Usuario {
         System.out.println("==============================\n");
     }
 
-    /**
-     * Retorna se o funcionário é um administrador.
-     * @return true se for administrador, false caso contrário.
-     */
-    public boolean isAdmin() { return isAdmin; }
+    /* Getters e Setters */
 
-    /**
-     * Define se o funcionário é um administrador.
-     * @param admin Valor booleano para definir se é administrador.
-     */
+    public boolean isAdmin() { return isAdmin; }
     public void setAdmin(boolean admin) { isAdmin = admin; }
 
-    /**
-     * Retorna o cargo do funcionário.
-     * @return O cargo do funcionário.
-     */
     public String getCargo() { return cargo; }
-
-    /**
-     * Define o cargo do funcionário.
-     * @param cargo O cargo a ser definido.
-     */
     public void setCargo(String cargo) { this.cargo = cargo; }
 }

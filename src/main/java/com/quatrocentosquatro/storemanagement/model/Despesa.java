@@ -34,12 +34,16 @@ public class Despesa {
     this.descricao = descricao;
   }
 
+  /**
+   * Construtor vazio da classe Despesa.
+   */
   public Despesa() {}
 
   /**
    * Busca e retorna uma despesa o ID fornecido.
    * 
    * @param id (int) - O ID da despesa que quer buscar.
+   * 
    * @return Um objeto Despesa com o ID correspondente.
    */
   public Despesa buscarPorId(int id) {
@@ -75,6 +79,7 @@ public class Despesa {
    * @param valor     (float)   - O valor da despesa.
    * @param isPago    (boolean) - Se a despesa está paga.
    * @param descricao (String)  - A descrição da despesa.
+   * 
    * @return {@code true} se o registro foi um sucesso e {@code false} se resultou em erro.
    */
   public boolean adicionarDespesa(float valor, boolean isPago, String descricao) {

@@ -1,10 +1,10 @@
 package com.quatrocentosquatro.storemanagement.controller;
 
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
 import javax.swing.JOptionPane;
 
 import com.quatrocentosquatro.storemanagement.model.Fornecedor;
@@ -28,11 +28,11 @@ public class GerenciarFornecedores {
      * <p> Inicializa a lista de fornecedores e carrega os dados do arquivo.
      */
     public GerenciarFornecedores() {
-    fornecedores = carregarFornecedores();
-    nextId = fornecedores.stream()
-                         .mapToInt(Fornecedor::getId)
-                         .max()
-                         .orElse(0) + 1;
+        fornecedores = carregarFornecedores();
+        nextId = fornecedores.stream()
+                             .mapToInt(Fornecedor::getId)
+                             .max()
+                             .orElse(0) + 1;
     }
 
     /**
@@ -50,8 +50,10 @@ public class GerenciarFornecedores {
     }
 
     /** 
-     * <p>Método para carregar a lista de fornecedores de um arquivo.
+     * <p> Método para carregar a lista de fornecedores de um arquivo.
      * <p> Utiliza deserialização para recuperar os objetos de fornecedores.
+     * 
+     * @return A lista de fornecedores.
      */
     @SuppressWarnings("unchecked")
     private List<Fornecedor> carregarFornecedores() {
@@ -69,17 +71,17 @@ public class GerenciarFornecedores {
     /**
      * Usado para puxar a data e horário atual do sistema.
      * 
-     * @return A data e hora atual no formato dd/MM, hh:mm:ss
+     * @return A data e hora atual no formato dd/MM/yyyy, hh:mm:ss
      */
     private String agora() {return LocalDateTime.now().format(formataHora);}
 
     /**
      * Adiciona um novo fornecedor à lista.
      *
-     * @param nome Nome do fornecedor.
-     * @param telefone Telefone do fornecedor.
-     * @param email Email do fornecedor.
-     * @param cnpj CNPJ do fornecedor.
+     * @param nome     (String) - Nome do fornecedor.
+     * @param telefone (String) - Telefone do fornecedor.
+     * @param email    (String) - Email do fornecedor.
+     * @param cnpj     (String) - CNPJ do fornecedor.
      */
     public void adicionarFornecedor(String nome, String telefone, String email, String cnpj) {
         fornecedores.add(new Fornecedor(nextId++, nome, telefone, email, cnpj));
@@ -99,21 +101,25 @@ public class GerenciarFornecedores {
     /**
      * Busca um fornecedor pelo ID.
      *
-     * @param id ID do fornecedor.
+     * @param id (int) - ID do fornecedor.
+     * 
      * @return Fornecedor correspondente ao ID ou null se não encontrado.
      */
     public Fornecedor buscarPorId(int id) {
-        return fornecedores.stream().filter(f -> f.getId() == id).findFirst().orElse(null);
+        return fornecedores.stream()
+                           .filter(f -> f.getId() == id)
+                           .findFirst()
+                           .orElse(null);
     }
 
     /**
      * Atualiza as informações de um fornecedor existente.
      *
-     * @param id ID do fornecedor a ser atualizado.
-     * @param novoNome Novo nome do fornecedor.
-     * @param novoTelefone Novo telefone do fornecedor.
-     * @param novoEmail Novo email do fornecedor.
-     * @param novoCnpj Novo CNPJ do fornecedor.
+     * @param id           (int)    - ID do fornecedor a ser atualizado.
+     * @param novoNome     (String) - Novo nome do fornecedor.
+     * @param novoTelefone (String) - Novo telefone do fornecedor.
+     * @param novoEmail    (String) - Novo email do fornecedor.
+     * @param novoCnpj     (String) - Novo CNPJ do fornecedor.
      */
     public void atualizarFornecedor(int id, String novoNome, String novoTelefone, String novoEmail, String novoCnpj) {
         Fornecedor f = buscarPorId(id);
@@ -143,7 +149,7 @@ public class GerenciarFornecedores {
     }
 
     /**
-     * Registra as operações feitas na classe em seu log
+     * Registra as operações feitas na classe em seu log.
      * 
      * @param acao (String) - A operação feita.
      */

@@ -1,18 +1,23 @@
 package com.quatrocentosquatro.storemanagement.service;
 
-import com.quatrocentosquatro.storemanagement.model.Produto;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Estoque {
+import com.quatrocentosquatro.storemanagement.model.Produto;
 
+/**
+ * Classe para verificar produtos e gerar relatórios.
+ * 
+ * @author João M. Chervinski
+ */
+public class Estoque {
     /**
      * Verifica a quantidade de produtos em estoque e retorna uma lista
      * dos produtos que estão abaixo do limite especificado.
      *
-     * @param produtos Lista de produtos a serem verificados.
-     * @param limite   Limite de quantidade abaixo do qual os produtos são considerados.
+     * @param produtos (List<Produtos>) - Lista de produtos a serem verificados.
+     * @param limite   (int)            - Limite de quantidade abaixo do qual os produtos são considerados.
+     * 
      * @return Lista de produtos com quantidade abaixo do limite.
      */
     public List<Produto> verificarQtdProdutos(List<Produto> produtos, int limite) {
@@ -25,7 +30,8 @@ public class Estoque {
      * Gera um relatório de estoque formatado em string,
      * contendo informações detalhadas sobre cada produto.
      *
-     * @param produtos Lista de produtos para gerar o relatório.
+     * @param produtos (List<Produto>) - Lista de produtos para gerar o relatório.
+     * 
      * @return String contendo o relatório de estoque formatado.
      */
     public String gerarRelatorioEstoque(List<Produto> produtos) {

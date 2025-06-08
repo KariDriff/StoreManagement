@@ -2,6 +2,8 @@ package com.quatrocentosquatro.storemanagement.model;
 
 /**
  * Classe que representa um Administrador, que herda de Funcionario.
+ * 
+ * @author João M. Chervinski
  */
 public class Administrador extends Funcionario { // O compilador avisa que o implemento é redundante, porém eu fiz testes e só funcionou com ele... c'est la vie
 
@@ -21,8 +23,8 @@ public class Administrador extends Funcionario { // O compilador avisa que o imp
     }
 
     /**
-     * Método para visualizar o painel do administrador.
-     * Exibe informações e ações disponíveis para o administrador.
+     * <p> Método para visualizar o painel do administrador.
+     * <p> Exibe informações e ações disponíveis para o administrador.
      */
     @Override
     public void visualizarDashboard() {

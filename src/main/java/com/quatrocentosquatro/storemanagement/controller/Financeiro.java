@@ -22,12 +22,12 @@ public class Financeiro {
 
   private final NumberFormat formataReal = new DecimalFormat("R$ ###,##0.00");
   private final DateTimeFormatter formataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-  private final String caminhoLog = "src/main/java/com/quatrocentosquatro/storemanagement/logs/financeiro.log"; // Local real para salvar o log
+  private final String caminhoLog = "src/main/java/com/quatrocentosquatro/storemanagement/logs/financeiro.log";
 
   /**
    * Usado para puxar a data e horário atual do sistema.
    * 
-   * @return A data e hora atual no formato dd/MM, hh:mm:ss
+   * @return A data e hora atual no formato dd/MM/yyyy, hh:mm:ss
    */
   private String agora() {return LocalDateTime.now().format(formataHora);}
 

@@ -1,10 +1,15 @@
 package com.quatrocentosquatro.storemanagement.model;
+
+import java.io.Serializable; // Importando Serializable para permitir a serialização da classe
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.Serializable; // Importando Serializable para permitir a serialização da classe
 
-// Essa classe representa uma venda no sistema de gerenciamento de loja.
+/**
+ * Essa classe representa uma venda no sistema de gerenciamento de loja.
+ * 
+ * @author João M. Chervinski
+ */
 
 public class Venda implements Serializable { // Implementa Serializable para permitir a serialização de objetos desta classe
     private static final long serialVersionUID = 1L; // Versão de serialização para compatibilidade
@@ -16,7 +21,8 @@ public class Venda implements Serializable { // Implementa Serializable para per
 
     /**
      * Construtor da classe Venda.
-     * @param id O identificador único da venda.
+     * 
+     * @param id (int) - O ID da venda.
      */
     public Venda(int id) {
         this.id = id;
@@ -27,34 +33,21 @@ public class Venda implements Serializable { // Implementa Serializable para per
 
     /**
      * Adiciona um item à venda e atualiza o total.
-     * @param item O item a ser adicionado na venda.
+     * 
+     * @param item (ItemVenda) - O item a ser adicionado na venda.
      */
     public void adicionarItem(ItemVenda item) {
         itens.add(item); // Adiciona o item à lista de itens
         total += item.getSubtotal(); // Atualiza o total da venda somando o subtotal do item
     }
 
-    /**
-     * Retorna o identificador único da venda.
-     * @return O identificador único da venda.
-     */
+    /* Getters */
+
     public int getId() { return id; }
 
-    /**
-     * Retorna a data e hora da realização da venda.
-     * @return A data e hora da realização da venda.
-     */
     public LocalDateTime getDataHora() { return dataHora; }
 
-    /**
-     * Retorna a lista de itens vendidos na venda.
-     * @return A lista de itens vendidos na venda.
-     */
     public List<ItemVenda> getItens() { return itens; }
 
-    /**
-     * Retorna o valor total da venda.
-     * @return O valor total da venda.
-     */
     public float getTotal() { return total; }
 }

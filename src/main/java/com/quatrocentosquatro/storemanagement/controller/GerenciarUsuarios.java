@@ -1,10 +1,10 @@
 package com.quatrocentosquatro.storemanagement.controller;
 
+import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.*;
 import javax.swing.JOptionPane;
 
 import com.quatrocentosquatro.storemanagement.model.Administrador;
@@ -55,6 +55,8 @@ public class GerenciarUsuarios {
     /**
      * <p> Método para carregar a lista de usuários de um arquivo.
      * <p> Utiliza deserialização para recuperar os objetos de usuários.
+     * 
+     * @return A lista de usuários.
      */
     @SuppressWarnings("unchecked")
     private List<Usuario> carregarUsuarios() {
@@ -77,7 +79,7 @@ public class GerenciarUsuarios {
     /**
      * Usado para puxar a data e horário atual do sistema.
      * 
-     * @return A data e hora atual no formato dd/MM, hh:mm:ss
+     * @return A data e hora atual no formato dd/MM/yyyy, hh:mm:ss
      */
     private String agora() {return LocalDateTime.now().format(formataHora);}
 
@@ -123,6 +125,7 @@ public class GerenciarUsuarios {
      * Busca um usuário pelo ID.
      *
      * @param id (int) - ID do usuário.
+     * 
      * @return Usuário correspondente ao ID ou null se não encontrado.
      */
     public Usuario buscarPorId(int id) {return usuarios.stream().filter(u -> u.getId() == id).findFirst().orElse(null);}
@@ -166,6 +169,7 @@ public class GerenciarUsuarios {
      * 
      * @param login (Strin) - O login do usuário.
      * @param senha (String) - A senha do usuário.
+     * 
      * @return O usuário autenticado se encontrado, ou null se não houver correspondência.
      */
     public Usuario autenticar(String login, String senha) {

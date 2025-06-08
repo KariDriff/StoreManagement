@@ -1,4 +1,5 @@
 package com.quatrocentosquatro.storemanagement.model;
+
 import java.io.Serializable; // Importando Serializable para permitir a serialização da classe
 
 /** 
@@ -15,8 +16,19 @@ public abstract class Usuario implements Serializable { // Implementa Serializab
     protected String login;
     protected String senha;
 
+    /**
+     * Construtor vazio da classe Usuario
+     */
     public Usuario() {}
 
+    /**
+     * Construtor da classe Usuario
+     * 
+     * @param id    (int)    - O ID do usuário.
+     * @param nome  (String) - O nome do usuário.
+     * @param login (String) - O login do usuário.
+     * @param senha (String) - A senha do usuário.
+     */
     public Usuario(int id, String nome, String login, String senha) {
         this.id = id;
         this.nome = nome;
