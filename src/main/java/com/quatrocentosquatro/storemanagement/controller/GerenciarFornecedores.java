@@ -1,23 +1,31 @@
 package com.quatrocentosquatro.storemanagement.controller;
 
-// Importações necessárias
-import com.quatrocentosquatro.storemanagement.model.Fornecedor;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
+import javax.swing.JOptionPane;
+
+import com.quatrocentosquatro.storemanagement.model.Fornecedor;
 
 /**
  * Controller para gerenciar fornecedores.
  * Permite adicionar, listar, buscar, atualizar e remover fornecedores.
+ * 
+ * @author João M. Chervinski
+ * @author Kaio A. Souza
  */
 public class GerenciarFornecedores {
     private List<Fornecedor> fornecedores; // Lista que armazena os fornecedores
     private final String ARQUIVO = "fornecedores.db"; // Caminho do arquivo onde os fornecedores serão salvos
     private int nextId = 1; // Próximo ID a ser atribuído aos fornecedores
+    private final String caminhoLog = "src/main/java/com/quatrocentosquatro/storemanagement/logs/Fornecedores.log";
+    private final DateTimeFormatter formataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     /**
-     * Construtor da classe GerenciarFornecedores.
-     * Inicializa a lista de fornecedores e carrega os dados do arquivo.
+     * <p> Construtor da classe GerenciarFornecedores.
+     * <p> Inicializa a lista de fornecedores e carrega os dados do arquivo.
      */
     public GerenciarFornecedores() {
     fornecedores = carregarFornecedores();
@@ -28,31 +36,42 @@ public class GerenciarFornecedores {
     }
 
     /**
-     * Método para salvar a lista de fornecedores em um arquivo.
-     * Utiliza serialização para armazenar os objetos de fornecedores.
+     * <p> Método para salvar a lista de fornecedores em um arquivo.
+     * <p> Utiliza serialização para armazenar os objetos de fornecedores.
      */
     private void salvarFornecedores() {
-    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARQUIVO))) {
-        out.writeObject(fornecedores);
-    } catch (IOException e) {
-        System.out.println("Erro ao salvar fornecedores: " + e.getMessage());
-    }
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARQUIVO))) {
+            out.writeObject(fornecedores);
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar fornecedores: " + e.getMessage());
+        }
+        String log = "[" + agora() + "] A lista de fornecedores foi salva.";
+        registrarOperacoes(log);
     }
 
-    // Método para carregar a lista de fornecedores de um arquivo.
-    // Utiliza deserialização para recuperar os objetos de fornecedores.
+    /** 
+     * <p>Método para carregar a lista de fornecedores de um arquivo.
+     * <p> Utiliza deserialização para recuperar os objetos de fornecedores.
+     */
     @SuppressWarnings("unchecked")
     private List<Fornecedor> carregarFornecedores() {
-    File file = new File(ARQUIVO);
-    if (!file.exists()) return new ArrayList<>();
-    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
-        return (List<Fornecedor>) in.readObject();
-    } catch (IOException | ClassNotFoundException e) {
-        System.out.println("Erro ao carregar fornecedores: " + e.getMessage());
-        return new ArrayList<>();
-    }
+        File file = new File(ARQUIVO);
+        if (!file.exists())
+            return new ArrayList<>();
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+            return (List<Fornecedor>) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Erro ao carregar fornecedores: " + e.getMessage());
+            return new ArrayList<>();
+        }
     }
 
+    /**
+     * Usado para puxar a data e horário atual do sistema.
+     * 
+     * @return A data e hora atual no formato dd/MM, hh:mm:ss
+     */
+    private String agora() {return LocalDateTime.now().format(formataHora);}
 
     /**
      * Adiciona um novo fornecedor à lista.
@@ -64,6 +83,9 @@ public class GerenciarFornecedores {
      */
     public void adicionarFornecedor(String nome, String telefone, String email, String cnpj) {
         fornecedores.add(new Fornecedor(nextId++, nome, telefone, email, cnpj));
+
+        String log = "[" + agora() + "] Fornecedor de ID " + nextId + " (" + nome + ") foi adicionado.";
+        registrarOperacoes(log);
         salvarFornecedores();
     }
 
@@ -72,9 +94,7 @@ public class GerenciarFornecedores {
      *
      * @return Lista de fornecedores.
      */
-    public List<Fornecedor> listarFornecedores() {
-        return fornecedores;
-    }
+    public List<Fornecedor> listarFornecedores() {return fornecedores;}
 
     /**
      * Busca um fornecedor pelo ID.
@@ -104,6 +124,9 @@ public class GerenciarFornecedores {
             f.setCnpj(novoCnpj);
             salvarFornecedores();
         }
+
+        String log = "[" + agora() + "] Fornecedor de ID " + id + " teve seu registro atualizado.";
+        registrarOperacoes(log);
     }
 
     /**
@@ -113,6 +136,24 @@ public class GerenciarFornecedores {
      */
     public void removerFornecedor(int id) {
         fornecedores.removeIf(f -> f.getId() == id);
+
+        String log = "[" + agora() + "] Fornecedor de ID " + id + " foi removido.";
+        registrarOperacoes(log);
         salvarFornecedores();
+    }
+
+    /**
+     * Registra as operações feitas na classe em seu log
+     * 
+     * @param acao (String) - A operação feita.
+     */
+    private void registrarOperacoes(String acao) {
+        try {
+            FileWriter escreverAcao = new FileWriter(caminhoLog, true);
+            escreverAcao.append(acao).append("\n");
+            escreverAcao.close();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível registrar ação no Gerenciar Usuários:\n" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
 }

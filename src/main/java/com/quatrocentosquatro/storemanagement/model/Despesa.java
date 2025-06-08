@@ -18,6 +18,7 @@ public class Despesa {
   private float valor;
   private boolean isPago;
   private String descricao;
+  private final String caminhoDb = "src/main/java/com/quatrocentosquatro/storemanagement/database/Despesas.db";
 
   /**
    * Construtor da classe {@code Despesa}.
@@ -48,7 +49,7 @@ public class Despesa {
 
     try {
       // Para ler o arquivo.
-      File arqvDesp = new File("src/main/java/com/quatrocentosquatro/storemanagement/database/despesas.db");
+      File arqvDesp = new File(caminhoDb);
       Scanner analArqvDesp = new Scanner(arqvDesp);
   
       // Puxa a linha, divide-a e verifica se a primeira parte (onde fica o ID) é igual ao ID fornecido.
@@ -78,8 +79,8 @@ public class Despesa {
    */
   public boolean adicionarDespesa(float valor, boolean isPago, String descricao) {
     try {
-      FileWriter escrDesp = new FileWriter("src/main/java/com/quatrocentosquatro/storemanagement/database/despesas.db", true);
-      File arqvDesp = new File("src/main/java/com/quatrocentosquatro/storemanagement/database/despesas.db");
+      FileWriter escrDesp = new FileWriter(caminhoDb, true);
+      File arqvDesp = new File(caminhoDb);
 
       int nextId;
 
@@ -126,7 +127,7 @@ public class Despesa {
     String[] partes;
     
     try {
-      File arqvDesp = new File("src/main/java/com/quatrocentosquatro/storemanagement/database/despesas.db");
+      File arqvDesp = new File(caminhoDb);
       if (!arqvDesp.exists()) {
         return;
       }

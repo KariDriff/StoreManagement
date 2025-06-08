@@ -5,12 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.*;
-
 import javax.swing.JOptionPane;
 
 import com.quatrocentosquatro.storemanagement.model.Administrador;
 import com.quatrocentosquatro.storemanagement.model.Funcionario;
 import com.quatrocentosquatro.storemanagement.model.Usuario;
+
 /**
  * Classe responsável por gerenciar usuários do sistema, incluindo
  * funcionalidades para adicionar, listar, buscar, atualizar e remover usuários.
@@ -18,7 +18,6 @@ import com.quatrocentosquatro.storemanagement.model.Usuario;
  * @author João M. Chervinski
  * @author Kaio A. Souza
  */
-
 public class GerenciarUsuarios {
     private List<Usuario> usuarios;
     private int nextId = 1;
@@ -27,40 +26,47 @@ public class GerenciarUsuarios {
     private final String ARQUIVO = "usuario.db";
 
     
-    // Construtor da classe GerenciarUsuarios.
-    // Inicializa a lista de usuários e carrega os dados do arquivo.
+    /**
+     * Construtor da classe GerenciarUsuarios.
+     * Inicializa a lista de usuários e carrega os dados do arquivo.
+     */
     public GerenciarUsuarios() {
-    usuarios = carregarUsuarios();
-    nextId = usuarios.stream()
-                     .mapToInt(Usuario::getId)
-                     .max()
-                     .orElse(0) + 1;
+        usuarios = carregarUsuarios();
+        nextId = usuarios.stream()
+                         .mapToInt(Usuario::getId)
+                         .max()
+                         .orElse(0) + 1;
     }
 
     /**
-     * Método para salvar a lista de usuários em um arquivo.
-     * Utiliza serialização para armazenar os objetos de usuários.
+     * <p> Método para salvar a lista de usuários em um arquivo.
+     * <p> Utiliza serialização para armazenar os objetos de usuários.
      */
     private void salvarUsuarios() {
-    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARQUIVO))) {
-        out.writeObject(usuarios);
-    } catch (IOException e) {
-        System.out.println("Erro ao salvar usuários: " + e.getMessage());
-    }
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARQUIVO))) {
+            out.writeObject(usuarios);
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar usuários: " + e.getMessage());
+        }
+        String log = "[" + agora() + "] A lista de usuários foi salva.";
+        registrarOperacoes(log);
     }
 
-    // Método para carregar a lista de usuários de um arquivo.
-    // Utiliza deserialização para recuperar os objetos de usuários.
+    /**
+     * <p> Método para carregar a lista de usuários de um arquivo.
+     * <p> Utiliza deserialização para recuperar os objetos de usuários.
+     */
     @SuppressWarnings("unchecked")
     private List<Usuario> carregarUsuarios() {
-    File file = new File(ARQUIVO);
-    if (!file.exists()) return new ArrayList<>();
-    try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
-        return (List<Usuario>) in.readObject();
-    } catch (IOException | ClassNotFoundException e) {
-        System.out.println("Erro ao carregar usuários: " + e.getMessage());
-        return new ArrayList<>();
-    }
+        File file = new File(ARQUIVO);
+        if (!file.exists())
+            return new ArrayList<>();
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+            return (List<Usuario>) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Erro ao carregar usuários: " + e.getMessage());
+            return new ArrayList<>();
+        }
     }
 
     public static void main(String[] args) {
@@ -94,9 +100,9 @@ public class GerenciarUsuarios {
     /**
      * Adiciona um novo administrador ao sistema.
      *
-     * @param nome Nome do administrador.
-     * @param login Login do administrador.
-     * @param senha Senha do administrador.
+     * @param nome  (String) - Nome do administrador.
+     * @param login (String) - Login do administrador.
+     * @param senha (String) - Senha do administrador.
      */
     public void adicionarAdministrador(String nome, String login, String senha) {
         usuarios.add(new Administrador(nextId++, nome, login, senha));
