@@ -19,7 +19,7 @@ public class TelaUsuario extends JFrame{
 
      public TelaUsuario(){
         // Configuração da tela
-        setTitle("Tela Fornecedores");
+        setTitle("Tela Usuarios");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -99,7 +99,8 @@ public class TelaUsuario extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de Remover Usuario");
-            // importação aqui exemplo abaixo
+              new TelaRemoverUser().setVisible(true);
+              dispose();
             }
         });
 
