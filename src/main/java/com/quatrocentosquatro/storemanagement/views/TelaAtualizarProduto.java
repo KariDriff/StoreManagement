@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDate;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,7 +18,7 @@ import com.quatrocentosquatro.storemanagement.model.Produto;
 /**
  * @author Everton
  */
-public class TelaAdicionarProduto extends JFrame {
+public class TelaAtualizarProduto extends JFrame {
 
     private JTextField campoProduto;
     private JTextField campoMarca;
@@ -28,14 +29,14 @@ public class TelaAdicionarProduto extends JFrame {
     private JTextField campoDataValidade;
     private JTextField campoPesoGramas;
     private JTextField campoPreco;
-    private JButton buttonCadastrar;
+    private JButton buttonAtualizar;
     private JButton buttonVoltar;
     private JButton buttonHome;
 
     private GerenciarEstoque gerenciador = new GerenciarEstoque();
 
-    public TelaAdicionarProduto() {
-        setTitle("Adicionar Produto");
+    public TelaAtualizarProduto() {
+        setTitle("Atualizar Produto");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -53,10 +54,10 @@ public class TelaAdicionarProduto extends JFrame {
         campoMarca.addMouseListener(getPlaceholderClearListener(campoMarca, "Marca"));
         add(campoMarca);
 
-        // Campo ID (informativo)
+        // Campo ID
         campoPorId = new JTextField("ID");
         campoPorId.setBounds(390, 30, 160, 30);
-        campoPorId.setEditable(false);
+        campoPorId.addMouseListener(getPlaceholderClearListener(campoPorId, "ID"));
         add(campoPorId);
 
         // Campo Quantidade
@@ -95,29 +96,32 @@ public class TelaAdicionarProduto extends JFrame {
         campoPreco.addMouseListener(getPlaceholderClearListener(campoPreco, "Preço"));
         add(campoPreco);
 
-        // Botão Cadastrar
-        buttonCadastrar = new JButton("Cadastrar");
-        buttonCadastrar.setBounds(390, 300, 120, 30);
-        add(buttonCadastrar);
+        // Botão Cadastrar (Atualizar)
+        buttonAtualizar = new JButton("Atualizar");
+        buttonAtualizar.setBounds(390, 300, 120, 30);
+        add(buttonAtualizar );
 
-        buttonCadastrar.addActionListener(e -> {
-            Produto produto = new Produto();
+        buttonAtualizar .addActionListener(e -> {
             try {
+                Produto produto = new Produto();
                 produto.setNome(campoProduto.getText());
                 produto.setMarca(campoMarca.getText());
                 produto.setQuantidade(Integer.parseInt(campoQuantidade.getText()));
                 produto.setLote(campoLote.getText());
                 produto.setCodigoBarras(campoCodigoBarras.getText());
-                produto.setDataValidade(LocalDate.parse(campoDataValidade.getText()));
+                produto.setDataValidade(LocalDate.parse(campoDataValidade.getText())); // String
                 produto.setPesoGramas(Integer.parseInt(campoPesoGramas.getText()));
                 produto.setPreco(Float.parseFloat(campoPreco.getText()));
 
-                gerenciador.adicionarProduto(produto);
-                campoPorId.setText("ID: " + produto.getId());
+                int id = Integer.parseInt(campoPorId.getText().replace("ID: ", "").trim());
 
-                JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso");
+                gerenciador.atualizarProduto(id, produto);
+
+                JOptionPane.showMessageDialog(this, "Produto atualizado com sucesso");
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Erro: Verifique os campos");
+                JOptionPane.showMessageDialog(this, "Erro: Verifique os campos numéricos.");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro: " + ex.getMessage());
             }
         });
 
@@ -129,7 +133,6 @@ public class TelaAdicionarProduto extends JFrame {
         buttonVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Abrir tela de Atualizar Produto");
                 new TelaEstoque().setVisible(true);
                 dispose();
             }
@@ -143,15 +146,14 @@ public class TelaAdicionarProduto extends JFrame {
         buttonHome.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Abrir tela de Home");
                 new TelaHome().setVisible(true);
                 dispose();
             }
         });
     }
 
-    // Limpa texto padrão ao clicar
-    private MouseAdapter getPlaceholderClearListener(JTextField field, String placeholder) {
+    
+     private MouseAdapter getPlaceholderClearListener(JTextField field, String placeholder) {
         return new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -162,7 +164,8 @@ public class TelaAdicionarProduto extends JFrame {
         };
     }
 
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new TelaAdicionarProduto().setVisible(true));
+        SwingUtilities.invokeLater(() -> new TelaAtualizarProduto().setVisible(true));
     }
 }

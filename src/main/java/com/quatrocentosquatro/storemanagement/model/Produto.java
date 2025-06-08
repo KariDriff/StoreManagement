@@ -1,5 +1,6 @@
 package com.quatrocentosquatro.storemanagement.model;
 import java.io.Serializable; // Importando Serializable para permitir a serialização da classe
+import java.time.LocalDate;
 
 /**
  * Classe que representa um produto no sistema de gerenciamento de loja.
@@ -14,7 +15,7 @@ public class Produto implements Serializable { // Implementa Serializable para p
     private int quantidade;
     private String lote;
     private String codigoBarras;
-    private String dataValidade;
+    private LocalDate dataValidade;
     private int volumeLitros;
     private int pesoGramas;
 
@@ -32,7 +33,7 @@ public class Produto implements Serializable { // Implementa Serializable para p
      * @param pesoGramas O peso em gramas do produto.
      */
     public Produto(int id, String nome, String marca, double preco, int quantidade, String lote,
-                   String codigoBarras, String dataValidade, int volumeLitros, int pesoGramas) {
+                   String codigoBarras, LocalDate dataValidade, int volumeLitros, int pesoGramas) {
         this.id = id;
         this.nome = nome;
         this.marca = marca;
@@ -46,7 +47,7 @@ public class Produto implements Serializable { // Implementa Serializable para p
     }
 
     public Produto(){
-        
+
     }
 
     // Getters e Setters
@@ -139,13 +140,13 @@ public class Produto implements Serializable { // Implementa Serializable para p
      * Retorna a data de validade do produto.
      * @return A data de validade do produto.
      */
-    public String getDataValidade() { return dataValidade; }
+    public LocalDate getDataValidade() { return dataValidade; }
 
     /**
      * Define a data de validade do produto.
      * @param dataValidade A data de validade do produto.
      */
-    public void setDataValidade(String dataValidade) { this.dataValidade = dataValidade; }
+    public void setDataValidade(LocalDate dataValidade) { this.dataValidade = dataValidade; }
 
     /**
      * Retorna o volume em litros do produto.

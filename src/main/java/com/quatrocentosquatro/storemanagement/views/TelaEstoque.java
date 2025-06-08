@@ -48,7 +48,8 @@ public class TelaEstoque extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de adicionar Produto");
-            // importação aqui exemplo abaixo
+              new TelaAdicionarProduto().setVisible(true);
+              dispose();
             }
         });
 
@@ -57,6 +58,8 @@ public class TelaEstoque extends JFrame{
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de Atualizar Produto");
             // importação aqui exemplo abaixo
+             new TelaAtualizarProduto().setVisible(true);
+             dispose();
             }
         });
 

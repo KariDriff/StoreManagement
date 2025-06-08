@@ -1,11 +1,17 @@
 package com.quatrocentosquatro.storemanagement.controller;
 
-import com.quatrocentosquatro.storemanagement.model.Produto;
-import com.quatrocentosquatro.storemanagement.service.Estoque;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.io.*;
+
+import com.quatrocentosquatro.storemanagement.model.Produto;
+import com.quatrocentosquatro.storemanagement.service.Estoque;
 
 /** 
  * Controller para gerenciar o estoque de produtos
