@@ -69,7 +69,8 @@ public class TelaFornecedor extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de lista fornecedor");
-            // importação aqui exemplo abaixo
+             new TelaListaFornecedor().setVisible(true);
+             dispose();
             }
         });
         //feito

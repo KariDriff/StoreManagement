@@ -1,9 +1,15 @@
 package com.quatrocentosquatro.storemanagement.views;
 
-import com.quatrocentosquatro.storemanagement.controller.GerenciarUsuarios;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import javax.swing.*;
-import java.awt.event.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
+import com.quatrocentosquatro.storemanagement.controller.GerenciarUsuarios;
 
 public class TelaRemoverUser extends JFrame {
     private JTextField campoId;

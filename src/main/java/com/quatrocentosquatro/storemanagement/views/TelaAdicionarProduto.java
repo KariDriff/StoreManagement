@@ -1,165 +1,148 @@
 package com.quatrocentosquatro.storemanagement.views;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.time.LocalDate;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-
 import com.quatrocentosquatro.storemanagement.controller.GerenciarEstoque;
 import com.quatrocentosquatro.storemanagement.model.Produto;
 
-/**
- * @author Everton
- */
-public class TelaAdicionarProduto extends JFrame {
+import javax.swing.*;
+import javax.swing.text.MaskFormatter;
+import java.awt.event.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-    private JTextField campoProduto;
+public class TelaAdicionarProduto extends JFrame {
+    private JTextField campoNome;
     private JTextField campoMarca;
-    private JTextField campoPorId;
+    private JTextField campoPreco;
     private JTextField campoQuantidade;
     private JTextField campoLote;
     private JTextField campoCodigoBarras;
-    private JTextField campoDataValidade;
+    private JFormattedTextField campoDataValidade;
+    private JTextField campoVolumeLitros;
     private JTextField campoPesoGramas;
-    private JTextField campoPreco;
-    private JButton buttonCadastrar;
+    private JButton buttonAdicionar;
     private JButton buttonVoltar;
     private JButton buttonHome;
 
-    private GerenciarEstoque gerenciador = new GerenciarEstoque();
+    private static final DateTimeFormatter FORMATADOR_DATA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public TelaAdicionarProduto() {
         setTitle("Adicionar Produto");
-        setSize(600, 400);
+        setSize(700, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
 
-        // Campo Produto
-        campoProduto = new JTextField("Produto");
-        campoProduto.setBounds(30, 30, 160, 30);
-        campoProduto.addMouseListener(getPlaceholderClearListener(campoProduto, "Produto"));
-        add(campoProduto);
+        // Campos texto comuns com placeholders
+        campoNome = criarCampo("Nome", 30, 30);
+        campoMarca = criarCampo("Marca", 250, 30);
+        campoPreco = criarCampo("Preço", 470, 30);
+        campoQuantidade = criarCampo("Quantidade", 30, 80);
+        campoLote = criarCampo("Lote", 250, 80);
+        campoCodigoBarras = criarCampo("Código de Barras", 470, 80);
 
-        // Campo Marca
-        campoMarca = new JTextField("Marca");
-        campoMarca.setBounds(210, 30, 160, 30);
-        campoMarca.addMouseListener(getPlaceholderClearListener(campoMarca, "Marca"));
-        add(campoMarca);
+        // Campo data com máscara para dd/MM/yyyy
+        try {
+            MaskFormatter mask = new MaskFormatter("##/##/####");
+            mask.setPlaceholderCharacter('_');
+            campoDataValidade = new JFormattedTextField(mask);
+            campoDataValidade.setBounds(30, 130, 180, 30);
+            campoDataValidade.setText("dd/MM/yyyy");
+            campoDataValidade.addFocusListener(new FocusAdapter() {
+                @Override
+                public void focusGained(FocusEvent e) {
+                    if (campoDataValidade.getText().equals("dd/MM/yyyy")) {
+                        campoDataValidade.setText("");
+                    }
+                }
 
-        // Campo ID (informativo)
-        campoPorId = new JTextField("ID");
-        campoPorId.setBounds(390, 30, 160, 30);
-        campoPorId.setEditable(false);
-        add(campoPorId);
+                @Override
+                public void focusLost(FocusEvent e) {
+                    if (campoDataValidade.getText().isBlank()) {
+                        campoDataValidade.setText("dd/MM/yyyy");
+                    }
+                }
+            });
+            add(campoDataValidade);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        // Campo Quantidade
-        campoQuantidade = new JTextField("Quantidade");
-        campoQuantidade.setBounds(30, 80, 160, 30);
-        campoQuantidade.addMouseListener(getPlaceholderClearListener(campoQuantidade, "Quantidade"));
-        add(campoQuantidade);
-
-        // Campo Lote
-        campoLote = new JTextField("Lote");
-        campoLote.setBounds(210, 80, 160, 30);
-        campoLote.addMouseListener(getPlaceholderClearListener(campoLote, "Lote"));
-        add(campoLote);
-
-        // Campo Código de Barras
-        campoCodigoBarras = new JTextField("Código de Barras");
-        campoCodigoBarras.setBounds(390, 80, 160, 30);
-        campoCodigoBarras.addMouseListener(getPlaceholderClearListener(campoCodigoBarras, "Código de Barras"));
-        add(campoCodigoBarras);
-
-        // Campo Data de Validade
-        campoDataValidade = new JTextField("Data Validade");
-        campoDataValidade.setBounds(30, 130, 160, 30);
-        campoDataValidade.addMouseListener(getPlaceholderClearListener(campoDataValidade, "Data Validade"));
-        add(campoDataValidade);
-
-        // Campo Peso
-        campoPesoGramas = new JTextField("Peso (g)");
-        campoPesoGramas.setBounds(210, 130, 160, 30);
-        campoPesoGramas.addMouseListener(getPlaceholderClearListener(campoPesoGramas, "Peso (g)"));
-        add(campoPesoGramas);
-
-        // Campo Preço
-        campoPreco = new JTextField("Preço");
-        campoPreco.setBounds(390, 130, 160, 30);
-        campoPreco.addMouseListener(getPlaceholderClearListener(campoPreco, "Preço"));
-        add(campoPreco);
-
-        // Botão Cadastrar
-        buttonCadastrar = new JButton("Cadastrar");
-        buttonCadastrar.setBounds(390, 300, 120, 30);
-        add(buttonCadastrar);
-
-        buttonCadastrar.addActionListener(e -> {
-            Produto produto = new Produto();
-            try {
-                produto.setNome(campoProduto.getText());
-                produto.setMarca(campoMarca.getText());
-                produto.setQuantidade(Integer.parseInt(campoQuantidade.getText()));
-                produto.setLote(campoLote.getText());
-                produto.setCodigoBarras(campoCodigoBarras.getText());
-                produto.setDataValidade(LocalDate.parse(campoDataValidade.getText()));
-                produto.setPesoGramas(Integer.parseInt(campoPesoGramas.getText()));
-                produto.setPreco(Float.parseFloat(campoPreco.getText()));
-
-                gerenciador.adicionarProduto(produto);
-                campoPorId.setText("ID: " + produto.getId());
-
-                JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso");
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Erro: Verifique os campos");
-            }
-        });
+        campoVolumeLitros = criarCampo("Volume (L)", 250, 130);
+        campoPesoGramas = criarCampo("Peso (g)", 470, 130);
 
         // Botão Voltar
         buttonVoltar = new JButton("Voltar");
-        buttonVoltar.setBounds(30, 300, 100, 30);
+        buttonVoltar.setBounds(30, 350, 100, 30);
         add(buttonVoltar);
-
-        buttonVoltar.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Abrir tela de Atualizar Produto");
-                new TelaEstoque().setVisible(true);
-                dispose();
-            }
+        buttonVoltar.addActionListener(e -> {
+            new TelaEstoque().setVisible(true);
+            dispose();
         });
 
         // Botão Home
         buttonHome = new JButton("Home");
-        buttonHome.setBounds(150, 300, 100, 30);
+        buttonHome.setBounds(150, 350, 100, 30);
         add(buttonHome);
+        buttonHome.addActionListener(e -> {
+            new TelaHome().setVisible(true);
+            dispose();
+        });
 
-        buttonHome.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Abrir tela de Home");
-                new TelaHome().setVisible(true);
+        // Botão Adicionar
+        buttonAdicionar = new JButton("Adicionar");
+        buttonAdicionar.setBounds(550, 350, 100, 30);
+        add(buttonAdicionar);
+        buttonAdicionar.addActionListener(e -> {
+            try {
+                Produto produto = new Produto();
+                produto.setNome(campoNome.getText());
+                produto.setMarca(campoMarca.getText());
+                produto.setPreco(Float.parseFloat(campoPreco.getText()));
+                produto.setQuantidade(Integer.parseInt(campoQuantidade.getText()));
+                produto.setLote(campoLote.getText());
+                produto.setCodigoBarras(campoCodigoBarras.getText());
+
+                String dataStr = campoDataValidade.getText();
+                LocalDate dataValidade;
+                try {
+                    dataValidade = LocalDate.parse(dataStr, FORMATADOR_DATA);
+                } catch (DateTimeParseException ex) {
+                    JOptionPane.showMessageDialog(this, "Data inválida! Use o formato dd/MM/yyyy");
+                    return;
+                }
+                produto.setDataValidade(dataValidade);
+
+                produto.setVolumeLitros(Integer.parseInt(campoVolumeLitros.getText()));
+                produto.setPesoGramas(Integer.parseInt(campoPesoGramas.getText()));
+
+                GerenciarEstoque gerenciador = new GerenciarEstoque();
+                gerenciador.adicionarProduto(produto);
+
+                JOptionPane.showMessageDialog(this, "Produto adicionado com sucesso!");
+                new TelaEstoque().setVisible(true);
                 dispose();
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(this, "Preencha todos os campos numéricos corretamente.");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Erro ao adicionar produto: " + ex.getMessage());
             }
         });
     }
 
-    // Limpa texto padrão ao clicar
-    private MouseAdapter getPlaceholderClearListener(JTextField field, String placeholder) {
-        return new MouseAdapter() {
+    private JTextField criarCampo(String placeholder, int x, int y) {
+        JTextField field = new JTextField(placeholder);
+        field.setBounds(x, y, 180, 30);
+        field.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (field.getText().equals(placeholder)) {
                     field.setText("");
                 }
             }
-        };
+        });
+        add(field);
+        return field;
     }
 
     public static void main(String[] args) {
