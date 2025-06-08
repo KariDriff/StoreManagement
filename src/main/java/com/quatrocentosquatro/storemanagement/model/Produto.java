@@ -1,10 +1,13 @@
 package com.quatrocentosquatro.storemanagement.model;
 import java.time.LocalDate;
+import java.io.Serializable; // Importando Serializable para permitir a serialização da classe
 
 /**
  * Classe que representa um produto no sistema de gerenciamento de loja.
  */
-public class Produto {
+public class Produto implements Serializable { // Implementa Serializable para permitir a serialização de objetos desta classe
+    private static final long serialVersionUID = 1L; // Versão de serialização para compatibilidade
+
     private int id;
     private String nome;
     private String marca;

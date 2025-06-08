@@ -1,4 +1,5 @@
 package com.quatrocentosquatro.storemanagement.model;
+import java.io.Serializable; // Importando Serializable para permitir a serialização da classe
 
 /** 
  * <p> Superclasse abstrata Usuario para funcionários e administradores.
@@ -6,7 +7,9 @@ package com.quatrocentosquatro.storemanagement.model;
  * 
  * @author João M. Chervinski
  */
-public abstract class Usuario {
+public abstract class Usuario implements Serializable { // Implementa Serializable para permitir a serialização de objetos desta classe
+    private static final long serialVersionUID = 1L; // Versão de serialização para compatibilidade
+
     protected int id;
     protected String nome;
     protected String login;

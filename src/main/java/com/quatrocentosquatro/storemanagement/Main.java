@@ -241,7 +241,7 @@ public class Main {
         } else {
             System.out.println("=== Lista de Produtos ===");
             for (Produto p : lista) {
-                System.out.printf("ID: %d | Nome: %s | Marca: %s | Qtd: %d | Preço: R$ %.2f\n",
+                System.out.printf("ID: %d | Nome: %s | Marca: %s | Qtd: %d | Preço: R$ %.2f\n | Data de Validade: %s | Lote: %s | Código de Barras: %s | Volume: %dL | Peso: %dg\n",
                         p.getId(), p.getNome(), p.getMarca(), p.getQuantidade(), p.getPreco());
             }
         }

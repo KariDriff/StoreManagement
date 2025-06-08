@@ -1,9 +1,12 @@
 package com.quatrocentosquatro.storemanagement.model;
+import java.io.Serializable; // Importando Serializable para permitir a serialização da classe
 
 /**
  * Classe que representa um Administrador, que herda de Funcionario.
  */
-public class Administrador extends Funcionario {
+public class Administrador extends Funcionario implements Serializable { // Implementa Serializable para permitir a serialização de objetos desta classe
+
+    private static final long serialVersionUID = 1L; // Versão de serialização para compatibilidade
 
     /**
      * Construtor da classe Administrador.

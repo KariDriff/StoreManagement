@@ -1,10 +1,14 @@
 package com.quatrocentosquatro.storemanagement.model;
-// Essa classe representa uma venda no sistema de gerenciamento de loja.
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.Serializable; // Importando Serializable para permitir a serialização da classe
 
-public class Venda {
+// Essa classe representa uma venda no sistema de gerenciamento de loja.
+
+public class Venda implements Serializable { // Implementa Serializable para permitir a serialização de objetos desta classe
+    private static final long serialVersionUID = 1L; // Versão de serialização para compatibilidade
+
     private int id; // Identificador único da venda
     private LocalDateTime dataHora; // Data e hora da realização da venda
     private List<ItemVenda> itens; // Lista de itens vendidos na venda

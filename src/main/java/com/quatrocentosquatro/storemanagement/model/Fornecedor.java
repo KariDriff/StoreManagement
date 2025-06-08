@@ -1,10 +1,13 @@
 package com.quatrocentosquatro.storemanagement.model;
+import java.io.Serializable; // Importando Serializable para permitir a serialização da classe
 
 /**
  * Classe que representa um fornecedor no sistema.
  * Contém informações como ID, nome, telefone, email, CNPJ e status de atividade.
  */
-public class Fornecedor {
+public class Fornecedor implements Serializable { // Implementa Serializable para permitir a serialização de objetos desta classe
+    private static final long serialVersionUID = 1L; // Versão de serialização para compatibilidade
+
     private int id;
     private String nome;
     private String telefone;

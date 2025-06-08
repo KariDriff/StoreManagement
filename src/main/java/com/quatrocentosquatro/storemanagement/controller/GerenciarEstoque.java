@@ -5,28 +5,71 @@ import com.quatrocentosquatro.storemanagement.service.Estoque;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.*;
 
 /** 
  * Controller para gerenciar o estoque de produtos
  * 
  * @author João M. Chervinski
  */
+
 public class GerenciarEstoque {
-    private final List<Produto> produtos = new ArrayList<>();
+    private List<Produto> produtos;
+    private final String ARQUIVO = "estoque.db";
     private final Estoque estoqueService = new Estoque();
     private final Financeiro financeiro = new Financeiro();
     private int nextId = 1;
+
+    /**
+     * <p> Construtor da classe GerenciarEstoque.
+     * <p> Inicializa a lista de produtos e carrega os dados do arquivo.
+     */
+    public GerenciarEstoque() {
+    this.produtos = carregarProdutos();
+    this.nextId = produtos.stream()
+                          .mapToInt(Produto::getId)
+                          .max()
+                          .orElse(0) + 1;
+    }
+
+    // Método para carregar a lista de produtos de um arquivo
+    // Utiliza deserialização para recuperar os objetos de produtos
+    private void salvarProdutos() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARQUIVO))) {
+            out.writeObject(produtos);
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar produtos: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Método para carregar a lista de produtos de um arquivo
+     * Utiliza deserialização para recuperar os objetos de produtos
+     * @return List<Produto> - Lista de produtos carregados do arquivo
+     */
+    @SuppressWarnings("unchecked")
+    private List<Produto> carregarProdutos() {
+        File file = new File(ARQUIVO);
+        if (!file.exists())
+            return new ArrayList<>();
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+            return (List<Produto>) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Erro ao carregar produtos: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
 
 
     /**
      * Método para adicionar um novo produto ao estoque
      * Atribui um ID único ao produto e o adiciona à lista de produtos
-     * 
      * @param p (Produto) - O produto a ser adicionado.
      */
     public void adicionarProduto(Produto p) {
         p.setId(nextId++);
         produtos.add(p);
+        salvarProdutos();
     }
 
     // Método para buscar um produto pelo ID
@@ -50,12 +93,14 @@ public class GerenciarEstoque {
             atual.setVolumeLitros(novo.getVolumeLitros());
             atual.setPesoGramas(novo.getPesoGramas());
         }
+        salvarProdutos();
     }
 
     // Método para remover um produto do estoque
     // Busca o produto pelo ID e o remove da lista de produtos
     public void removerProduto(int id) {
         produtos.removeIf(p -> p.getId() == id);
+        salvarProdutos();
     }
 
     // Métodos para listar produtos
@@ -99,6 +144,8 @@ public class GerenciarEstoque {
             totalCompra += precoUnitario * qtdNova;
 
             System.out.println("Produto atualizado: " + p.getNome());
+            System.out.printf("Nova quantidade: %d | Preço unitário: R$ %.2f\n", p.getQuantidade(), precoUnitario);
+            salvarProdutos();
         }
 
         // Registrar saída financeira

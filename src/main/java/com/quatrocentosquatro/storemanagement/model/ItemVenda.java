@@ -1,7 +1,10 @@
 package com.quatrocentosquatro.storemanagement.model;
+import java.io.Serializable; // Importando Serializable para permitir a serialização da classe
 // Essa classe representa a venda de um produto.
 
-public class ItemVenda {
+public class ItemVenda implements Serializable { // Implementa Serializable para permitir a serialização de objetos desta classe
+    private static final long serialVersionUID = 1L; // Versão de serialização para compatibilidade
+
     private Produto produto; // Produto associado a este item de venda.
     private int quantidade; // Quantidade vendida deste item.
     private double precoUnitario; // Preço unitário do produto neste item de venda.

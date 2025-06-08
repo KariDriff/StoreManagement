@@ -1,10 +1,14 @@
 package com.quatrocentosquatro.storemanagement.model;
+import java.io.Serializable; // Importando Serializable para permitir a serialização da classe
+
 
 /**
  * Classe que representa um funcionário no sistema.
  * Herda da classe Usuario e implementa funcionalidades específicas para funcionários.
  */
-public class Funcionario extends Usuario {
+public class Funcionario extends Usuario implements Serializable {
+    private static final long serialVersionUID = 1L; // Versão de serialização para compatibilidade
+
     private boolean isAdmin; // Indica se o funcionário é um administrador.
     private String cargo; // Cargo do funcionário.
 
