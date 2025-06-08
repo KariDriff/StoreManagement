@@ -75,7 +75,8 @@ public class TelaUsuario extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de lISTA DE USUARIOS");
-            // importação aqui exemplo abaixo
+             new TelaListaUser().setVisible(true);
+              dispose();
             }
         });
 
@@ -84,6 +85,7 @@ public class TelaUsuario extends JFrame{
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de busca rapida");
              new TelaBuscaRapidaUser().setVisible(true);
+              dispose();
             }
         });
 
@@ -92,6 +94,7 @@ public class TelaUsuario extends JFrame{
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de atualizar dados");
              new TelaAtualizarUser().setVisible(true);
+              dispose();
             }
         });
 
