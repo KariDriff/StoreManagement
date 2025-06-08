@@ -6,6 +6,7 @@ C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quat
 C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quatrocentosquatro\storemanagement\controller\ProcessamentoDeVendas.java
 C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quatrocentosquatro\storemanagement\Main.java
 C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quatrocentosquatro\storemanagement\model\Administrador.java
+C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quatrocentosquatro\storemanagement\model\Despesa.java
 C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quatrocentosquatro\storemanagement\model\Financeiro.java
 C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quatrocentosquatro\storemanagement\model\Fornecedor.java
 C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quatrocentosquatro\storemanagement\model\Funcionario.java
@@ -14,7 +15,7 @@ C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quat
 C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quatrocentosquatro\storemanagement\model\Usuario.java
 C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quatrocentosquatro\storemanagement\model\Venda.java
 C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quatrocentosquatro\storemanagement\service\Estoque.java
-C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quatrocentosquatro\storemanagement\views\ActionEvent.java
+C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quatrocentosquatro\storemanagement\views\TelaAdicionarProduto.java
 C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quatrocentosquatro\storemanagement\views\TelaEstoque.java
 C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quatrocentosquatro\storemanagement\views\TelaFinanceiro.java
 C:\Users\evert\OneDrive\Área de Trabalho\StoreManagement\src\main\java\com\quatrocentosquatro\storemanagement\views\TelaFornecedor.java

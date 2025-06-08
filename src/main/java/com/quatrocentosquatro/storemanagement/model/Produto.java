@@ -1,5 +1,4 @@
 package com.quatrocentosquatro.storemanagement.model;
-import java.time.LocalDate;
 import java.io.Serializable; // Importando Serializable para permitir a serialização da classe
 
 /**
@@ -15,7 +14,7 @@ public class Produto implements Serializable { // Implementa Serializable para p
     private int quantidade;
     private String lote;
     private String codigoBarras;
-    private LocalDate dataValidade;
+    private String dataValidade;
     private int volumeLitros;
     private int pesoGramas;
 
@@ -33,7 +32,7 @@ public class Produto implements Serializable { // Implementa Serializable para p
      * @param pesoGramas O peso em gramas do produto.
      */
     public Produto(int id, String nome, String marca, double preco, int quantidade, String lote,
-                   String codigoBarras, LocalDate dataValidade, int volumeLitros, int pesoGramas) {
+                   String codigoBarras, String dataValidade, int volumeLitros, int pesoGramas) {
         this.id = id;
         this.nome = nome;
         this.marca = marca;
@@ -44,6 +43,10 @@ public class Produto implements Serializable { // Implementa Serializable para p
         this.dataValidade = dataValidade;
         this.volumeLitros = volumeLitros;
         this.pesoGramas = pesoGramas;
+    }
+
+    public Produto(){
+        
     }
 
     // Getters e Setters
@@ -136,13 +139,13 @@ public class Produto implements Serializable { // Implementa Serializable para p
      * Retorna a data de validade do produto.
      * @return A data de validade do produto.
      */
-    public LocalDate getDataValidade() { return dataValidade; }
+    public String getDataValidade() { return dataValidade; }
 
     /**
      * Define a data de validade do produto.
      * @param dataValidade A data de validade do produto.
      */
-    public void setDataValidade(LocalDate dataValidade) { this.dataValidade = dataValidade; }
+    public void setDataValidade(String dataValidade) { this.dataValidade = dataValidade; }
 
     /**
      * Retorna o volume em litros do produto.
