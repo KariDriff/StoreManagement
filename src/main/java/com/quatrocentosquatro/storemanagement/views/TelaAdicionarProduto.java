@@ -58,7 +58,7 @@ public class TelaAdicionarProduto extends JFrame {
 
                 @Override
                 public void focusLost(FocusEvent e) {
-                    if (campoDataValidade.getText().isBlank()) {
+                    if (campoDataValidade.getText().isEmpty()) {
                         campoDataValidade.setText("dd/MM/yyyy");
                     }
                 }

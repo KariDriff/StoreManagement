@@ -18,6 +18,8 @@ public class Fornecedor implements Serializable { // Implementa Serializable par
     private String cnpj;
     private boolean isAtivo;
 
+    public Fornecedor() {}
+    
     /**
      * Construtor para criar um novo fornecedor.
      *
@@ -27,7 +29,7 @@ public class Fornecedor implements Serializable { // Implementa Serializable par
      * @param email    (String) - Email do fornecedor.
      * @param cnpj     (String) - CNPJ do fornecedor.
      */
-    public Fornecedor() {
+    public Fornecedor(int id, String nome, String telefone, String email, String cnpj, boolean isAtivo) {
         this.id = id;
         this.nome = nome;
         this.telefone = telefone;
@@ -35,7 +37,6 @@ public class Fornecedor implements Serializable { // Implementa Serializable par
         this.cnpj = cnpj;
         this.isAtivo = true; // Define o fornecedor como ativo por padrão ao ser criado.
     }
-
 
     /* Getters e Setters */
 
