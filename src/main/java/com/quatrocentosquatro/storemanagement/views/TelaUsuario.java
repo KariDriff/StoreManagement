@@ -57,7 +57,8 @@ public class TelaUsuario extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de adicionar Funcionario");
-            // importação aqui exemplo abaixo
+             new TelaAdicionarUser().setVisible(true);
+             dispose();
             }
         });
    
@@ -65,7 +66,8 @@ public class TelaUsuario extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de adicionar ADM");
-            // importação aqui exemplo abaixo
+             new TelaAdicionarAdm().setVisible(true);
+             dispose();
             }
         });
 
@@ -112,7 +114,7 @@ public class TelaUsuario extends JFrame{
      }
       public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new TelaFornecedor().setVisible(true);
+            new TelaUsuario().setVisible(true);
         });
     }
 }
