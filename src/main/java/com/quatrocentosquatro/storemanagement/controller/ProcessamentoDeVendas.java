@@ -19,7 +19,7 @@ import com.quatrocentosquatro.storemanagement.model.ItemVenda;
  */
 public class ProcessamentoDeVendas {
     private List<Venda> vendas;
-    private final String ARQUIVO = "vendas.db"; // Caminho do arquivo onde as vendas serão salvas
+    private final String ARQUIVO = "src/main/java/com/quatrocentosquatro/storemanagement/database/vendas.db"; // Caminho do arquivo onde as vendas serão salvas
     private int nextVendaId = 1;
     private GerenciarEstoque estoqueController;
     private Financeiro financeiro;

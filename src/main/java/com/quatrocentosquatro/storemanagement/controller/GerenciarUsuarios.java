@@ -23,7 +23,7 @@ public class GerenciarUsuarios {
     private int nextId = 1;
     private final String caminhoLog = "src/main/java/com/quatrocentosquatro/storemanagement/logs/Usuarios.log";
     private final DateTimeFormatter formataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-    private final String ARQUIVO = "usuario.db";
+    private final String ARQUIVO = "src/main/java/com/quatrocentosquatro/storemanagement/database/usuario.db";
 
     
     /**

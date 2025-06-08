@@ -18,7 +18,7 @@ import com.quatrocentosquatro.storemanagement.model.Fornecedor;
  */
 public class GerenciarFornecedores {
     private List<Fornecedor> fornecedores; // Lista que armazena os fornecedores
-    private final String ARQUIVO = "fornecedores.db"; // Caminho do arquivo onde os fornecedores serão salvos
+    private final String ARQUIVO = "src/main/java/com/quatrocentosquatro/storemanagement/database/fornecedores.db"; // Caminho do arquivo onde os fornecedores serão salvos
     private int nextId = 1; // Próximo ID a ser atribuído aos fornecedores
     private final String caminhoLog = "src/main/java/com/quatrocentosquatro/storemanagement/logs/Fornecedores.log";
     private final DateTimeFormatter formataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");

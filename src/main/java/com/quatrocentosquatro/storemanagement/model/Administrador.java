@@ -1,10 +1,9 @@
 package com.quatrocentosquatro.storemanagement.model;
-import java.io.Serializable; // Importando Serializable para permitir a serialização da classe
 
 /**
  * Classe que representa um Administrador, que herda de Funcionario.
  */
-public class Administrador extends Funcionario implements Serializable { // O compilador avisa que o implemento é redundante, porém eu fiz testes e só funcionou com ele... c'est la vie
+public class Administrador extends Funcionario { // O compilador avisa que o implemento é redundante, porém eu fiz testes e só funcionou com ele... c'est la vie
 
     private static final long serialVersionUID = 1L; // Versão de serialização para compatibilidade
 

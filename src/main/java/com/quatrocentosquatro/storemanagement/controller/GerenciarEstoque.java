@@ -15,7 +15,7 @@ import java.io.*;
 
 public class GerenciarEstoque {
     private List<Produto> produtos;
-    private final String ARQUIVO = "estoque.db";
+    private final String ARQUIVO = "src/main/java/com/quatrocentosquatro/storemanagement/database/estoque.db";
     private final Estoque estoqueService = new Estoque();
     private final Financeiro financeiro = new Financeiro();
     private int nextId = 1;
