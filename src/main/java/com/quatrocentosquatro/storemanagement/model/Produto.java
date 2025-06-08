@@ -1,6 +1,7 @@
 package com.quatrocentosquatro.storemanagement.model;
 
 import java.io.Serializable; // Importando Serializable para permitir a serialização da classe
+import java.time.LocalDate;
 
 /**
  * Classe que representa um produto no sistema de gerenciamento de loja.
@@ -17,7 +18,7 @@ public class Produto implements Serializable { // Implementa Serializable para p
     private int quantidade;
     private String lote;
     private String codigoBarras;
-    private String dataValidade;
+    private LocalDate dataValidade;
     private int volumeLitros;
     private int pesoGramas;
 
@@ -36,7 +37,7 @@ public class Produto implements Serializable { // Implementa Serializable para p
      * @param pesoGramas   (int)    - O peso em gramas do produto.
      */
     public Produto(int id, String nome, String marca, double preco, int quantidade, String lote,
-                   String codigoBarras, String dataValidade, int volumeLitros, int pesoGramas) {
+                   String codigoBarras, LocalDate dataValidade, int volumeLitros, int pesoGramas) {
         this.id = id;
         this.nome = nome;
         this.marca = marca;
@@ -49,6 +50,15 @@ public class Produto implements Serializable { // Implementa Serializable para p
         this.pesoGramas = pesoGramas;
     }
 
+<<<<<<< HEAD
+=======
+    public Produto(){
+
+    }
+
+    // Getters e Setters
+
+>>>>>>> 65166a3ba7555140a6b925df56bfb8358cd9fd5a
     /**
      * Construtor vazio da classe Produto
      */
@@ -77,8 +87,22 @@ public class Produto implements Serializable { // Implementa Serializable para p
     public String getCodigoBarras() { return codigoBarras; }
     public void setCodigoBarras(String codigoBarras) { this.codigoBarras = codigoBarras; }
 
+<<<<<<< HEAD
     public String getDataValidade() { return dataValidade; }
     public void setDataValidade(String dataValidade) { this.dataValidade = dataValidade; }
+=======
+    /**
+     * Retorna a data de validade do produto.
+     * @return A data de validade do produto.
+     */
+    public LocalDate getDataValidade() { return dataValidade; }
+
+    /**
+     * Define a data de validade do produto.
+     * @param dataValidade A data de validade do produto.
+     */
+    public void setDataValidade(LocalDate dataValidade) { this.dataValidade = dataValidade; }
+>>>>>>> 65166a3ba7555140a6b925df56bfb8358cd9fd5a
 
     public int getVolumeLitros() { return volumeLitros; }
     public void setVolumeLitros(int volumeLitros) { this.volumeLitros = volumeLitros; }
