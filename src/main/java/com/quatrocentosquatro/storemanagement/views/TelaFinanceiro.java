@@ -71,6 +71,15 @@ public class TelaFinanceiro extends JFrame{
               dispose();
             }
         });
+
+        buttonRegistrarEntrada.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+             System.out.println("voltar para home");
+              new TelaResgistrarEntrada().setVisible(true);
+              dispose();
+            }
+        });
     }
 
       public static void main(String[] args) {

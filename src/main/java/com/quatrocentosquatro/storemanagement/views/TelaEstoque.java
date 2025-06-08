@@ -67,7 +67,8 @@ public class TelaEstoque extends JFrame{
           @Override
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de buscar Produto");
-            // importação aqui exemplo abaixo
+              new TelaBuscarRapida().setVisible(true);
+              dispose();
             }
         });
 
