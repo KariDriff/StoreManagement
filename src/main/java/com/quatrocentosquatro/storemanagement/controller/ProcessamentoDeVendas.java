@@ -95,7 +95,7 @@ public class ProcessamentoDeVendas {
         while (adicionandoItens) {
             System.out.print("ID do produto a vender: ");
             int idProduto = scanner.nextInt();
-            Produto p = estoqueController.buscarPorId(idProduto);
+            Produto p = (Produto) estoqueController.buscarPorId(idProduto);
 
             if (p == null) {
                 System.out.println("Produto não encontrado.");
