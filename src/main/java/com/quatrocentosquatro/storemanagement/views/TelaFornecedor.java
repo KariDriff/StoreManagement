@@ -53,12 +53,15 @@ public class TelaFornecedor extends JFrame{
         buttonVoltarTelaHome.setBounds(50, 300, 100, 30);
         add(buttonVoltarTelaHome);
 
+        //fEITO MAS SEM CONEXÃO
         // Ações
         buttonAdicionarFornecedores.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
              System.out.println("Abrir tela de adicionar fornecedor");
-            // importação aqui exemplo abaixo
+            new TelaAdicionarFornecedor().setVisible(true);
+              // essa função vai fechar a pagina automaticamente
+              dispose();
             }
         });
 

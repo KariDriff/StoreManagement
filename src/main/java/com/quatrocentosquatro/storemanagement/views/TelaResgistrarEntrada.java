@@ -43,7 +43,7 @@ public class TelaResgistrarEntrada extends JFrame {
 
         campodescricao = new JTextField("Quantidade");
         campodescricao.setBounds(30, 80, 160, 30);
-        campodescricao.addMouseListener(getPlaceholderClearListener(campodescricao, "Quantidade"));
+        campodescricao.addMouseListener(getPlaceholderClearListener(campodescricao, "Descrição"));
         add(campodescricao);
 
         campodataHora = new JTextField("Data Hora");
@@ -57,7 +57,7 @@ public class TelaResgistrarEntrada extends JFrame {
         add(buttonVoltar);
 
         buttonVoltar.addActionListener((ActionEvent e) -> {
-            System.out.println("Abrir tela de Atualizar Produto");
+            System.out.println("Abrir tela de Financeiro");
             new TelaFinanceiro().setVisible(true);
             dispose();
         });

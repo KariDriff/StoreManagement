@@ -26,7 +26,7 @@ public class TelaFinanceiro extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
-
+        //feita falta a conexão
         buttonRegistrarEntrada = new JButton("Registrar Entrada");
         buttonRegistrarEntrada.setBounds(50, 50, 150, 30);
         add(buttonRegistrarEntrada);
