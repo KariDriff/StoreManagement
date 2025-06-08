@@ -4,7 +4,6 @@ import com.quatrocentosquatro.storemanagement.controller.GerenciarFornecedores;
 import com.quatrocentosquatro.storemanagement.model.Fornecedor;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 

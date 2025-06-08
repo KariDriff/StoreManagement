@@ -64,7 +64,7 @@ public class TelaFornecedor extends JFrame{
               dispose();
             }
         });
-
+  
         buttonListasdFornecedores.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
@@ -72,7 +72,7 @@ public class TelaFornecedor extends JFrame{
             // importação aqui exemplo abaixo
             }
         });
-
+        //feito
         buttonBuscarRapidaFornecedores.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
@@ -80,7 +80,7 @@ public class TelaFornecedor extends JFrame{
             // importação aqui exemplo abaixo
             }
         });
-
+          
         buttonRemoverFornecedores.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
