@@ -50,15 +50,6 @@ public class Produto implements Serializable { // Implementa Serializable para p
         this.pesoGramas = pesoGramas;
     }
 
-<<<<<<< HEAD
-=======
-    public Produto(){
-
-    }
-
-    // Getters e Setters
-
->>>>>>> 65166a3ba7555140a6b925df56bfb8358cd9fd5a
     /**
      * Construtor vazio da classe Produto
      */
@@ -87,22 +78,8 @@ public class Produto implements Serializable { // Implementa Serializable para p
     public String getCodigoBarras() { return codigoBarras; }
     public void setCodigoBarras(String codigoBarras) { this.codigoBarras = codigoBarras; }
 
-<<<<<<< HEAD
-    public String getDataValidade() { return dataValidade; }
-    public void setDataValidade(String dataValidade) { this.dataValidade = dataValidade; }
-=======
-    /**
-     * Retorna a data de validade do produto.
-     * @return A data de validade do produto.
-     */
     public LocalDate getDataValidade() { return dataValidade; }
-
-    /**
-     * Define a data de validade do produto.
-     * @param dataValidade A data de validade do produto.
-     */
     public void setDataValidade(LocalDate dataValidade) { this.dataValidade = dataValidade; }
->>>>>>> 65166a3ba7555140a6b925df56bfb8358cd9fd5a
 
     public int getVolumeLitros() { return volumeLitros; }
     public void setVolumeLitros(int volumeLitros) { this.volumeLitros = volumeLitros; }

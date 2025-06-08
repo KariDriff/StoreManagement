@@ -1,31 +1,19 @@
 package com.quatrocentosquatro.storemanagement.controller;
 
-<<<<<<< HEAD
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-=======
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
->>>>>>> 65166a3ba7555140a6b925df56bfb8358cd9fd5a
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-<<<<<<< HEAD
 import javax.swing.JOptionPane;
 
-=======
->>>>>>> 65166a3ba7555140a6b925df56bfb8358cd9fd5a
 import com.quatrocentosquatro.storemanagement.model.Produto;
 import com.quatrocentosquatro.storemanagement.service.Estoque;
 
 /** 
- * Controller para gerenciar o estoque de produtos
+ * Gerencia o estoque de produtos.
  * 
  * @author João M. Chervinski
  */
