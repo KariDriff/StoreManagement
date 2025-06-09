@@ -1,20 +1,32 @@
 package com.quatrocentosquatro.storemanagement.views;
 
-import com.quatrocentosquatro.storemanagement.controller.ProcessamentoDeVendas;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableModel;
+
+import com.quatrocentosquatro.storemanagement.controller.Financeiro;
 import com.quatrocentosquatro.storemanagement.controller.GerenciarEstoque;
+import com.quatrocentosquatro.storemanagement.controller.ProcessamentoDeVendas;
+import com.quatrocentosquatro.storemanagement.model.ItemVenda;
 import com.quatrocentosquatro.storemanagement.model.Produto;
 import com.quatrocentosquatro.storemanagement.model.Venda;
-import com.quatrocentosquatro.storemanagement.model.ItemVenda;
-import com.quatrocentosquatro.storemanagement.controller.Financeiro;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 
 public class TelaPDV extends JFrame {
     private JTextField txtIdProduto, txtQuantidade, txtDesconto;
     private JComboBox<String> cmbPagamento;
-    private JButton btnAdicionar, btnFinalizar;
+    private JButton btnAdicionar, btnFinalizar, buttonHome;
     private JTable tabela;
     private DefaultTableModel modeloTabela;
     private JLabel lblTotal;
@@ -26,7 +38,7 @@ public class TelaPDV extends JFrame {
         processador = new ProcessamentoDeVendas(estoqueController, financeiro);
         vendaAtual = new Venda(0); // O ID real será atribuído pelo controlador--
 
-        setTitle("PDV - Ponto de Venda");
+        setTitle("PDV - Ponto de Venda ---- Em desenvolvimento:(");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -53,6 +65,7 @@ public class TelaPDV extends JFrame {
 
         btnAdicionar = new JButton("Adicionar Item");
         btnFinalizar = new JButton("Finalizar Venda");
+        buttonHome = new JButton("Home");
 
         modeloTabela = new DefaultTableModel(new String[]{"Produto", "Qtd", "Preço Unit.", "Desconto", "Subtotal"}, 0);
         tabela = new JTable(modeloTabela);
@@ -63,11 +76,17 @@ public class TelaPDV extends JFrame {
         add(new JScrollPane(tabela), BorderLayout.CENTER);
 
         JPanel painelInferior = new JPanel(new BorderLayout());
-        JPanel painelBotoes = new JPanel();
-        painelBotoes.add(btnAdicionar);
-        painelBotoes.add(btnFinalizar);
-        painelInferior.add(painelBotoes, BorderLayout.WEST);
-        painelInferior.add(lblTotal, BorderLayout.EAST);
+        JPanel painelBotoesEsquerda = new JPanel();
+        JPanel painelBotoesDireita = new JPanel();
+
+        painelBotoesEsquerda.add(btnAdicionar);
+        painelBotoesEsquerda.add(btnFinalizar);
+
+        painelBotoesDireita.add(buttonHome);
+        painelBotoesDireita.add(lblTotal);
+
+        painelInferior.add(painelBotoesEsquerda, BorderLayout.WEST);
+        painelInferior.add(painelBotoesDireita, BorderLayout.EAST);
 
         add(painelInferior, BorderLayout.SOUTH);
 
@@ -86,6 +105,11 @@ public class TelaPDV extends JFrame {
             String forma = (String) cmbPagamento.getSelectedItem();
             processador.finalizarVendaGUI(vendaAtual, forma);
             JOptionPane.showMessageDialog(this, "Venda concluída!\nTotal: R$ " + String.format("%.2f", vendaAtual.getTotal()));
+            dispose();
+        });
+
+        buttonHome.addActionListener(e -> {
+            new TelaHome().setVisible(true);
             dispose();
         });
     }

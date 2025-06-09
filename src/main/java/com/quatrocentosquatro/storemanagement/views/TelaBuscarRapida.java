@@ -4,7 +4,6 @@ import com.quatrocentosquatro.storemanagement.controller.GerenciarEstoque;
 import com.quatrocentosquatro.storemanagement.model.Produto;
 
 import javax.swing.*;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -24,7 +23,8 @@ public class TelaBuscarRapida extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        gerenciador = new GerenciarEstoque(); // Inicializa controlador
+        // CORREÇÃO: usar o padrão Singleton
+        gerenciador = GerenciarEstoque.getInstancia(); 
 
         campoBuscaRapida = new JTextField("Id");
         campoBuscaRapida.setBounds(30, 30, 160, 30);
@@ -51,12 +51,11 @@ public class TelaBuscarRapida extends JFrame {
         buttonVoltar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Abrir tela de Home");
+                System.out.println("Abrir tela de Estoque");
                 new TelaEstoque().setVisible(true);
                 dispose();
             }
         });
-
 
         buttonBusca = new JButton("Busca");
         buttonBusca.setBounds(390, 300, 100, 30);
@@ -66,15 +65,15 @@ public class TelaBuscarRapida extends JFrame {
         buttonBusca.addActionListener(e -> {
             try {
                 int id = Integer.parseInt(campoBuscaRapida.getText());
-                Produto produto = (Produto) gerenciador.buscarPorId(id);
+                Produto produto = gerenciador.buscarPorId(id);
 
                 if (produto != null) {
                     JOptionPane.showMessageDialog(this,
                             "Produto encontrado:\n" +
-                            "ID: " + produto.getId() + "\n" +
-                            "Nome: " + produto.getNome() + "\n" +
-                            "Marca: " + produto.getMarca() + "\n" +
-                            "Preço: R$ " + produto.getPreco());
+                                    "ID: " + produto.getId() + "\n" +
+                                    "Nome: " + produto.getNome() + "\n" +
+                                    "Marca: " + produto.getMarca() + "\n" +
+                                    "Preço: R$ " + produto.getPreco());
                 } else {
                     JOptionPane.showMessageDialog(this, "Produto não encontrado.");
                 }
@@ -94,7 +93,8 @@ public class TelaBuscarRapida extends JFrame {
             }
         };
     }
-     public static void main(String[] args) {
+
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new TelaBuscarRapida().setVisible(true);
         });

@@ -1,14 +1,23 @@
 package com.quatrocentosquatro.storemanagement.views;
 
-import com.quatrocentosquatro.storemanagement.controller.GerenciarEstoque;
-import com.quatrocentosquatro.storemanagement.model.Produto;
-
-import javax.swing.*;
-import javax.swing.text.MaskFormatter;
-import java.awt.event.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+import javax.swing.text.MaskFormatter;
+
+import com.quatrocentosquatro.storemanagement.controller.GerenciarEstoque;
+import com.quatrocentosquatro.storemanagement.model.Produto;
 
 public class TelaAdicionarProduto extends JFrame {
     private JTextField campoNome;
@@ -33,7 +42,6 @@ public class TelaAdicionarProduto extends JFrame {
         setLocationRelativeTo(null);
         setLayout(null);
 
-        // Campos texto comuns com placeholders
         campoNome = criarCampo("Nome", 30, 30);
         campoMarca = criarCampo("Marca", 250, 30);
         campoPreco = criarCampo("Preço", 470, 30);
@@ -41,7 +49,6 @@ public class TelaAdicionarProduto extends JFrame {
         campoLote = criarCampo("Lote", 250, 80);
         campoCodigoBarras = criarCampo("Código de Barras", 470, 80);
 
-        // Campo data com máscara para dd/MM/yyyy
         try {
             MaskFormatter mask = new MaskFormatter("##/##/####");
             mask.setPlaceholderCharacter('_');
@@ -71,7 +78,6 @@ public class TelaAdicionarProduto extends JFrame {
         campoVolumeLitros = criarCampo("Volume (L)", 250, 130);
         campoPesoGramas = criarCampo("Peso (g)", 470, 130);
 
-        // Botão Voltar
         buttonVoltar = new JButton("Voltar");
         buttonVoltar.setBounds(30, 350, 100, 30);
         add(buttonVoltar);
@@ -80,7 +86,6 @@ public class TelaAdicionarProduto extends JFrame {
             dispose();
         });
 
-        // Botão Home
         buttonHome = new JButton("Home");
         buttonHome.setBounds(150, 350, 100, 30);
         add(buttonHome);
@@ -89,7 +94,6 @@ public class TelaAdicionarProduto extends JFrame {
             dispose();
         });
 
-        // Botão Adicionar
         buttonAdicionar = new JButton("Adicionar");
         buttonAdicionar.setBounds(550, 350, 100, 30);
         add(buttonAdicionar);
@@ -98,7 +102,7 @@ public class TelaAdicionarProduto extends JFrame {
                 Produto produto = new Produto();
                 produto.setNome(campoNome.getText());
                 produto.setMarca(campoMarca.getText());
-                produto.setPreco(Float.parseFloat(campoPreco.getText()));
+                produto.setPreco(Double.parseDouble(campoPreco.getText()));
                 produto.setQuantidade(Integer.parseInt(campoQuantidade.getText()));
                 produto.setLote(campoLote.getText());
                 produto.setCodigoBarras(campoCodigoBarras.getText());
@@ -116,8 +120,8 @@ public class TelaAdicionarProduto extends JFrame {
                 produto.setVolumeLitros(Integer.parseInt(campoVolumeLitros.getText()));
                 produto.setPesoGramas(Integer.parseInt(campoPesoGramas.getText()));
 
-                GerenciarEstoque gerenciador = new GerenciarEstoque();
-                gerenciador.adicionarProduto(produto);
+                // Usa a instância Singleton do GerenciarEstoque
+                GerenciarEstoque.getInstancia().adicionarProduto(produto);
 
                 JOptionPane.showMessageDialog(this, "Produto adicionado com sucesso!");
                 new TelaEstoque().setVisible(true);

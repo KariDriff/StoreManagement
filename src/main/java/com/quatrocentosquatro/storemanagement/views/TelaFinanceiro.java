@@ -1,6 +1,6 @@
 package com.quatrocentosquatro.storemanagement.views;
 
-// importação da bibliotecas
+// importação das bibliotecas
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,7 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-public class TelaFinanceiro extends JFrame{
+public class TelaFinanceiro extends JFrame {
     private JButton buttonRegistrarEntradaUser;
     private JButton buttonRegistrarSaidaUser;
     private JButton buttonComprarProdutos;
@@ -17,20 +17,20 @@ public class TelaFinanceiro extends JFrame{
     private JButton buttonVoltarTelaHome;
     private JButton buttonVoltar;
 
-    public TelaFinanceiro(){
+    public TelaFinanceiro() {
         // Configuração da tela
         setTitle("Tela Financeiro");
         setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(null);
-   
+
         buttonRegistrarEntradaUser = new JButton("Registrar EntUser");
         buttonRegistrarEntradaUser.setBounds(50, 50, 150, 30);
         add(buttonRegistrarEntradaUser);
 
         buttonRegistrarSaidaUser = new JButton("Registrar SaiUser");
-        buttonRegistrarSaidaUser.setBounds(230, 50, 150, 30);;
+        buttonRegistrarSaidaUser.setBounds(230, 50, 150, 30);
         add(buttonRegistrarSaidaUser);
 
         buttonComprarProdutos = new JButton("Comprar Produtos");
@@ -45,59 +45,62 @@ public class TelaFinanceiro extends JFrame{
         buttonGerarRelatorio.setBounds(410, 50, 150, 30);
         add(buttonGerarRelatorio);
 
-
         buttonVoltarTelaHome = new JButton("Home");
         buttonVoltarTelaHome.setBounds(150, 300, 100, 30);
         add(buttonVoltarTelaHome);
 
-         buttonGerarRelatorio.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-             System.out.println("voltar para entrada user");
-              new TelaRegistrarEntradaUser().setVisible(true);
-              dispose();
+        // Ações dos botões
+        buttonRegistrarEntradaUser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Abrir tela de registrar entrada");
+                new TelaRegistrarEntradaUser().setVisible(true);
+                dispose();
             }
         });
 
-        buttonRegistrarEntradaUser.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-             System.out.println("voltar para entrada user");
-              new TelaRegistrarEntradaUser().setVisible(true);
-              dispose();
+        buttonRegistrarSaidaUser.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Abrir tela de registrar saída");
+                new TelaSaidaUser().setVisible(true);
+                dispose();
+            }
+        });
+
+        buttonGerarRelatorio.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Abrir tela de manutenção (relatório)");
+                new TelaManutencao().setVisible(true);
+                dispose();
             }
         });
 
         buttonPagarDespesa.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-              new TelaManuntenco().setVisible(true);
-              dispose();
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Abrir tela de manutenção (pagar despesa)");
+                new TelaManutencao().setVisible(true);
+                dispose();
             }
         });
 
         buttonComprarProdutos.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-              new TelaManuntenco().setVisible(true);
-              dispose();
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Abrir tela de manutenção (comprar produtos)");
+                new TelaManutencao().setVisible(true);
+                dispose();
             }
         });
 
-        buttonComprarProdutos.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-              new TelaManuntenco().setVisible(true);
-              dispose();
-            }
-        });
-
-           buttonVoltarTelaHome.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-             System.out.println("voltar para home");
-              new TelaHome().setVisible(true);
-              dispose();
+        buttonVoltarTelaHome.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Voltar para a tela Home");
+                new TelaHome().setVisible(true);
+                dispose();
             }
         });
 
@@ -105,15 +108,15 @@ public class TelaFinanceiro extends JFrame{
         buttonVoltar = new JButton("Voltar");
         buttonVoltar.setBounds(30, 300, 100, 30);
         add(buttonVoltar);
+
         buttonVoltar.addActionListener(e -> {
             System.out.println("Abrir tela de Fornecedor");
             new TelaFornecedor().setVisible(true);
             dispose();
-            
         });
     }
 
-      public static void main(String[] args) {
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             new TelaFinanceiro().setVisible(true);
         });

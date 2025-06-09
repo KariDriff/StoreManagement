@@ -1,6 +1,5 @@
 package com.quatrocentosquatro.storemanagement.controller;
 
-// Importações necessárias
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -8,29 +7,32 @@ import java.util.Scanner;
 import com.quatrocentosquatro.storemanagement.model.Produto;
 import com.quatrocentosquatro.storemanagement.service.Estoque;
 
-// Controller para gerenciar o estoque de produtos
 public class GerenciarEstoque {
+    private static GerenciarEstoque instancia;
+
     private final List<Produto> produtos = new ArrayList<>();
     private final Estoque estoqueService = new Estoque();
     private final Financeiro financeiro = new Financeiro();
     private int nextId = 1;
 
+    public GerenciarEstoque() {}
 
-    // Método para adicionar um novo produto ao estoque
-    // Atribui um ID único ao produto e o adiciona à lista de produtos
+    public static GerenciarEstoque getInstancia() {
+        if (instancia == null) {
+            instancia = new GerenciarEstoque();
+        }
+        return instancia;
+    }
+
     public void adicionarProduto(Produto p) {
         p.setId(nextId++);
         produtos.add(p);
     }
 
-    // Método para buscar um produto pelo ID
-    // Retorna o produto correspondente ou null se não encontrado
     public Produto buscarPorId(int id) {
         return produtos.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
     }
 
-    // Método para atualizar as informações de um produto existente
-    // Busca o produto pelo ID e atualiza seus atributos com os novos valores
     public void atualizarProduto(int id, Produto novo) {
         Produto atual = buscarPorId(id);
         if (atual != null) {
@@ -46,31 +48,22 @@ public class GerenciarEstoque {
         }
     }
 
-    // Método para remover um produto do estoque
-    // Busca o produto pelo ID e o remove da lista de produtos
     public void removerProduto(int id) {
         produtos.removeIf(p -> p.getId() == id);
     }
 
-    // Métodos para listar produtos
-    // Retorna a lista completa de produtos no estoque
     public List<Produto> listarProdutos() {
         return produtos;
     }
 
-    // Método para listar produtos com estoque baixo
-    // Recebe um limite e retorna uma lista de produtos cuja quantidade é menor ou igual ao limite
     public List<Produto> listarProdutosComBaixoEstoque(int limite) {
         return estoqueService.verificarQtdProdutos(produtos, limite);
     }
 
-    // Método para gerar um relatório do estoque
-    // Utiliza o serviço de estoque para formatar e retornar um relatório dos produtos
     public String gerarRelatorioEstoque() {
         return estoqueService.gerarRelatorioEstoque(produtos);
     }
 
-    // Integração com Financeiro
     public void comprarProdutos(Scanner scanner, int limiteEstoque) {
         List<Produto> baixos = listarProdutosComBaixoEstoque(limiteEstoque);
         if (baixos.isEmpty()) {
@@ -95,7 +88,6 @@ public class GerenciarEstoque {
             System.out.println("Produto atualizado: " + p.getNome());
         }
 
-        // Registrar saída financeira
         financeiro.comprarProdutos(totalCompra);
         System.out.printf("Total gasto: R$ %.2f\n", totalCompra);
     }
