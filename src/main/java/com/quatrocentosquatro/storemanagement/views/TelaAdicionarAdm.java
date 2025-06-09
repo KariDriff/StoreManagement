@@ -5,6 +5,9 @@ import com.quatrocentosquatro.storemanagement.controller.GerenciarUsuarios;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaAdicionarAdm extends JFrame {
 
     private JTextField campoNome;

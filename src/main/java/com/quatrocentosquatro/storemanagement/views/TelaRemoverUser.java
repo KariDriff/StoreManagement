@@ -11,6 +11,9 @@ import javax.swing.SwingUtilities;
 
 import com.quatrocentosquatro.storemanagement.controller.GerenciarUsuarios;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaRemoverUser extends JFrame {
     private JTextField campoId;
     private JButton buttonRemover;

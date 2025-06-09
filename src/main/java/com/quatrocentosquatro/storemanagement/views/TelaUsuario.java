@@ -8,6 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaUsuario extends JFrame{
     private JButton buttonAdcionarFuncionario;
     private JButton buttonAdicionarAdm;

@@ -15,15 +15,15 @@ public class Estoque {
      * Verifica a quantidade de produtos em estoque e retorna uma lista
      * dos produtos que estão abaixo do limite especificado.
      *
-     * @param produtos (List<Produtos>) - Lista de produtos a serem verificados.
-     * @param limite   (int)            - Limite de quantidade abaixo do qual os produtos são considerados.
+     * @param produtos (List<Produto>) - Lista de produtos a serem verificados.
+     * @param limite   (int)           - Limite de quantidade abaixo do qual os produtos são considerados.
      * 
      * @return Lista de produtos com quantidade abaixo do limite.
      */
     public List<Produto> verificarQtdProdutos(List<Produto> produtos, int limite) {
         return produtos.stream()
-                .filter(p -> p.getQuantidade() <= limite)
-                .collect(Collectors.toList());
+                       .filter(p -> p.getQuantidade() <= limite)
+                       .collect(Collectors.toList());
     }
 
     /**

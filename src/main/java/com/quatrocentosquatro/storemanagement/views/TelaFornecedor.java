@@ -7,6 +7,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaFornecedor extends JFrame{
     private JButton buttonAdicionarFornecedores;
     private JButton buttonListasdFornecedores;

@@ -18,7 +18,7 @@ public class Despesa {
   private float valor;
   private boolean isPago;
   private String descricao;
-  private final String caminhoDb = "src/main/java/com/quatrocentosquatro/storemanagement/database/Despesas.db";
+  private final String caminhoDb = "src/main/java/com/quatrocentosquatro/storemanagement/database/despesas.db";
 
   /**
    * Construtor da classe {@code Despesa}.
@@ -44,33 +44,29 @@ public class Despesa {
    * 
    * @param id (int) - O ID da despesa que quer buscar.
    * 
-   * @return Um objeto Despesa com o ID correspondente.
+   * @return Um objeto Despesa com o ID correspondente. Caso contrário, retorna null 
    */
   public Despesa buscarPorId(int id) {
-    // Para puxar a linha de registro e dividir a linha, respectivamente. Altere o tamanho do vetor caso Despesa receba outro atributo.
-    String linha = ""; 
-    String[] partes = new String[4];
-
     try {
-      // Para ler o arquivo.
       File arqvDesp = new File(caminhoDb);
       Scanner analArqvDesp = new Scanner(arqvDesp);
-  
-      // Puxa a linha, divide-a e verifica se a primeira parte (onde fica o ID) é igual ao ID fornecido.
+
       while (analArqvDesp.hasNext()) {
-        linha = analArqvDesp.nextLine();
-        partes = linha.split("\\|");
-  
-        if (Integer.parseInt(partes[0]) == id) {break;}
+        String linha = analArqvDesp.nextLine();
+        String[] partes = linha.split("\\|");
+
+        if (Integer.parseInt(partes[0]) == id) {
+          analArqvDesp.close();
+
+          return new Despesa(Integer.parseInt(partes[0]), Float.parseFloat(partes[1]), Boolean.parseBoolean(partes[2]), partes[3]);
+        }
       }
-  
       analArqvDesp.close();
     } catch (Exception e) {
       JOptionPane.showMessageDialog(null, "Não foi possível buscar a despesa:\n" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
     }
 
-    // Se a busca deu certo, irá retornar o objeto.
-    return new Despesa(Integer.parseInt(partes[0]), Float.parseFloat(partes[1]), Boolean.parseBoolean(partes[2]), partes[3]);
+    return null; // Retorna null se não encontrar
   }
 
   /**
@@ -84,40 +80,30 @@ public class Despesa {
    */
   public boolean adicionarDespesa(float valor, boolean isPago, String descricao) {
     try {
-      FileWriter escrDesp = new FileWriter(caminhoDb, true);
       File arqvDesp = new File(caminhoDb);
+      int nextId = 0;
 
-      int nextId;
-
-      // Lê o arquivo para pegar o ID da última linha e incrementar para o próximo registro.
-      if (!arqvDesp.exists()) {nextId = 0;} // Caso o arquivo não exista, ID é 0.
-      else {
+      // Se o arquivo já existe, encontra o próximo ID lendo a última linha
+      if (arqvDesp.exists()) {
         Scanner analArqv = new Scanner(arqvDesp);
         String linha = "";
 
         while (analArqv.hasNext()) {linha = analArqv.nextLine();}
         analArqv.close();
-
-        // Pega a linha, divide-a em partes e pega a primeira parte pra puxar o ID.
         if (!linha.isEmpty()) {
           String[] partes = linha.split("\\|");
-
-          nextId = Integer.parseInt(partes[0]);
-        } else {nextId = 0;}
+          nextId = Integer.parseInt(partes[0]) + 1;
+        }
       }
 
-      this.isPago = false;
-
-      // Incrementa o ID apenas se o arquivo não estiver vazio
-      if(!arqvDesp.toString().isEmpty()) {nextId++;}
-
-      escrDesp.append(nextId + "|" + valor + "|" + isPago + "|" + descricao);
+      FileWriter escrDesp = new FileWriter(caminhoDb, true);
+      escrDesp.append(nextId + "|" + valor + "|" + isPago + "|" + descricao + "\n");
       escrDesp.close();
 
       return true;
     } catch (Exception e) {
-      JOptionPane.showMessageDialog(null, "Não foi possível registrar saída:\n" + e.getMessage(), "Erro",JOptionPane.ERROR_MESSAGE);
-
+      // Exibe mensagem de erro em caso de falha
+      JOptionPane.showMessageDialog(null, "Não foi possível registrar saída:\n" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
       return false;
     }
   }
@@ -133,9 +119,7 @@ public class Despesa {
     
     try {
       File arqvDesp = new File(caminhoDb);
-      if (!arqvDesp.exists()) {
-        return;
-      }
+      if (!arqvDesp.exists()) {return;} // Termina caso o arquivo não exista
 
       Scanner analArqvDesp = new Scanner(arqvDesp);
   
@@ -146,10 +130,6 @@ public class Despesa {
       }
 
       analArqvDesp.close();
-
-      if (linha.isEmpty()) {
-        return;
-      }
     } catch (Exception e) {
       JOptionPane.showMessageDialog(null, "Não foi possível listar despesas:\n" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
     }
@@ -186,5 +166,4 @@ public class Despesa {
   
   public String getDescricao() {return this.descricao;}
   public void setDescricao(String descricao) {this.descricao = descricao;}
-
 }

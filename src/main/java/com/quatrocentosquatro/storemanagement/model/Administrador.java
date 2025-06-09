@@ -12,10 +12,10 @@ public class Administrador extends Funcionario { // O compilador avisa que o imp
     /**
      * Construtor da classe Administrador.
      *
-     * @param id    O ID do administrador.
-     * @param nome  O nome do administrador.
-     * @param login O login do administrador.
-     * @param senha A senha do administrador.
+     * @param id    (int)    - O ID do administrador.
+     * @param nome  (String) - O nome do administrador.
+     * @param login (String) - O login do administrador.
+     * @param senha (String) - A senha do administrador.
      */
     public Administrador(int id, String nome, String login, String senha) {
         super(id, nome, login, senha, "Administrador");

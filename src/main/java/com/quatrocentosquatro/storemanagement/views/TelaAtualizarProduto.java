@@ -16,7 +16,7 @@ import com.quatrocentosquatro.storemanagement.controller.GerenciarEstoque;
 import com.quatrocentosquatro.storemanagement.model.Produto;
 
 /**
- * @author Everton
+ * @author Everton Ferreira
  */
 public class TelaAtualizarProduto extends JFrame {
 

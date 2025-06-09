@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaBuscarRapidaFor extends JFrame {
     private JTextField campoBuscaRapida;
     private JButton buttonBusca;

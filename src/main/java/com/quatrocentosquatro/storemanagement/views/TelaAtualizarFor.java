@@ -6,6 +6,9 @@ import com.quatrocentosquatro.storemanagement.model.Fornecedor;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaAtualizarFor extends JFrame {
     private JTextField campoId;
     private JTextField campoNome;

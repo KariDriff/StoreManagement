@@ -6,13 +6,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import javax.swing.JOptionPane;
 
+import com.quatrocentosquatro.storemanagement.model.ItemVenda;
 import com.quatrocentosquatro.storemanagement.model.Produto;
 import com.quatrocentosquatro.storemanagement.model.Venda;
-import com.quatrocentosquatro.storemanagement.model.ItemVenda;
 
 /**
- * Controller para processar vendas
- * Permite registrar vendas, adicionar itens, atualizar estoque e registrar entradas financeiras
+ * Controller para processar vendas.
+ * Permite registrar vendas, adicionar itens, atualizar estoque e registrar entradas financeiras.
  * 
  * @author João M. Chervinski
  * @author Kaio A. Souza
@@ -27,9 +27,9 @@ public class ProcessamentoDeVendas {
     private final DateTimeFormatter formataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     /** 
-     * Construtor que recebe o controller de estoque e o serviço financeiro
-     * Isso permite que o processamento de vendas interaja com o estoque e registre entradas financeiras
-     * Carrega as vendas do arquivo e inicializa o próximo ID de venda
+     * <p> Construtor que recebe o controller de estoque e o serviço financeiro.
+     * <p> Isso permite que o processamento de vendas interaja com o estoque e registre entradas financeiras.
+     * <p> Carrega as vendas do arquivo e inicializa o próximo ID de venda.
      * 
      * @param estoqueController (GerenciarEstoque) - Objeto estoque.
      * @param financeiro        (Financeiro) - Objeto financeiro.
@@ -77,11 +77,9 @@ public class ProcessamentoDeVendas {
     /**
      * Usado para puxar a data e horário atual do sistema.
      * 
-     * @return A data e hora atual no formato dd/MM, hh:mm:ss
+     * @return A data e hora atual no formato dd/MM/yyyy, hh:mm:ss
      */
-    private String agora() {
-        return LocalDateTime.now().format(formataHora);
-    }
+    private String agora() {return LocalDateTime.now().format(formataHora);}
 
     /**
      * <p> Método para realizar uma venda via console.
@@ -91,14 +89,17 @@ public class ProcessamentoDeVendas {
      * @param scanner (Scanner) - Para ler entradas do usuário.
      */
     public void realizarVenda(Scanner scanner) {
+        // Cria uma nova venda com um ID único
         Venda venda = new Venda(nextVendaId++);
         boolean adicionandoItens = true;
 
+        // Loop para adicionar itens à venda
         while (adicionandoItens) {
             System.out.print("ID do produto a vender: ");
             int idProduto = scanner.nextInt();
             Produto p = (Produto) estoqueController.buscarPorId(idProduto);
 
+            // Verifica se o produto existe
             if (p == null) {
                 System.out.println("Produto não encontrado.");
                 continue;
@@ -107,6 +108,8 @@ public class ProcessamentoDeVendas {
             System.out.printf("Estoque disponível: %d\n", p.getQuantidade());
             System.out.print("Quantidade a vender: ");
             int qtd = scanner.nextInt();
+
+            // Verifica se há estoque suficiente
             if (qtd > p.getQuantidade()) {
                 System.out.println("Estoque insuficiente.");
                 continue;
@@ -114,13 +117,14 @@ public class ProcessamentoDeVendas {
 
             System.out.print("Desconto a aplicar (R$): ");
             double desconto = scanner.nextDouble();
-            scanner.nextLine(); // limpar buffer
+            scanner.nextLine(); // Limpa o buffer do scanner
 
             double precoUnitario = p.getPreco();
+            // Cria o item da venda e adiciona à venda
             ItemVenda item = new ItemVenda(p, qtd, precoUnitario, desconto);
             venda.adicionarItem(item);
 
-            // Atualiza estoque
+            // Atualiza o estoque do produto
             p.setQuantidade(p.getQuantidade() - qtd);
 
             System.out.print("Adicionar outro item? (s/n): ");
@@ -128,12 +132,13 @@ public class ProcessamentoDeVendas {
             adicionandoItens = opcao.equalsIgnoreCase("s");
         }
 
-        // Finalizar venda
+        // Adiciona a venda à lista de vendas
         vendas.add(venda);
 
+        // Solicita a forma de pagamento
         System.out.print("Qual o método de pagamento? (1-Dinheiro, 2-Cartão de Crédito, 3-Cartão de Débito, 4-PIX): ");
         int formaPagamento = scanner.nextInt();
-        scanner.nextLine(); // Consume newline left-over
+        scanner.nextLine(); // Limpa o buffer
         String formaStr;
         switch (formaPagamento) {
             case 1: formaStr = "Dinheiro"; break;
@@ -143,11 +148,13 @@ public class ProcessamentoDeVendas {
             default: formaStr = "Desconhecido";
         }
 
+        // Registra a entrada financeira referente à venda
         financeiro.registrarEntrada(venda.getTotal(), "Pagamento via " + formaStr);
 
         System.out.println("Venda registrada com sucesso!");
         System.out.printf("Total da venda: R$ %.2f\n", venda.getTotal());
 
+        // Registra a operação no log e salva as vendas
         String log = "[" + agora() + "] Venda realizada no valor de " + venda.getTotal() + " utilizando " + formaStr;
         registrarOperacoes(log);
         salvarVendas();
@@ -157,8 +164,8 @@ public class ProcessamentoDeVendas {
      * <p> Método para finalizar a venda via interface gráfica.
      * <p> Atualiza lista de vendas, registra entrada financeira e salva vendas.
      * 
-     * @param venda Venda já montada com itens e total
-     * @param formaPagamento String que representa a forma de pagamento (ex: "Dinheiro", "PIX", etc.)
+     * @param venda          (Venda)  - Venda já montada com itens e total.
+     * @param formaPagamento (String) - que representa a forma de pagamento (ex: "Dinheiro", "PIX", etc.).
      */
     public void finalizarVendaGUI(Venda venda, String formaPagamento) {
         vendas.add(venda);
@@ -198,6 +205,14 @@ public class ProcessamentoDeVendas {
         }
     }
 
+    /**
+     * Método de acesso para o controller de estoque.
+     * <p>
+     * Atualmente não implementado.
+     * 
+     * @return (Object) - Controller de estoque.
+     * @throws UnsupportedOperationException Sempre que chamado.
+     */
     public Object getGerenciarEstoque() {
         throw new UnsupportedOperationException("Not supported yet.");
     }

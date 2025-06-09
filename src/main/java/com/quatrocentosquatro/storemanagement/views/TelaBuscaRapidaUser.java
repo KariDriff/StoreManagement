@@ -12,6 +12,9 @@ import javax.swing.SwingUtilities;
 import com.quatrocentosquatro.storemanagement.controller.GerenciarUsuarios;
 import com.quatrocentosquatro.storemanagement.model.Usuario;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaBuscaRapidaUser extends JFrame {
 
     private JTextField campoBuscaRapida;

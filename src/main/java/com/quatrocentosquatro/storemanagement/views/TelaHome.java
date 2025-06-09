@@ -14,6 +14,9 @@ import javax.swing.SwingUtilities;
 import com.quatrocentosquatro.storemanagement.controller.Financeiro;
 import com.quatrocentosquatro.storemanagement.controller.GerenciarEstoque;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaHome extends JFrame {
     private JButton buttonEstoque;
     private JButton buttonFuncionarios;

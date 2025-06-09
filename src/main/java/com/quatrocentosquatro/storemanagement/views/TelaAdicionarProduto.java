@@ -19,6 +19,9 @@ import javax.swing.text.MaskFormatter;
 import com.quatrocentosquatro.storemanagement.controller.GerenciarEstoque;
 import com.quatrocentosquatro.storemanagement.model.Produto;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaAdicionarProduto extends JFrame {
     private JTextField campoNome;
     private JTextField campoMarca;

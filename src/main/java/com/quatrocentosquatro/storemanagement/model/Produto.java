@@ -53,7 +53,7 @@ public class Produto implements Serializable { // Implementa Serializable para p
     /**
      * Construtor vazio da classe Produto
      */
-    public Produto(){}
+    public Produto() {}
 
     /* Getters e Setters */
 

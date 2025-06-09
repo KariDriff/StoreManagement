@@ -8,6 +8,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaEstoque extends JFrame{
     private JButton buttonAdicionarProduto;
     private JButton buttonAtualizarProduto;

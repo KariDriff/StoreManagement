@@ -5,6 +5,9 @@ import com.quatrocentosquatro.storemanagement.controller.Financeiro;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaRegistrarEntradaUser extends JFrame {
     private JTextField campoValor;
     private JTextField campoDescricao;

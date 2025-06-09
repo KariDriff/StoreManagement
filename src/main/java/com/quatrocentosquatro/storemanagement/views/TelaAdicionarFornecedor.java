@@ -5,6 +5,9 @@ import com.quatrocentosquatro.storemanagement.controller.GerenciarFornecedores;
 import javax.swing.*;
 import java.awt.event.*;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaAdicionarFornecedor extends JFrame {
     private JTextField campoNome;
     private JTextField campoTelefone;

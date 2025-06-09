@@ -14,6 +14,9 @@ import javax.swing.table.DefaultTableModel;
 import com.quatrocentosquatro.storemanagement.controller.GerenciarFornecedores;
 import com.quatrocentosquatro.storemanagement.model.Fornecedor;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaListaFornecedor extends JFrame {
     private JTable tabelaFornecedores;
     private JButton buttonVoltar;

@@ -25,7 +25,6 @@ public class GerenciarUsuarios {
     private final DateTimeFormatter formataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     private final String ARQUIVO = "src/main/java/com/quatrocentosquatro/storemanagement/database/usuario.db";
 
-    
     /**
      * Construtor da classe GerenciarUsuarios.
      * Inicializa a lista de usuários e carrega os dados do arquivo.
@@ -96,7 +95,7 @@ public class GerenciarUsuarios {
 
         String log = "[" + agora() + "] Usuário de ID " + nextId + " (" + nome + ") foi adicionado como funcionario.";
         registrarOperacoes(log);
-         salvarUsuarios();
+        salvarUsuarios();
     }
 
     /**

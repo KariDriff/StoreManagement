@@ -23,6 +23,9 @@ import com.quatrocentosquatro.storemanagement.model.ItemVenda;
 import com.quatrocentosquatro.storemanagement.model.Produto;
 import com.quatrocentosquatro.storemanagement.model.Venda;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaPDV extends JFrame {
     private JTextField txtIdProduto, txtQuantidade, txtDesconto;
     private JComboBox<String> cmbPagamento;

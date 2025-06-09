@@ -6,6 +6,9 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaManutencao extends JFrame {
     private JButton buttonHome;
 

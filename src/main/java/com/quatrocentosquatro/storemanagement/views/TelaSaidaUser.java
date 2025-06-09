@@ -12,6 +12,9 @@ import javax.swing.SwingUtilities;
 
 import com.quatrocentosquatro.storemanagement.controller.Financeiro;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaSaidaUser extends JFrame {
     private JTextField campoValor;
     private JCheckBox checkPago;

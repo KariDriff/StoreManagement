@@ -17,6 +17,7 @@ import com.quatrocentosquatro.storemanagement.model.Despesa;
 import com.quatrocentosquatro.storemanagement.model.Fornecedor;
 import com.quatrocentosquatro.storemanagement.model.Produto;
 import com.quatrocentosquatro.storemanagement.model.Usuario;
+import com.quatrocentosquatro.storemanagement.views.TelaLogin;
 
 /**
  * Classe principal que inicia o sistema de gerenciamento de loja.
@@ -64,6 +65,14 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
+        TelaLogin.main(args);
+
+        /*
+         * O código abaixo não está sendo usado pois seria o sistema funcionando sem uma
+         * interface, no caso de não ser terminada a tempo.
+         */
+        
+        /*
         while (usuarioLogado == null) {
             login(); // Mantém o loop até que o usuário faça login
         }
@@ -86,6 +95,7 @@ public class Main {
                 executando = executarAcaoFuncionario(opcao); // Executa a ação correspondente à opção escolhida pelo funcionário
             }
         }
+        */
     }
 
     // === Metodos de Menu ===

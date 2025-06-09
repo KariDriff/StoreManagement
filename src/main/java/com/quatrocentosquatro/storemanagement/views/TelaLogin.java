@@ -13,6 +13,9 @@ import javax.swing.SwingUtilities;
 
 import com.quatrocentosquatro.storemanagement.controller.LoginController;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaLogin extends JFrame {
     private JTextField campoUsuario;
     private JPasswordField campoSenha;

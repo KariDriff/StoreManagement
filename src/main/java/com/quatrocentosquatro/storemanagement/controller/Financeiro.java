@@ -19,10 +19,9 @@ import com.quatrocentosquatro.storemanagement.model.Despesa;
  * @author João M. Chervinski
  */
 public class Financeiro {
-
   private final NumberFormat formataReal = new DecimalFormat("R$ ###,##0.00");
   private final DateTimeFormatter formataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-  private final String caminhoLog = "src/main/java/com/quatrocentosquatro/storemanagement/logs/financeiro.log";
+  private final String caminhoLog = "src/main/java/com/quatrocentosquatro/storemanagement/logs/Financeiro.log";
 
   /**
    * Usado para puxar a data e horário atual do sistema.

@@ -14,6 +14,9 @@ import javax.swing.table.DefaultTableModel;
 import com.quatrocentosquatro.storemanagement.controller.GerenciarUsuarios;
 import com.quatrocentosquatro.storemanagement.model.Usuario;
 
+/**
+ * @author Everton Ferreira
+ */
 public class TelaListaUser extends JFrame {
     private JTable tabelaUsuarios;
     private JButton buttonVoltar;
