@@ -40,8 +40,10 @@ public class Main {
      */
     private static void login() {
 
+        /*
         usuarioController.adicionarAdministrador("Admin", "adm", "1234"); // Adiciona um administrador padrão para facilitar o login
-
+        */
+        
         System.out.println("=== LOGIN ===");
         System.out.print("Login: ");
         String login = scanner.nextLine(); // Lê o login do usuário
@@ -65,14 +67,14 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        TelaLogin.main(args);
+        //TelaLogin.main(args);
 
         /*
          * O código abaixo não está sendo usado pois seria o sistema funcionando sem uma
          * interface, no caso de não ser terminada a tempo.
          */
         
-        /*
+        
         while (usuarioLogado == null) {
             login(); // Mantém o loop até que o usuário faça login
         }
@@ -95,7 +97,7 @@ public class Main {
                 executando = executarAcaoFuncionario(opcao); // Executa a ação correspondente à opção escolhida pelo funcionário
             }
         }
-        */
+        
     }
 
     // === Metodos de Menu ===

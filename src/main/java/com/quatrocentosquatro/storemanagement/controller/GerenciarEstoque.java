@@ -1,7 +1,13 @@
 package com.quatrocentosquatro.storemanagement.controller;
 
+import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -21,29 +27,62 @@ import com.quatrocentosquatro.storemanagement.service.Estoque;
 public class GerenciarEstoque {
     private static GerenciarEstoque instancia;// Instância singleton da classe
 
-    private final List<Produto> produtos = new ArrayList<>();
+    private List<Produto> produtos;
+    private final String ARQUIVO = "estoque.db";
     private final Estoque estoqueService = new Estoque();
     private final Financeiro financeiro = new Financeiro();
-    private int nextId = 1; // Próximo ID a ser atribuído a um produto
+    private int nextId = 1;
     private final String caminhoLog = "src/main/java/com/quatrocentosquatro/storemanagement/logs/Estoque.log";
     private final DateTimeFormatter formataHora = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
 
-    public GerenciarEstoque() {}
+    /**
+     * <p> Construtor da classe GerenciarEstoque.
+     * <p> Inicializa a lista de produtos e carrega os dados do arquivo.
+     */
+    public GerenciarEstoque() {
+    this.produtos = carregarProdutos();
+    this.nextId = produtos.stream()
+                          .mapToInt(Produto::getId)
+                          .max()
+                          .orElse(0) + 1;
+    }
+
+    // Método para carregar a lista de produtos de um arquivo
+    // Utiliza deserialização para recuperar os objetos de produtos
+    private void salvarProdutos() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(ARQUIVO))) {
+            out.writeObject(produtos);
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar produtos: " + e.getMessage());
+        }
+    }
 
     /**
+     * Método para carregar a lista de produtos de um arquivo
+     * Utiliza deserialização para recuperar os objetos de produtos
+     * @return List<Produto> - Lista de produtos carregados do arquivo
+     */
+    @SuppressWarnings("unchecked")
+    private List<Produto> carregarProdutos() {
+        File file = new File(ARQUIVO);
+        if (!file.exists())
+            return new ArrayList<>();
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(file))) {
+            return (List<Produto>) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Erro ao carregar produtos: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+
+     /**
      * Usado para puxar a data e horário atual do sistema.
      * 
      * @return A data e hora atual no formato dd/MM/yyyy, hh:mm:ss
      */
-    private String agora() {return LocalDateTime.now().format(formataHora);}
-
-    /**
-     * @return Retorna a instância singleton da classe GerenciarEstoque.
-     */
-    public static GerenciarEstoque getInstancia() {
-        if (instancia == null) {instancia = new GerenciarEstoque();}
-        return instancia;
+    private String agora() {
+        return LocalDateTime.now().format(formataHora);
     }
 
     /**
@@ -53,6 +92,7 @@ public class GerenciarEstoque {
         p.setId(nextId++);
         produtos.add(p);
         String log = "[" + agora() + "] Um novo produto com o ID " + nextId + " foi adicionado";
+        salvarProdutos();
         registrarOperacoes(log);
     }
 
@@ -98,6 +138,7 @@ public class GerenciarEstoque {
     public void removerProduto(int id) {
         produtos.removeIf(p -> p.getId() == id);
         String log = "[" + agora() + "] O produto de ID " + id + " foi removido.";
+        salvarProdutos();
         registrarOperacoes(log);
     }
 
@@ -163,6 +204,7 @@ public class GerenciarEstoque {
         System.out.printf("Total gasto: R$ %.2f\n", totalCompra);
 
         String log = "[" + agora() + "] Produtos foram comprados num total de " + totalCompra;
+        salvarProdutos();
         registrarOperacoes(log);
     }
  
@@ -179,5 +221,10 @@ public class GerenciarEstoque {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Não foi possível registrar ação no financeiro:\n" + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    public static GerenciarEstoque getInstancia() {
+        if (instancia == null) {instancia = new GerenciarEstoque();}
+        return instancia;
     }
 }
